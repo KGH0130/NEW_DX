@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Engine_Define">
+      <UniqueIdentifier>{b4f6a553-5e46-4153-ad31-ebe184e0f9b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine_Define\PCH">
+      <UniqueIdentifier>{352e8387-1060-4b51-b945-ebbb9c0532fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic_Device">
+      <UniqueIdentifier>{1e3a4f7e-e5dd-494c-84a8-9fa22d1fe25a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameInstance">
+      <UniqueIdentifier>{c9cb125b-a236-484c-b5fd-21f1ebe6f95b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{e86502f3-63a4-4930-a120-77487d627c65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Level">
+      <UniqueIdentifier>{eb01bb7e-a8ae-49bd-a594-85ced5d02692}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Level\ILevel">
+      <UniqueIdentifier>{6d2fbaa4-98d5-4be4-a5fe-a5c249213af9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Level\Manager">
+      <UniqueIdentifier>{4b671fb2-b85a-4fca-933c-7183d24882e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Object">
+      <UniqueIdentifier>{9d2aa9ea-4ac2-4d71-8f0c-ee7db7d0bc6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Object\IObject">
+      <UniqueIdentifier>{3088a05b-2e94-4491-a7a5-3871ab6385c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Object\Manager">
+      <UniqueIdentifier>{27495519-ef88-423a-993a-7d951e6b66c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Component">
+      <UniqueIdentifier>{12f2678e-6353-4670-9bc6-b511c3b80989}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Component\Manager">
+      <UniqueIdentifier>{4e3aff85-7470-4327-9558-823437c955c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Component\IComponent">
+      <UniqueIdentifier>{168b7e27-0a3e-47de-81ce-344b7463fabe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IClone">
+      <UniqueIdentifier>{7899bf29-287d-4720-86ea-2681faa7a08c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Resource">
+      <UniqueIdentifier>{7f670c48-01a2-45bc-aad1-4165c42b6c4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Resource\IResource">
+      <UniqueIdentifier>{539c6b8c-4f09-496f-96bd-d96e420e64fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Resource\Manager">
+      <UniqueIdentifier>{73c0d760-1e83-4ffd-b6ad-e86047face51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Input">
+      <UniqueIdentifier>{745ec8be-6826-49be-99bc-f0b405c5f075}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Input\Input_Enum">
+      <UniqueIdentifier>{da6b7d0f-3c3a-4b4a-9cc3-e40f2cca5c93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Input\Manager">
+      <UniqueIdentifier>{fe7bd21a-7caa-40da-8470-ce3aaac9afe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Time">
+      <UniqueIdentifier>{dadfef1c-1e7c-4854-8e03-f9d2079a8c3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Time\Manager">
+      <UniqueIdentifier>{54de231a-9426-4bdb-82fe-229634f86e1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{98c369e0-c2a7-4a74-9b1e-33a956ccec99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\VI_Buffer">
+      <UniqueIdentifier>{f717f8ae-acb2-4b6f-b214-3a465461f71a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Private\Engine_PCH.cpp">
+      <Filter>Engine_Define\PCH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Graphic_Device.cpp">
+      <Filter>Graphic_Device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ILevel.cpp">
+      <Filter>Manager\Level\ILevel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\LevelManager.cpp">
+      <Filter>Manager\Level\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\IClone.cpp">
+      <Filter>IClone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\IObject.cpp">
+      <Filter>Manager\Object\IObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ObjectManager.cpp">
+      <Filter>Manager\Object\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ComponentManager.cpp">
+      <Filter>Manager\Component\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\IResource.cpp">
+      <Filter>Manager\Resource\IResource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ResourceManager.cpp">
+      <Filter>Manager\Resource\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\InputManager.cpp">
+      <Filter>Manager\Input\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\TimeManager.cpp">
+      <Filter>Manager\Time\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\VI_Buffer.cpp">
+      <Filter>Resource\VI_Buffer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Header\Engine_PCH.h">
+      <Filter>Engine_Define\PCH</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Macro.h">
+      <Filter>Engine_Define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Function.h">
+      <Filter>Engine_Define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Struct.h">
+      <Filter>Engine_Define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Typedef.h">
+      <Filter>Engine_Define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Graphic_Device.h">
+      <Filter>Graphic_Device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\GameInstance.h">
+      <Filter>GameInstance</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ILevel.h">
+      <Filter>Manager\Level\ILevel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\LevelManager.h">
+      <Filter>Manager\Level\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\IClone.h">
+      <Filter>IClone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\IObject.h">
+      <Filter>Manager\Object\IObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ObjectManager.h">
+      <Filter>Manager\Object\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Enum.h">
+      <Filter>Engine_Define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ComponentManager.h">
+      <Filter>Manager\Component\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\IComponent.h">
+      <Filter>Manager\Component\IComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\IResource.h">
+      <Filter>Manager\Resource\IResource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ResourceManager.h">
+      <Filter>Manager\Resource\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Input_Enum.h">
+      <Filter>Manager\Input\Input_Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\InputManager.h">
+      <Filter>Manager\Input\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\TimeManager.h">
+      <Filter>Manager\Time\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\VI_Buffer.h">
+      <Filter>Resource\VI_Buffer</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
