@@ -2,17 +2,26 @@
 
 ComponentManager::~ComponentManager()
 {
-	for(auto& var : m_Components)
-	{
-		var->Free();
-		SAFE_DELETE(var);
-	}
-	m_Components.clear();
+	Clear();
+}
 
-	for(auto& [type, Ptr] : m_ComponentMap)
+Transform* ComponentManager::CreateTransform()
+{
+	Transform* newTransform = new Transform;
+	m_Transforms.emplace_back(newTransform);
+	return newTransform;
+}
+
+void ComponentManager::TransformUpdate()
+{
+	for(auto& var : m_Transforms)
 	{
-		Ptr->Free();
-		SAFE_DELETE(Ptr);
+		var->UpdateMatrix();
 	}
-	m_ComponentMap.clear();
+}
+
+void ComponentManager::Clear()
+{
+	SAFE_DELETE_VEC(m_Components);
+	SAFE_DELETE_VEC(m_Transforms);
 }

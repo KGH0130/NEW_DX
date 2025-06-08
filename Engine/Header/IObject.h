@@ -1,7 +1,10 @@
 #pragma once
 #include "Engine_Macro.h"
+#include "ObjectInfo.h"
 
 BEGIN(Engine)
+class Transform;
+
 class DLL IObject : public IClone
 {
 public:
@@ -12,18 +15,25 @@ public:
 	void OnRender();
 
 public:
-	void Initialize() override			PURE;
+	virtual void Initialize() 			PURE;
 	virtual void FixedUpdate(float dt)	PURE;
 	virtual void Update(float dt)		PURE;
 	virtual void LateUpdate(float dt)	PURE;
-	IClone* Clone() override	PURE;
-	void Free() override		PURE;
+
+public:
+	const ObjectInfo& GetInfo();
+	void SetInfo(size_t ObjectID, RENDER_TYPE Type, size_t RenderID);
+	IObject* Clone() override			PURE;
 
 private:
-	virtual void RenderState()	PURE;
-	virtual void Render()		PURE;
+	virtual void RenderEnter()		PURE;
+	virtual void Render()			PURE;
+	virtual void RenderExit()		PURE;
 
 protected:
-	GameInstance* instance;
+	GameInstance* instance = nullptr;
+	Transform* m_Transform = nullptr;
+private:
+	ObjectInfo m_Info;
 };
 END

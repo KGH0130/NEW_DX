@@ -52,6 +52,7 @@ void LevelManager::LateUpdate(float dt)
 void LevelManager::Render()
 {
 	Render_Begin();
+	m_Instance->Component.TransformUpdate();
 	m_Instance->Object.Render();
 	Render_End();
 }
@@ -61,8 +62,8 @@ void LevelManager::EndFrame()
 
 void LevelManager::Reset()
 {
+	m_Instance->Component.Clear();
 	m_Instance->Object.Clear();
-	m_Instance->Resource.Clear();
 }
 
 void LevelManager::Render_Begin()

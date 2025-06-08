@@ -5,22 +5,44 @@ ObjectManager::~ObjectManager()
 	Clear();
 }
 
-void ObjectManager::RegisterObject(const std::string& Name, IObject* Ptr)
+void ObjectManager::RegisterObject(const std::string& Name, IObject* Object)
 {
 	auto iter = m_ObjectMap.find(Name);
-	assert(iter == m_ObjectMap.end());
-	m_ObjectMap.emplace(Name, Ptr);
+	if(iter != m_ObjectMap.end())
+	{
+		SAFE_DELETE(Object);
+		assert(false);
+	}
+	m_ObjectMap.emplace(Name, Object);
 }
 
-IObject* ObjectManager::AddObject(RENDERTYPE Type, const std::string& Name)
+IObject* ObjectManager::AddObject(RENDER_TYPE Type, const std::string& Name)
 {
-	auto iter = m_ObjectMap.find(Name);
-	assert(iter != m_ObjectMap.end());
-	IObject* newObj = iter->second;
-	if(Type != RENDERTYPE::NONE)
-		m_Render[static_cast<size_t>(Type)].emplace_back(newObj);
-	m_Objects.emplace_back(newObj);
-	return newObj;
+	m_AddPending.emplace_back(Type, Name);
+
+	//auto iter = m_ObjectMap.find(Name);
+	//assert(iter != m_ObjectMap.end());
+	//auto* newObj = iter->second->Clone();
+	//
+	//if(Type == RENDER_TYPE::NONE)
+	//{
+	//	newObj->SetInfo(m_Objects.size(), Type, INVALID);
+	//}
+	//else
+	//{
+	//	auto& renderer = m_Render[static_cast<size_t>(Type)];
+	//	newObj->SetInfo(m_Objects.size(), Type, renderer.size());
+	//	renderer.emplace_back(newObj);
+	//}
+	//
+	//m_Objects.emplace_back(newObj);
+	//newObj->Initialize();
+	//return newObj;
+}
+
+void ObjectManager::RemoveObject(const ObjectInfo& Info)
+{
+	m_DeletePending.emplace_back(Info);
 }
 
 void ObjectManager::FixedUpdate(float dt)
@@ -57,12 +79,7 @@ void ObjectManager::Render()
 
 void ObjectManager::Clear()
 {
-	for(auto& var : m_Objects)
-	{
-		var->Free();
-		SAFE_DELETE(var);
-	}
-	m_Objects.clear();
+	SAFE_DELETE_VEC(m_Objects);
 
 	for(auto& var : m_Render)
 	{
@@ -71,7 +88,6 @@ void ObjectManager::Clear()
 
 	for(auto& [name, Ptr] : m_ObjectMap)
 	{
-		Ptr->Free();
 		SAFE_DELETE(Ptr);
 	}
 }

@@ -30,6 +30,8 @@
 #include "InputManager.h"
 #include "Input_Enum.h"
 #include "LevelManager.h"
+#include "ObjectInfo.h"
 #include "ObjectManager.h"
 #include "ResourceManager.h"
 #include "TimeManager.h"
+#include "Transform.h"

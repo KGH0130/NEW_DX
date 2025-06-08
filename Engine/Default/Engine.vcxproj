@@ -172,9 +172,11 @@
     <ClInclude Include="..\Header\IObject.h" />
     <ClInclude Include="..\Header\IResource.h" />
     <ClInclude Include="..\Header\LevelManager.h" />
+    <ClInclude Include="..\Header\ObjectInfo.h" />
     <ClInclude Include="..\Header\ObjectManager.h" />
     <ClInclude Include="..\Header\ResourceManager.h" />
     <ClInclude Include="..\Header\TimeManager.h" />
+    <ClInclude Include="..\Header\Transform.h" />
     <ClInclude Include="..\Header\VI_Buffer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +195,7 @@
     <ClCompile Include="..\Private\ObjectManager.cpp" />
     <ClCompile Include="..\Private\ResourceManager.cpp" />
     <ClCompile Include="..\Private\TimeManager.cpp" />
+    <ClCompile Include="..\Private\Transform.cpp" />
     <ClCompile Include="..\Private\VI_Buffer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

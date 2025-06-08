@@ -3,6 +3,7 @@
 
 BEGIN(Engine)
 class IComponent;
+class Transform;
 
 class DLL ComponentManager
 {
@@ -10,38 +11,26 @@ public:
 	virtual ~ComponentManager();
 
 public:
+	Transform* CreateTransform();
+
+	void TransformUpdate();
+
 	void Clear();
 
 public:
-	template<typename T>
-	void RegisterComponent(T* Ptr);
-
-	template<typename T>
-	T* GetComponent(T&& Value);
+	template<typename T, typename... Args>
+	T* GetComponent(Args&&... Value);
 
 private:
-	std::unordered_map<std::type_index, IComponent*> m_ComponentMap;
 	std::vector<IComponent*> m_Components;
+	std::vector<Transform*> m_Transforms;
 };
 
-template<typename T>
-inline void ComponentManager::RegisterComponent(T* Ptr)
+template<typename T, typename... Args>
+inline T* ComponentManager::GetComponent(Args&&... Value)
 {
-	std::type_index index = std::type_index(typeid(T));
-	auto iter = m_ComponentMap.find(index);
-	assert(iter == m_ComponentMap.end());
-	m_ComponentMap.emplace(index, Ptr);
-}
-
-template<typename T>
-inline T* ComponentManager::GetComponent(T&& Value)
-{
-	auto iter = m_ComponentMap.find(std::type_index(typeid(T)));
-	assert(iter != m_ComponentMap.end());
-	auto comp = iter->second->Clone();
-	m_Components.emplace_back(comp);
-	T* newComp = static_cast<T*>(comp);
-	*newComp = std::forward<T>(Value);
+	T* newComp = new T(std::forward<Args>(Value)...);
+	m_Components.emplace(newComp);
 	return newComp;
 }
 END

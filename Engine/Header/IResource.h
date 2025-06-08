@@ -11,7 +11,7 @@ public:
 public:
 	virtual void Render() PURE;
 
-private:
+protected:
 	LPDEVICE m_Device;
 };
 END

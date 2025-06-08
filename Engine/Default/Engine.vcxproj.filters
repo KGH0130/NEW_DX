@@ -76,6 +76,15 @@
     <Filter Include="Resource\VI_Buffer">
       <UniqueIdentifier>{f717f8ae-acb2-4b6f-b214-3a465461f71a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{0d869e19-9bc7-4207-9178-3069347d5a73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Transform">
+      <UniqueIdentifier>{d4a97a25-a6cc-47d6-825d-c50bd4a2e612}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Object\ObjectInfo">
+      <UniqueIdentifier>{8f709f82-e3e3-4ad7-b486-cc85af097451}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Engine_PCH.cpp">
@@ -117,6 +126,9 @@
     <ClCompile Include="..\Private\VI_Buffer.cpp">
       <Filter>Resource\VI_Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="..\Private\Transform.cpp">
+      <Filter>Component\Transform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_PCH.h">
@@ -133,9 +145,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\Engine_Typedef.h">
       <Filter>Engine_Define</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Graphic_Device.h">
-      <Filter>Graphic_Device</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GameInstance.h">
       <Filter>GameInstance</Filter>
@@ -181,6 +190,15 @@
     </ClInclude>
     <ClInclude Include="..\Header\VI_Buffer.h">
       <Filter>Resource\VI_Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Graphic_Device.h">
+      <Filter>Graphic_Device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Transform.h">
+      <Filter>Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ObjectInfo.h">
+      <Filter>Manager\Object\ObjectInfo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

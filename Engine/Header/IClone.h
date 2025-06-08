@@ -8,8 +8,6 @@ public:
 	virtual ~IClone() = default;
 
 public:
-	virtual void Initialize()	PURE;
-	virtual IClone* Clone()		PURE;
-	virtual void Free()			PURE;
+	virtual IClone* Clone()	PURE;
 };
 END
