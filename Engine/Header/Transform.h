@@ -3,7 +3,7 @@
 #include "Engine_Typedef.h"
 
 BEGIN(Engine)
-class DLL Transform : public IComponent
+class DLL Transform
 {
 public:
 	Transform();

@@ -43,7 +43,7 @@ void TimeManager::FPS_INFO(HWND hWnd)
 	if(m_AccI >= 1.f)
 	{
 		m_AccI -= 1.f;
-		wchar_t title[64];
+		wchar_t title[32];
 		swprintf_s(title, L"FPS: %d", m_Fps);
 		SetWindowTextW(hWnd, title);
 		m_Fps = 0;

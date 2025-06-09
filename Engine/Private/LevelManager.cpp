@@ -58,7 +58,9 @@ void LevelManager::Render()
 }
 
 void LevelManager::EndFrame()
-{}
+{
+	m_Instance->Object.Flush(m_Instance->Component.GetTransform());
+}
 
 void LevelManager::Reset()
 {

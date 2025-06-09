@@ -22,8 +22,10 @@ public:
 
 public:
 	const ObjectInfo& GetInfo();
+	void SetID(size_t ID);
+	void SetRenderID(size_t ID);
 	void SetInfo(size_t ObjectID, RENDER_TYPE Type, size_t RenderID);
-	IObject* Clone() override			PURE;
+	IObject* Clone() override PURE;
 
 private:
 	virtual void RenderEnter()		PURE;

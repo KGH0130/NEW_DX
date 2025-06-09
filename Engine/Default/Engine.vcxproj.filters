@@ -40,9 +40,6 @@
     <Filter Include="Manager\Component\Manager">
       <UniqueIdentifier>{4e3aff85-7470-4327-9558-823437c955c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\Component\IComponent">
-      <UniqueIdentifier>{168b7e27-0a3e-47de-81ce-344b7463fabe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="IClone">
       <UniqueIdentifier>{7899bf29-287d-4720-86ea-2681faa7a08c}</UniqueIdentifier>
     </Filter>
@@ -169,9 +166,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\ComponentManager.h">
       <Filter>Manager\Component\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\IComponent.h">
-      <Filter>Manager\Component\IComponent</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\IResource.h">
       <Filter>Manager\Resource\IResource</Filter>

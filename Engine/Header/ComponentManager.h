@@ -2,8 +2,8 @@
 #include "Engine_Macro.h"
 
 BEGIN(Engine)
-class IComponent;
 class Transform;
+struct ObjectInfo;
 
 class DLL ComponentManager
 {
@@ -14,7 +14,7 @@ public:
 	Transform* CreateTransform();
 
 	void TransformUpdate();
-
+	std::vector<Transform*>& GetTransform();
 	void Clear();
 
 public:
@@ -22,7 +22,6 @@ public:
 	T* GetComponent(Args&&... Value);
 
 private:
-	std::vector<IComponent*> m_Components;
 	std::vector<Transform*> m_Transforms;
 };
 
@@ -30,7 +29,6 @@ template<typename T, typename... Args>
 inline T* ComponentManager::GetComponent(Args&&... Value)
 {
 	T* newComp = new T(std::forward<Args>(Value)...);
-	m_Components.emplace(newComp);
 	return newComp;
 }
 END

@@ -165,7 +165,6 @@
     <ClInclude Include="..\Header\GameInstance.h" />
     <ClInclude Include="..\Header\Graphic_Device.h" />
     <ClInclude Include="..\Header\IClone.h" />
-    <ClInclude Include="..\Header\IComponent.h" />
     <ClInclude Include="..\Header\ILevel.h" />
     <ClInclude Include="..\Header\InputManager.h" />
     <ClInclude Include="..\Header\Input_Enum.h" />

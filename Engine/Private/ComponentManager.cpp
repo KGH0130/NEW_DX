@@ -20,8 +20,12 @@ void ComponentManager::TransformUpdate()
 	}
 }
 
+std::vector<Transform*>& ComponentManager::GetTransform()
+{
+	return m_Transforms;
+}
+
 void ComponentManager::Clear()
 {
-	SAFE_DELETE_VEC(m_Components);
 	SAFE_DELETE_VEC(m_Transforms);
 }

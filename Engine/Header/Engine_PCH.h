@@ -23,7 +23,6 @@
 #include "GameInstance.h"
 #include "Graphic_Device.h"
 #include "IClone.h"
-#include "IComponent.h"
 #include "ILevel.h"
 #include "IObject.h"
 #include "IResource.h"
