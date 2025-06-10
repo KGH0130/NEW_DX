@@ -22,8 +22,8 @@ public:
 	void EndFrame();
 
 private:
-	void Render_Begin();
-	void Render_End();
+	void RenderEnter();
+	void RenderExit();
 	void Reset();
 private:
 	ILevel* m_CurLevel = nullptr;

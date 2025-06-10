@@ -51,10 +51,10 @@ void LevelManager::LateUpdate(float dt)
 
 void LevelManager::Render()
 {
-	Render_Begin();
+	RenderEnter();
 	m_Instance->Component.TransformUpdate();
 	m_Instance->Object.Render();
-	Render_End();
+	RenderExit();
 }
 
 void LevelManager::EndFrame()
@@ -68,7 +68,7 @@ void LevelManager::Reset()
 	m_Instance->Object.Clear();
 }
 
-void LevelManager::Render_Begin()
+void LevelManager::RenderEnter()
 {
 	m_Instance->Device->Clear(0, nullptr,
 							  D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL,
@@ -76,7 +76,7 @@ void LevelManager::Render_Begin()
 	m_Instance->Device->BeginScene();
 }
 
-void LevelManager::Render_End()
+void LevelManager::RenderExit()
 {
 	m_Instance->Device->EndScene();
 	m_Instance->Device->Present(nullptr, nullptr, nullptr, nullptr);
