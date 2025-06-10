@@ -1,5 +1,9 @@
 #include "ComponentManager.h"
 
+ComponentManager::ComponentManager(ObjectManager& Object)
+	: m_Object(Object)
+{}
+
 ComponentManager::~ComponentManager()
 {
 	Clear();
@@ -20,9 +24,20 @@ void ComponentManager::TransformUpdate()
 	}
 }
 
-std::vector<Transform*>& ComponentManager::GetTransform()
+void ComponentManager::Flush()
 {
-	return m_Transforms;
+	for(auto& var : m_Object.GetDeleteObjects())
+	{
+		auto& delTransform = m_Transforms[var.objectID];
+		size_t lastIndex = m_Transforms.size() - 1;
+		SAFE_DELETE(delTransform);
+		if(var.objectID != lastIndex)
+		{
+			auto& lastTransform = m_Transforms[lastIndex];
+			m_Transforms[var.objectID] = lastTransform;
+		}
+		m_Transforms.pop_back();
+	}
 }
 
 void ComponentManager::Clear()

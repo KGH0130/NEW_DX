@@ -1,12 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Engine_Define">
-      <UniqueIdentifier>{b4f6a553-5e46-4153-ad31-ebe184e0f9b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine_Define\PCH">
-      <UniqueIdentifier>{352e8387-1060-4b51-b945-ebbb9c0532fb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Graphic_Device">
       <UniqueIdentifier>{1e3a4f7e-e5dd-494c-84a8-9fa22d1fe25a}</UniqueIdentifier>
     </Filter>
@@ -82,10 +76,22 @@
     <Filter Include="Manager\Object\ObjectInfo">
       <UniqueIdentifier>{8f709f82-e3e3-4ad7-b486-cc85af097451}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\Collider">
+      <UniqueIdentifier>{1e9b54c2-1197-4161-b03e-0bd989018a97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ILoad">
+      <UniqueIdentifier>{1c2743f0-6209-406a-87dd-ea7a82d707ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Define">
+      <UniqueIdentifier>{b4f6a553-5e46-4153-ad31-ebe184e0f9b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Define\PCH">
+      <UniqueIdentifier>{352e8387-1060-4b51-b945-ebbb9c0532fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Engine_PCH.cpp">
-      <Filter>Engine_Define\PCH</Filter>
+      <Filter>Define\PCH</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Graphic_Device.cpp">
       <Filter>Graphic_Device</Filter>
@@ -126,22 +132,20 @@
     <ClCompile Include="..\Private\Transform.cpp">
       <Filter>Component\Transform</Filter>
     </ClCompile>
+    <ClCompile Include="..\Private\ICollider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_PCH.h">
-      <Filter>Engine_Define\PCH</Filter>
+      <Filter>Define\PCH</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Engine_Macro.h">
-      <Filter>Engine_Define</Filter>
+      <Filter>Define</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Engine_Function.h">
-      <Filter>Engine_Define</Filter>
+      <Filter>Define</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Engine_Struct.h">
-      <Filter>Engine_Define</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Engine_Typedef.h">
-      <Filter>Engine_Define</Filter>
+      <Filter>Define</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GameInstance.h">
       <Filter>GameInstance</Filter>
@@ -162,7 +166,7 @@
       <Filter>Manager\Object\Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Engine_Enum.h">
-      <Filter>Engine_Define</Filter>
+      <Filter>Define</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\ComponentManager.h">
       <Filter>Manager\Component\Manager</Filter>
@@ -194,5 +198,12 @@
     <ClInclude Include="..\Header\ObjectInfo.h">
       <Filter>Manager\Object\ObjectInfo</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\ILoad.h">
+      <Filter>Manager\ILoad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Typedef.h">
+      <Filter>GameInstance</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ICollider.h" />
   </ItemGroup>
 </Project>

@@ -1,8 +1,9 @@
 #include "ILevel.h"
 
-void ILevel::OnLoading(GameInstance* Instance)
+bool ILevel::OnLoading(GameInstance* Instance)
 {
 	instance = Instance;
 	Loading();
 	Initialize();
+	return true;
 }

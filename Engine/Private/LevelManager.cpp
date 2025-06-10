@@ -6,32 +6,44 @@ LevelManager::LevelManager(GameInstance* Instance)
 
 LevelManager::~LevelManager()
 {
+	SAFE_DELETE(m_Load);
 	SAFE_DELETE(m_CurLevel);
 }
 
-void LevelManager::OpenLevel(ILevel* Level)
+void LevelManager::OpenLevel(ILevel* Level, ILoad* Load)
 {
+	SAFE_DELETE(m_Load);
+
 	m_NextLevel = Level;
+	m_Load = Load;
 }
 
 void LevelManager::SyncLevel()
 {
 	if(m_NextLevel == nullptr) return;
 
-	if(m_CurLevel)
-	{
-		Reset();
-		SAFE_DELETE(m_CurLevel);
-	}
+	SAFE_DELETE(m_CurLevel);
+	Reset();
 
 	m_CurLevel = m_NextLevel;
 	m_NextLevel = nullptr;
-	std::thread t1([&]
+	bool LoadingExit = false;
+
+	std::thread Loding([&]
 	{
-		m_CurLevel->OnLoading(m_Instance);
+		LoadingExit = m_CurLevel->OnLoading(m_Instance);
 	});
-	// 로딩 만들것
-	t1.join();
+
+	if(m_Load && !LoadingExit)
+	{
+		while(!LoadingExit)
+		{
+			m_Load->LOAD();
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+	}
+
+	Loding.join();
 }
 
 void LevelManager::FixedUpdate(float dt)
@@ -47,23 +59,26 @@ void LevelManager::Update(float dt)
 void LevelManager::LateUpdate(float dt)
 {
 	m_Instance->Object.LateUpdate(dt);
+	m_Instance->Component.TransformUpdate();
 }
 
 void LevelManager::Render()
 {
 	RenderEnter();
-	m_Instance->Component.TransformUpdate();
 	m_Instance->Object.Render();
 	RenderExit();
 }
 
 void LevelManager::EndFrame()
 {
-	m_Instance->Object.Flush(m_Instance->Component.GetTransform());
+	m_Instance->Component.Flush();
+	m_Instance->Object.Flush();
 }
 
 void LevelManager::Reset()
 {
+	if(!m_CurLevel) return;
+
 	m_Instance->Component.Clear();
 	m_Instance->Object.Clear();
 }

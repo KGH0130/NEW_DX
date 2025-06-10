@@ -32,7 +32,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	auto& Level = instance.Level;
 
 
-	Level.OpenLevel(new Main_Level);
+	Level.OpenLevel(new Main_Level, nullptr);
 
 	while(!GetAsyncKeyState(VK_ESCAPE))
 	{
@@ -60,7 +60,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		Level.EndFrame();
 
 		Time.FPS_INFO(g_hWnd);
-		//Sleep(1);
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
 
 	return (int)msg.wParam;

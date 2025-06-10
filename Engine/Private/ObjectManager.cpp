@@ -78,21 +78,13 @@ void ObjectManager::Clear()
 	}
 }
 
-void ObjectManager::Flush(std::vector<Transform*>& Transforms)
+const std::vector<ObjectInfo>& ObjectManager::GetDeleteObjects()
 {
-	for(auto& var : m_DeletePending)
-	{
-		auto& delTransform = Transforms[var.objectID];
-		size_t lastIndex = Transforms.size() - 1;
-		SAFE_DELETE(delTransform);
-		if(var.objectID != lastIndex)
-		{
-			auto& lastTransform = Transforms[lastIndex];
-			Transforms[var.objectID] = lastTransform;
-		}
-		Transforms.pop_back();
-	}
+	return m_DeletePending;
+}
 
+void ObjectManager::Flush()
+{
 	FlushRemove();
 	FlushAdd();
 }

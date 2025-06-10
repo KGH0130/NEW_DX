@@ -5,6 +5,8 @@ namespace Engine
 template<typename T>
 void SAFE_DELETE(T& Point) noexcept
 {
+	if(Point == nullptr) return;
+
 	delete Point;
 	Point = nullptr;
 }

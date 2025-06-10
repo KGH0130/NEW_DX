@@ -2,13 +2,15 @@
 #include "Engine_Macro.h"
 
 BEGIN(Engine)
+struct GameInstance;
+
 class ILevel
 {
 public:
 	virtual ~ILevel() = default;
 
 public:
-	void OnLoading(GameInstance* Instance);
+	bool OnLoading(GameInstance* Instance);
 
 private:
 	virtual void Initialize() PURE;

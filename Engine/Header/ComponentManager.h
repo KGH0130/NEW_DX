@@ -3,18 +3,19 @@
 
 BEGIN(Engine)
 class Transform;
-struct ObjectInfo;
+class ObjectManager;
 
 class DLL ComponentManager
 {
 public:
+	ComponentManager(ObjectManager& Object);
 	virtual ~ComponentManager();
 
 public:
 	Transform* CreateTransform();
 
 	void TransformUpdate();
-	std::vector<Transform*>& GetTransform();
+	void Flush();
 	void Clear();
 
 public:
@@ -23,6 +24,8 @@ public:
 
 private:
 	std::vector<Transform*> m_Transforms;
+
+	ObjectManager& m_Object;
 };
 
 template<typename T, typename... Args>

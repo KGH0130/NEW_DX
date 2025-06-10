@@ -22,15 +22,24 @@ public:
 
 public:
 	const ObjectInfo& GetInfo();
+
+public:
 	void SetID(size_t ID);
 	void SetRenderID(size_t ID);
 	void SetInfo(size_t ObjectID, RENDER_TYPE Type, size_t RenderID);
+
+public:
+	virtual void OnCollisionEnter(IObject* Other) PURE;
+	virtual void OnCollisionExit(IObject* Other)  PURE;
+
+
+public:
 	IObject* Clone() override PURE;
 
 private:
-	virtual void RenderEnter()		PURE;
-	virtual void Render()			PURE;
-	virtual void RenderExit()		PURE;
+	virtual void RenderEnter() PURE;
+	virtual void Render()	   PURE;
+	virtual void RenderExit()  PURE;
 
 protected:
 	GameInstance* instance = nullptr;

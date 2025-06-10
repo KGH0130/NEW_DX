@@ -3,6 +3,7 @@
 
 BEGIN(Engine)
 class ILevel;
+class ILoad;
 struct GameInstance;
 
 class DLL LevelManager
@@ -12,7 +13,7 @@ public:
 	~LevelManager();
 
 public:
-	void OpenLevel(ILevel* Level);
+	void OpenLevel(ILevel* Level, ILoad* Load = nullptr);
 	void SyncLevel();
 
 	void FixedUpdate(float dt);
@@ -28,7 +29,7 @@ private:
 private:
 	ILevel* m_CurLevel = nullptr;
 	ILevel* m_NextLevel = nullptr;
-
+	ILoad* m_Load = nullptr;
 private:
 	GameInstance* m_Instance = nullptr;
 };

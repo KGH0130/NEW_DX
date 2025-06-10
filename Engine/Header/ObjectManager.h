@@ -23,8 +23,10 @@ public:
 	void LateUpdate(float dt);
 	void Render();
 
+public:
+	const std::vector<ObjectInfo>& GetDeleteObjects();
+	void Flush();
 	void Clear();
-	void Flush(std::vector<Transform*>& Transforms);
 private:
 	void FlushAdd();
 	void FlushRemove();

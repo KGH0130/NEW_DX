@@ -165,7 +165,9 @@
     <ClInclude Include="..\Header\GameInstance.h" />
     <ClInclude Include="..\Header\Graphic_Device.h" />
     <ClInclude Include="..\Header\IClone.h" />
+    <ClInclude Include="..\Header\ICollider.h" />
     <ClInclude Include="..\Header\ILevel.h" />
+    <ClInclude Include="..\Header\ILoad.h" />
     <ClInclude Include="..\Header\InputManager.h" />
     <ClInclude Include="..\Header\Input_Enum.h" />
     <ClInclude Include="..\Header\IObject.h" />
@@ -186,6 +188,7 @@
     </ClCompile>
     <ClCompile Include="..\Private\Graphic_Device.cpp" />
     <ClCompile Include="..\Private\IClone.cpp" />
+    <ClCompile Include="..\Private\ICollider.cpp" />
     <ClCompile Include="..\Private\ILevel.cpp" />
     <ClCompile Include="..\Private\InputManager.cpp" />
     <ClCompile Include="..\Private\IObject.cpp" />
