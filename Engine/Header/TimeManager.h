@@ -22,7 +22,7 @@ private:
 	LARGE_INTEGER m_Frequency{};
 	LARGE_INTEGER m_PrevTime{}, m_CurTime{};
 
-	float m_Dt = 0.f, m_AccF = 0.f, m_AccU = 0.f, m_AccI = 0.f;
+	float m_Dt = 0.f, m_AccFixed = 0.f, m_AccUpdate = 0.f, m_AccInfo = 0.f;
 	float m_LimitF = 0.f, m_LimitU = 0.f;
 	int m_Fps = 0;
 };

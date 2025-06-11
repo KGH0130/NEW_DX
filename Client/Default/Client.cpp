@@ -26,14 +26,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	MSG msg{};
 
 	Graphic_Device device(GRAPHIC_DESC(g_hWnd, true, WINCX, WINCY));
-	TimeManager Time(50, 65);
 
 	GameInstance instance(device.GetDevice());
 	auto& Level = instance.Level;
 
-
 	Level.OpenLevel(new Main_Level, nullptr);
 
+	TimeManager Time(50, 65);
 	while(!GetAsyncKeyState(VK_ESCAPE))
 	{
 		if(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -56,11 +55,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			Level.LateUpdate(dt);
 			Level.Render();
 		}
-
 		Level.EndFrame();
 
 		Time.FPS_INFO(g_hWnd);
-		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		//std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
 
 	return (int)msg.wParam;

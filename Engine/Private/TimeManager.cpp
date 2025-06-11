@@ -12,17 +12,17 @@ void TimeManager::Update()
 	QueryPerformanceCounter(&m_CurTime);
 	m_Dt = static_cast<float>(m_CurTime.QuadPart - m_PrevTime.QuadPart) / static_cast<float>(m_Frequency.QuadPart);
 	m_PrevTime = m_CurTime;
-	m_AccF += m_Dt;
-	m_AccU += m_Dt;
-	m_AccI += m_Dt;
+	m_AccFixed += m_Dt;
+	m_AccUpdate += m_Dt;
+	m_AccInfo += m_Dt;
 	++m_Fps;
 }
 
 bool TimeManager::FixedLimit()
 {
-	if(m_AccF >= m_LimitF)
+	if(m_AccFixed >= m_LimitF)
 	{
-		m_AccF -= m_LimitF;
+		m_AccFixed -= m_LimitF;
 		return true;
 	}
 	return false;
@@ -30,9 +30,9 @@ bool TimeManager::FixedLimit()
 
 bool TimeManager::UpdateLimit()
 {
-	if(m_AccU >= m_LimitU)
+	if(m_AccUpdate >= m_LimitU)
 	{
-		m_AccU -= m_LimitU;
+		m_AccUpdate -= m_LimitU;
 		return true;
 	}
 	return false;
@@ -40,9 +40,9 @@ bool TimeManager::UpdateLimit()
 
 void TimeManager::FPS_INFO(HWND hWnd)
 {
-	if(m_AccI >= 1.f)
+	if(m_AccInfo >= 1.f)
 	{
-		m_AccI -= 1.f;
+		m_AccInfo -= 1.f;
 		wchar_t title[32];
 		swprintf_s(title, L"FPS: %d", m_Fps);
 		SetWindowTextW(hWnd, title);

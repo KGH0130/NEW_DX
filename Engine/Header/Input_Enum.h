@@ -1,6 +1,6 @@
 #pragma once
 
-enum KeyCode : unsigned int
+enum KeyCode : uint16_t
 {
 	A = 0x41,
 	B = 0x42,

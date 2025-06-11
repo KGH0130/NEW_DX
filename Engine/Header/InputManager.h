@@ -13,7 +13,7 @@ public:
 	bool GetKeyUp(KeyCode Key) const;
 
 private:
-	static constexpr int VK_MAX = 256;
+	static constexpr uint16_t VK_MAX = 256;
 	bool m_PrevKey[VK_MAX]{}, m_CurKey[VK_MAX]{};
 };
 END

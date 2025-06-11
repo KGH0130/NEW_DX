@@ -12,8 +12,6 @@ LevelManager::~LevelManager()
 
 void LevelManager::OpenLevel(ILevel* Level, ILoad* Load)
 {
-	SAFE_DELETE(m_Load);
-
 	m_NextLevel = Level;
 	m_Load = Load;
 }
@@ -22,7 +20,6 @@ void LevelManager::SyncLevel()
 {
 	if(m_NextLevel == nullptr) return;
 
-	SAFE_DELETE(m_CurLevel);
 	Reset();
 
 	m_CurLevel = m_NextLevel;
@@ -36,11 +33,14 @@ void LevelManager::SyncLevel()
 
 	if(m_Load && !LoadingExit)
 	{
+		m_Load->Enter();
 		while(!LoadingExit)
 		{
 			m_Load->LOAD();
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
+		m_Load->Exit();
+		SAFE_DELETE(m_Load);
 	}
 
 	Loding.join();
@@ -77,8 +77,7 @@ void LevelManager::EndFrame()
 
 void LevelManager::Reset()
 {
-	if(!m_CurLevel) return;
-
+	SAFE_DELETE(m_CurLevel);
 	m_Instance->Component.Clear();
 	m_Instance->Object.Clear();
 }

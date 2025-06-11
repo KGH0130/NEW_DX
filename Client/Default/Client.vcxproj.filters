@@ -5,17 +5,17 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Client_Define">
-      <UniqueIdentifier>{b563482b-f5f6-49f9-995b-e7b8d5304b6d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Client_Define\PCH">
-      <UniqueIdentifier>{587decfc-4814-4419-b159-503fd51a6910}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level">
       <UniqueIdentifier>{bf4abfdf-44e2-4405-834f-7cc065392939}</UniqueIdentifier>
     </Filter>
     <Filter Include="Level\Main">
       <UniqueIdentifier>{694c4e51-bffa-4e01-8775-65f3b5cae8e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_Define">
+      <UniqueIdentifier>{b563482b-f5f6-49f9-995b-e7b8d5304b6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_Define\PCH">
+      <UniqueIdentifier>{587decfc-4814-4419-b159-503fd51a6910}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -32,7 +32,7 @@
       <Filter>_Client</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Client_PCH.h">
-      <Filter>Client_Define\PCH</Filter>
+      <Filter>_Define\PCH</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Main_Level.h">
       <Filter>Level\Main</Filter>
@@ -51,7 +51,7 @@
       <Filter>_Client</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Client_PCH.cpp">
-      <Filter>Client_Define\PCH</Filter>
+      <Filter>_Define\PCH</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Main_Level.cpp">
       <Filter>Level\Main</Filter>

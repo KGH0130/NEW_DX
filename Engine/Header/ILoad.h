@@ -8,6 +8,8 @@ public:
 	virtual ~ILoad() = default;
 
 public:
+	virtual void Enter() PURE;
 	virtual void LOAD() PURE;
+	virtual void Exit() PURE;
 };
 END
