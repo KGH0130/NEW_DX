@@ -206,11 +206,11 @@
     <ClInclude Include="..\Header\ILoad.h">
       <Filter>Manager\ILoad</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Engine_Typedef.h">
-      <Filter>GameInstance</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\ICollider.h">
       <Filter>Manager\Collider\ICollider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Typedef.h">
+      <Filter>_Define</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

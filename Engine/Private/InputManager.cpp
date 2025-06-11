@@ -2,7 +2,7 @@
 
 void InputManager::Update()
 {
-	std::memcpy(&m_PrevKey, &m_CurKey, sizeof(m_PrevKey));
+	std::memcpy(m_PrevKey, m_CurKey, sizeof(m_PrevKey));
 	for(SHORT i = 0; i < VK_MAX; ++i)
 		m_CurKey[i] = (GetKeyState(i) & 0x8000) != 0;
 }
