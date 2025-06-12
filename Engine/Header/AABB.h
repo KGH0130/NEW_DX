@@ -1,22 +1,32 @@
 #pragma once
 #include "Engine_Macro.h"
 
+BEGIN(Engine)
 struct DLL AABB
 {
 	AABB() = default;
-	AABB(OBJECT_TYPE Type, const Vector3& Center, const Vector3& HalfSize)
+	AABB(OBJECT_TYPE Type, IObject* Owner, const Vector3& Offset, const Vector3& HalfSize)
 		: type(Type)
-		, Min(Center - HalfSize), Max(Center + HalfSize)
+		, owner(Owner)
+		, offset(Offset)
+		, halfSize(HalfSize)
 	{}
 
-	void Update(const Vector3& Center, const Vector3& HalfSize)
+	void Update()
 	{
-		this->Min = Center - HalfSize;
-		this->Max = Center + HalfSize;
+		const Vector3 pos = transform->GetPosition();
+
+		Min = pos + offset - halfSize;
+		Max = pos + offset + halfSize;
 	}
 
-	OBJECT_TYPE type;
+	OBJECT_TYPE type{};
+	IObject* owner = nullptr;
+	Transform* transform = nullptr;
+	Vector3 offset;
 
 	Vector3 Min;
 	Vector3 Max;
+	Vector3 halfSize;
 };
+END

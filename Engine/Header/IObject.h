@@ -2,9 +2,9 @@
 #include "Engine_Macro.h"
 #include "ObjectInfo.h"
 #include "StateMachine.h"
+#include "Transform.h"
 
 BEGIN(Engine)
-class Transform;
 struct GameInstance;
 
 class DLL IObject : public IClone
@@ -20,6 +20,7 @@ public:
 
 public:
 	const ObjectInfo& GetInfo();
+	const Transform& GetTransform();
 
 public:
 	void SetID(size_t ID);
@@ -47,7 +48,9 @@ private:
 
 protected:
 	GameInstance* instance = nullptr;
-	Transform* m_Transform = nullptr;
+
+protected:
+	Transform m_Transform;
 	StateMachine m_StateMachine;
 private:
 	ObjectInfo m_Info;

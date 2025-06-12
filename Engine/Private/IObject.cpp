@@ -2,7 +2,6 @@
 
 IObject::IObject(GameInstance* Instance)
 	: instance(Instance)
-	, m_Transform(instance->Component.CreateTransform())
 {}
 
 void IObject::OnInitialize()
@@ -19,6 +18,7 @@ void IObject::OnUpdate(float dt)
 
 void IObject::OnRender()
 {
+	m_Transform.UpdateMatrix();
 	RenderEnter();
 	Render();
 	RenderExit();
@@ -27,6 +27,11 @@ void IObject::OnRender()
 const ObjectInfo& IObject::GetInfo()
 {
 	return m_Info;
+}
+
+const Transform& IObject::GetTransform()
+{
+	return m_Transform;
 }
 
 void IObject::SetID(size_t ID)

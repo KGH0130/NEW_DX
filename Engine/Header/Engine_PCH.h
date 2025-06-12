@@ -2,6 +2,7 @@
 #pragma warning(disable: 4251)
 
 #include <Windows.h>
+#include <array>
 #include <cassert>
 #include <chrono>
 #include <cstdint>
@@ -25,14 +26,12 @@
 #include "ObjectInfo.h"
 
 #include "IClone.h"
-#include "ICollider.h"
 #include "ILevel.h"
 #include "ILoad.h"
 #include "IObject.h"
 #include "IResource.h"
 #include "IState.h"
 
-#include "ComponentManager.h"
 #include "InputManager.h"
 #include "LevelManager.h"
 #include "ObjectManager.h"

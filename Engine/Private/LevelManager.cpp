@@ -59,7 +59,6 @@ void LevelManager::Update(float dt)
 void LevelManager::LateUpdate(float dt)
 {
 	m_Instance->Object.LateUpdate(dt);
-	m_Instance->Component.TransformUpdate();
 }
 
 void LevelManager::Render()
@@ -71,14 +70,12 @@ void LevelManager::Render()
 
 void LevelManager::EndFrame()
 {
-	m_Instance->Component.Flush();
 	m_Instance->Object.Flush();
 }
 
 void LevelManager::Reset()
 {
 	SAFE_DELETE(m_CurLevel);
-	m_Instance->Component.Clear();
 	m_Instance->Object.Clear();
 }
 

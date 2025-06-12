@@ -5,7 +5,6 @@
 
 BEGIN(Engine)
 class IObject;
-class Transform;
 
 class DLL ObjectManager
 {
@@ -24,7 +23,6 @@ public:
 	void Render();
 
 public:
-	const std::vector<ObjectInfo>& GetDeleteObjects();
 	void Flush();
 	void Clear();
 private:

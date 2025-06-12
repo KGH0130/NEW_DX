@@ -78,11 +78,6 @@ void ObjectManager::Clear()
 	}
 }
 
-const std::vector<ObjectInfo>& ObjectManager::GetDeleteObjects()
-{
-	return m_DeletePending;
-}
-
 void ObjectManager::Flush()
 {
 	FlushRemove();

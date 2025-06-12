@@ -157,7 +157,6 @@
   <ItemGroup>
     <ClInclude Include="..\Header\AABB.h" />
     <ClInclude Include="..\Header\ColliderManager.h" />
-    <ClInclude Include="..\Header\ComponentManager.h" />
     <ClInclude Include="..\Header\Engine_Enum.h" />
     <ClInclude Include="..\Header\Engine_Function.h" />
     <ClInclude Include="..\Header\Engine_Macro.h" />
@@ -185,7 +184,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\ColliderManager.cpp" />
-    <ClCompile Include="..\Private\ComponentManager.cpp" />
     <ClCompile Include="..\Private\Engine_PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
