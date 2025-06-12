@@ -2,9 +2,11 @@
 #include "Engine_Macro.h"
 
 BEGIN(Engine)
-class DLL ICollider
+class DLL ColliderManager
 {
 public:
-	virtual ~ICollider() = default;
+	~ColliderManager() = default;
+
+
 };
 END

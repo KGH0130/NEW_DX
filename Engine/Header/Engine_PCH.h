@@ -25,6 +25,7 @@
 #include "ObjectInfo.h"
 
 #include "IClone.h"
+#include "ICollider.h"
 #include "ILevel.h"
 #include "ILoad.h"
 #include "IObject.h"

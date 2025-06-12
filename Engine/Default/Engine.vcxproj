@@ -155,6 +155,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\AABB.h" />
+    <ClInclude Include="..\Header\ColliderManager.h" />
     <ClInclude Include="..\Header\ComponentManager.h" />
     <ClInclude Include="..\Header\Engine_Enum.h" />
     <ClInclude Include="..\Header\Engine_Function.h" />
@@ -165,7 +167,6 @@
     <ClInclude Include="..\Header\GameInstance.h" />
     <ClInclude Include="..\Header\Graphic_Device.h" />
     <ClInclude Include="..\Header\IClone.h" />
-    <ClInclude Include="..\Header\ICollider.h" />
     <ClInclude Include="..\Header\ILevel.h" />
     <ClInclude Include="..\Header\ILoad.h" />
     <ClInclude Include="..\Header\InputManager.h" />
@@ -183,6 +184,7 @@
     <ClInclude Include="..\Header\VI_Buffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Private\ColliderManager.cpp" />
     <ClCompile Include="..\Private\ComponentManager.cpp" />
     <ClCompile Include="..\Private\Engine_PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -190,7 +192,6 @@
     </ClCompile>
     <ClCompile Include="..\Private\Graphic_Device.cpp" />
     <ClCompile Include="..\Private\IClone.cpp" />
-    <ClCompile Include="..\Private\ICollider.cpp" />
     <ClCompile Include="..\Private\ILevel.cpp" />
     <ClCompile Include="..\Private\InputManager.cpp" />
     <ClCompile Include="..\Private\IObject.cpp" />
