@@ -5,6 +5,18 @@ IObject::IObject(GameInstance* Instance)
 	, m_Transform(instance->Component.CreateTransform())
 {}
 
+void IObject::OnInitialize()
+{
+	Initialize();
+	InitState();
+}
+
+void IObject::OnUpdate(float dt)
+{
+	Update(dt);
+	m_StateMachine.Update(dt);
+}
+
 void IObject::OnRender()
 {
 	RenderEnter();

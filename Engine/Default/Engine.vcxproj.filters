@@ -91,6 +91,15 @@
     <Filter Include="_Define\PCH">
       <UniqueIdentifier>{352e8387-1060-4b51-b945-ebbb9c0532fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\State">
+      <UniqueIdentifier>{3fa21faa-502b-45a2-a796-b403df687646}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\State\IState">
+      <UniqueIdentifier>{f35e19e2-8390-43cd-8fdd-675d2001f52f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\State\StateMachine">
+      <UniqueIdentifier>{10bf8da3-4e08-4914-af06-bdb99739243d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Engine_PCH.cpp">
@@ -137,6 +146,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\ICollider.cpp">
       <Filter>Manager\Collider\ICollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\IState.cpp">
+      <Filter>Manager\State\IState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\StateMachine.cpp">
+      <Filter>Manager\State\StateMachine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +226,12 @@
     </ClInclude>
     <ClInclude Include="..\Header\Engine_Typedef.h">
       <Filter>_Define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\IState.h">
+      <Filter>Manager\State\IState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\StateMachine.h">
+      <Filter>Manager\State\StateMachine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

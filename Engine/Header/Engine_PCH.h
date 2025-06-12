@@ -29,12 +29,14 @@
 #include "ILoad.h"
 #include "IObject.h"
 #include "IResource.h"
+#include "IState.h"
 
 #include "ComponentManager.h"
 #include "InputManager.h"
 #include "LevelManager.h"
 #include "ObjectManager.h"
 #include "ResourceManager.h"
+#include "StateMachine.h"
 #include "TimeManager.h"
 
 #include "GameInstance.h"

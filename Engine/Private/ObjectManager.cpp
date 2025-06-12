@@ -22,7 +22,7 @@ IObject* ObjectManager::AddObject(RENDER_TYPE Type, const std::string& Name)
 	assert(iter != m_ObjectMap.end());
 	auto* newObj = iter->second->Clone();
 	m_AddPending.emplace_back(Type, newObj);
-	newObj->Initialize();
+	newObj->OnInitialize();
 	return newObj;
 }
 
@@ -42,7 +42,7 @@ void ObjectManager::Update(float dt)
 {
 	for(auto& var : m_Objects)
 	{
-		var->Update(dt);
+		var->OnUpdate(dt);
 	}
 }
 void ObjectManager::LateUpdate(float dt)

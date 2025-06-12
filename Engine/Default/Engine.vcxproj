@@ -172,10 +172,12 @@
     <ClInclude Include="..\Header\Input_Enum.h" />
     <ClInclude Include="..\Header\IObject.h" />
     <ClInclude Include="..\Header\IResource.h" />
+    <ClInclude Include="..\Header\IState.h" />
     <ClInclude Include="..\Header\LevelManager.h" />
     <ClInclude Include="..\Header\ObjectInfo.h" />
     <ClInclude Include="..\Header\ObjectManager.h" />
     <ClInclude Include="..\Header\ResourceManager.h" />
+    <ClInclude Include="..\Header\StateMachine.h" />
     <ClInclude Include="..\Header\TimeManager.h" />
     <ClInclude Include="..\Header\Transform.h" />
     <ClInclude Include="..\Header\VI_Buffer.h" />
@@ -193,9 +195,11 @@
     <ClCompile Include="..\Private\InputManager.cpp" />
     <ClCompile Include="..\Private\IObject.cpp" />
     <ClCompile Include="..\Private\IResource.cpp" />
+    <ClCompile Include="..\Private\IState.cpp" />
     <ClCompile Include="..\Private\LevelManager.cpp" />
     <ClCompile Include="..\Private\ObjectManager.cpp" />
     <ClCompile Include="..\Private\ResourceManager.cpp" />
+    <ClCompile Include="..\Private\StateMachine.cpp" />
     <ClCompile Include="..\Private\TimeManager.cpp" />
     <ClCompile Include="..\Private\Transform.cpp" />
     <ClCompile Include="..\Private\VI_Buffer.cpp" />
