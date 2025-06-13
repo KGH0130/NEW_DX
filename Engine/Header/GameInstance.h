@@ -12,6 +12,7 @@ public:
 	LPDEVICE Device = nullptr;
 	LevelManager Level;
 	ObjectManager Object;
+	ColliderManager Collider;
 	ResourceManager Resource;
 	InputManager Input;
 };

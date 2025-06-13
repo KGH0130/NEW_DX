@@ -4,18 +4,6 @@ IObject::IObject(GameInstance* Instance)
 	: instance(Instance)
 {}
 
-void IObject::OnInitialize()
-{
-	Initialize();
-	InitState();
-}
-
-void IObject::OnUpdate(float dt)
-{
-	Update(dt);
-	m_StateMachine.Update(dt);
-}
-
 void IObject::OnRender()
 {
 	m_Transform.UpdateMatrix();
@@ -24,12 +12,12 @@ void IObject::OnRender()
 	RenderExit();
 }
 
-const ObjectInfo& IObject::GetInfo()
+const ObjectInfo& IObject::GetInfo() const
 {
 	return m_Info;
 }
 
-const Transform& IObject::GetTransform()
+const Transform& IObject::GetTransform() const
 {
 	return m_Transform;
 }

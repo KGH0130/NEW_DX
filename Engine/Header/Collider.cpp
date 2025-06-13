@@ -1,0 +1,37 @@
+#include "Collider.h"
+
+Collider::Collider(const IObject* Owner, const ColliderInfo& Info)
+	: m_Owner(Owner)
+	, m_Info(Info)
+{}
+
+Collider::~Collider()
+{
+	SAFE_DELETE(m_AABB);
+	m_Owner = nullptr;
+}
+
+void Collider::CreateAABB(const Vector3& Offset, const Vector3& HalfSize)
+{
+	m_AABB = new AABB(m_Owner->GetTransform(), Offset, HalfSize);
+}
+
+const IObject* Collider::GetOwner() const
+{
+	return m_Owner;
+}
+
+void Collider::Update()
+{
+	m_AABB->Update();
+}
+
+const ColliderInfo& Collider::GetInfo() const
+{
+	return m_Info;
+}
+
+void Collider::SetID(size_t ID)
+{
+	m_Info.id = ID;
+}

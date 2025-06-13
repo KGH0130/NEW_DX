@@ -1,10 +1,10 @@
 #pragma once
 #include "Engine_Macro.h"
 #include "ObjectInfo.h"
-#include "StateMachine.h"
 #include "Transform.h"
 
 BEGIN(Engine)
+class Collider;
 struct GameInstance;
 
 class DLL IObject : public IClone
@@ -14,13 +14,13 @@ public:
 	virtual ~IObject() = default;
 
 public:
-	void OnInitialize();
-	void OnUpdate(float dt);
+	virtual void OnInitialize()		PURE;
+	virtual void OnUpdate(float dt) PURE;
 	void OnRender();
 
 public:
-	const ObjectInfo& GetInfo();
-	const Transform& GetTransform();
+	const ObjectInfo& GetInfo() const;
+	const Transform& GetTransform() const;
 
 public:
 	void SetID(size_t ID);
@@ -29,7 +29,6 @@ public:
 
 public:
 	virtual void Initialize() 			PURE;
-	virtual void InitState()			PURE;
 	virtual void FixedUpdate(float dt)	PURE;
 	virtual void Update(float dt)		PURE;
 	virtual void LateUpdate(float dt)	PURE;
@@ -48,10 +47,10 @@ private:
 
 protected:
 	GameInstance* instance = nullptr;
+	Collider* m_Collider = nullptr;
 
 protected:
 	Transform m_Transform;
-	StateMachine m_StateMachine;
 private:
 	ObjectInfo m_Info;
 };

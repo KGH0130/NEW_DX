@@ -70,12 +70,14 @@ void LevelManager::Render()
 
 void LevelManager::EndFrame()
 {
+	m_Instance->Collider.Flush();
 	m_Instance->Object.Flush();
 }
 
 void LevelManager::Reset()
 {
 	SAFE_DELETE(m_CurLevel);
+	m_Instance->Collider.Clear();
 	m_Instance->Object.Clear();
 }
 

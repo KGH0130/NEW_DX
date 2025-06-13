@@ -156,6 +156,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\AABB.h" />
+    <ClInclude Include="..\Header\CollderInfo.h" />
+    <ClInclude Include="..\Header\Collider.h" />
     <ClInclude Include="..\Header\ColliderManager.h" />
     <ClInclude Include="..\Header\Engine_Enum.h" />
     <ClInclude Include="..\Header\Engine_Function.h" />
@@ -183,6 +185,8 @@
     <ClInclude Include="..\Header\VI_Buffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Header\Collider.cpp" />
+    <ClCompile Include="..\private\AABB.cpp" />
     <ClCompile Include="..\Private\ColliderManager.cpp" />
     <ClCompile Include="..\Private\Engine_PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

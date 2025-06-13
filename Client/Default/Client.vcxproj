@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Client_PCH.h" />
+    <ClInclude Include="..\Header\Entity.h" />
     <ClInclude Include="..\Header\Main_Level.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
@@ -159,6 +160,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\Private\Entity.cpp" />
     <ClCompile Include="..\Private\Main_Level.cpp" />
     <ClCompile Include="Client.cpp" />
   </ItemGroup>

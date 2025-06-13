@@ -14,7 +14,7 @@ public:
 public:
 	void RegisterObject(const std::string& Name, IObject* Object);
 	IObject* AddObject(RENDER_TYPE Type, const std::string& Name);
-	void RemoveObject(const ObjectInfo& Info);
+	void RemoveObject(const IObject* Obj);
 
 public:
 	void FixedUpdate(float dt);

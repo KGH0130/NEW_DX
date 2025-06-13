@@ -17,6 +17,12 @@
     <Filter Include="_Define\PCH">
       <UniqueIdentifier>{587decfc-4814-4419-b159-503fd51a6910}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{23f8d91a-0184-4b20-8753-6cf2637adde0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Entity">
+      <UniqueIdentifier>{b6d7632a-d899-48f7-bbd4-38e442d5034f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -37,6 +43,9 @@
     <ClInclude Include="..\Header\Main_Level.h">
       <Filter>Level\Main</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Entity.h">
+      <Filter>Object\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -55,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Main_Level.cpp">
       <Filter>Level\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Entity.cpp">
+      <Filter>Object\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

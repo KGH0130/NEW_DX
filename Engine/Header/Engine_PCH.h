@@ -23,7 +23,6 @@
 
 #include "Graphic_Device.h"
 #include "Input_Enum.h"
-#include "ObjectInfo.h"
 
 #include "IClone.h"
 #include "ILevel.h"
@@ -32,12 +31,20 @@
 #include "IResource.h"
 #include "IState.h"
 
+#include "AABB.h"
+#include "Collider.h"
+
+#include "CollderInfo.h"
+#include "ObjectInfo.h"
+
+#include "ColliderManager.h"
 #include "InputManager.h"
 #include "LevelManager.h"
 #include "ObjectManager.h"
 #include "ResourceManager.h"
 #include "StateMachine.h"
 #include "TimeManager.h"
+
 
 #include "GameInstance.h"
 

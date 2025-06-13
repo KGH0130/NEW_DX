@@ -97,6 +97,12 @@
     <Filter Include="Manager\Collider\Manager">
       <UniqueIdentifier>{aa9bd620-1320-4420-8446-aed3ea1daecd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\Collider\Collider">
+      <UniqueIdentifier>{d8b8b64d-4b9d-4ed8-9104-bb3832469d69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Collider\ColliderInfo">
+      <UniqueIdentifier>{c951e550-8f23-454d-b825-82250eca7614}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Engine_PCH.cpp">
@@ -147,6 +153,10 @@
     <ClCompile Include="..\Private\ColliderManager.cpp">
       <Filter>Manager\Collider\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="..\private\AABB.cpp">
+      <Filter>Manager\Collider\AABB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Header\Collider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_PCH.h">
@@ -226,6 +236,12 @@
     </ClInclude>
     <ClInclude Include="..\Header\AABB.h">
       <Filter>Manager\Collider\AABB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Collider.h">
+      <Filter>Manager\Collider\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CollderInfo.h">
+      <Filter>Manager\Collider\ColliderInfo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

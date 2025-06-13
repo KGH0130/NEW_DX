@@ -26,9 +26,9 @@ IObject* ObjectManager::AddObject(RENDER_TYPE Type, const std::string& Name)
 	return newObj;
 }
 
-void ObjectManager::RemoveObject(const ObjectInfo& Info)
+void ObjectManager::RemoveObject(const IObject* Info)
 {
-	m_DeletePending.emplace_back(Info);
+	m_DeletePending.emplace_back(Info->GetInfo());
 }
 
 void ObjectManager::FixedUpdate(float dt)
