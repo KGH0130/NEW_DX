@@ -24,9 +24,7 @@ struct DLL AABB
 	IObject* owner = nullptr;
 	Transform* transform = nullptr;
 	Vector3 offset;
-
-	Vector3 Min;
-	Vector3 Max;
+	Vector3 Min, Max;
 	Vector3 halfSize;
 };
 END
