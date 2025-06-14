@@ -156,7 +156,9 @@
     <ClCompile Include="..\private\AABB.cpp">
       <Filter>Manager\Collider\AABB</Filter>
     </ClCompile>
-    <ClCompile Include="..\Header\Collider.cpp" />
+    <ClCompile Include="..\Header\Collider.cpp">
+      <Filter>Manager\Collider\Collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_PCH.h">

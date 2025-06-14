@@ -16,8 +16,7 @@ void SAFE_DELETE_VEC(std::vector<T*>& Vec) noexcept
 {
 	for(auto& var : Vec)
 	{
-		delete var;
-		var = nullptr;
+		SAFE_DELETE(var);
 	}
 	Vec.clear();
 }

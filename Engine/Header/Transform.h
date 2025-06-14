@@ -20,12 +20,14 @@ public:
 	const Matrix& GetWorldMatrix();
 	void UpdateMatrix();
 
+	bool IsDirty() const;
+
 private:
 	Vector3 m_Position;
 	Vector3 m_Rotation;
-	Vector3 m_Scale;
+	Vector3 m_Scale = Vector3(1.f, 1.f, 1.f);
 
-	Matrix  m_WorldMat;
+	Matrix m_WorldMat;
 
 	bool m_Dirty = true;
 };

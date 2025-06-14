@@ -59,3 +59,8 @@ void Transform::UpdateMatrix()
 
 	m_WorldMat = matScale * matRot * matTrans;
 }
+
+bool Transform::IsDirty() const
+{
+	return m_Dirty;
+}

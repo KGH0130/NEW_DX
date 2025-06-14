@@ -14,13 +14,13 @@ public:
 	virtual ~IObject() = default;
 
 public:
-	virtual void OnInitialize()		PURE;
-	virtual void OnUpdate(float dt) PURE;
+	virtual void OnInitialize();
+	virtual void OnUpdate(float dt);
 	void OnRender();
 
 public:
 	const ObjectInfo& GetInfo() const;
-	const Transform& GetTransform() const;
+	Transform& GetTransform();
 
 public:
 	void SetID(size_t ID);
@@ -33,17 +33,17 @@ public:
 	virtual void Update(float dt)		PURE;
 	virtual void LateUpdate(float dt)	PURE;
 
+private:
+	virtual void RenderEnter() PURE;
+	virtual void Render()	   PURE;
+	virtual void RenderExit()  PURE;
+
 public:
 	virtual void OnCollisionEnter(IObject* Other) PURE;
 	virtual void OnCollisionExit(IObject* Other)  PURE;
 
 public:
 	IObject* Clone() override PURE;
-
-private:
-	virtual void RenderEnter() PURE;
-	virtual void Render()	   PURE;
-	virtual void RenderExit()  PURE;
 
 protected:
 	GameInstance* instance = nullptr;

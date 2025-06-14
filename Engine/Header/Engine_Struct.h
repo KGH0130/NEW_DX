@@ -1,4 +1,5 @@
 #pragma once
+#include "Engine_Typedef.h"
 
 namespace Engine
 {
@@ -44,5 +45,12 @@ struct IDX_DESC
 	D3DFORMAT indexFormat{};
 	uint32_t stride = 0u;
 };
+
+struct AABBVERTEX
+{
+	Vector3 pos;
+	DWORD color;
+};
+static constexpr auto D3DFVF_AABB = (D3DFVF_XYZ | D3DFVF_DIFFUSE);
 
 }

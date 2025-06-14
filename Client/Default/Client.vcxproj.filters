@@ -23,6 +23,15 @@
     <Filter Include="Object\Entity">
       <UniqueIdentifier>{b6d7632a-d899-48f7-bbd4-38e442d5034f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Entity\_Entity">
+      <UniqueIdentifier>{44325def-2728-4c2e-bf8d-30ff64ccb977}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Entity\Player">
+      <UniqueIdentifier>{5e863fb8-6b52-4343-bfc2-db1f79eaf31f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Camera">
+      <UniqueIdentifier>{032a757f-d133-48f8-8034-c0c52eb422d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -44,7 +53,16 @@
       <Filter>Level\Main</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Entity.h">
-      <Filter>Object\Entity</Filter>
+      <Filter>Object\Entity\_Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player.h">
+      <Filter>Object\Entity\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MainCamera.h">
+      <Filter>Object\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Client_Struct.h">
+      <Filter>_Define</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +84,13 @@
       <Filter>Level\Main</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Entity.cpp">
-      <Filter>Object\Entity</Filter>
+      <Filter>Object\Entity\_Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Player.cpp">
+      <Filter>Object\Entity\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\MainCamera.cpp">
+      <Filter>Object\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

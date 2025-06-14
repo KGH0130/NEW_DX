@@ -8,11 +8,11 @@ class DLL AABB
 {
 public:
 	AABB() = default;
-	AABB(const Transform& Transform, const Vector3& Offset, const Vector3& HalfSize);
+	AABB(Transform& Transform, const Vector3& Offset, const Vector3& HalfSize);
 
 public:
 	void Update();
-
+	void Render(LPDEVICE Device);
 private:
 	const Transform& m_Transform;
 

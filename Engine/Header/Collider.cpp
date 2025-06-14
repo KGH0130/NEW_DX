@@ -1,6 +1,6 @@
 #include "Collider.h"
 
-Collider::Collider(const IObject* Owner, const ColliderInfo& Info)
+Collider::Collider(IObject* Owner, const ColliderInfo& Info)
 	: m_Owner(Owner)
 	, m_Info(Info)
 {}
@@ -24,6 +24,11 @@ const IObject* Collider::GetOwner() const
 void Collider::Update()
 {
 	m_AABB->Update();
+}
+
+void Collider::Render(LPDEVICE Device)
+{
+	m_AABB->Render(Device);
 }
 
 const ColliderInfo& Collider::GetInfo() const

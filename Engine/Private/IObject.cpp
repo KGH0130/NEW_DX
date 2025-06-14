@@ -4,9 +4,14 @@ IObject::IObject(GameInstance* Instance)
 	: instance(Instance)
 {}
 
+void IObject::OnInitialize()
+{}
+
+void IObject::OnUpdate(float dt)
+{}
+
 void IObject::OnRender()
 {
-	m_Transform.UpdateMatrix();
 	RenderEnter();
 	Render();
 	RenderExit();
@@ -17,7 +22,7 @@ const ObjectInfo& IObject::GetInfo() const
 	return m_Info;
 }
 
-const Transform& IObject::GetTransform() const
+Transform& IObject::GetTransform()
 {
 	return m_Transform;
 }

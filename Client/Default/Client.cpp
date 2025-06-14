@@ -16,9 +16,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 					  _In_ LPWSTR    lpCmdLine,
 					  _In_ int       nCmdShow)
 {
-#ifdef _DEBUG
+	#ifdef _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-#endif
+	#endif
 	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
 	LoadStringW(hInstance, IDC_CLIENT, szWindowClass, MAX_LOADSTRING);
 	MyRegisterClass(hInstance);
@@ -32,7 +32,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	Level.OpenLevel(new Main_Level, nullptr);
 
-	TimeManager Time(50, 65);
+	TimeManager Time(60, 65);
 	while(!GetAsyncKeyState(VK_ESCAPE))
 	{
 		if(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -40,6 +40,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
+
 		Time.Update();
 		Level.SyncLevel();
 

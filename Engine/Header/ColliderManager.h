@@ -9,10 +9,11 @@ class IObject;
 class DLL ColliderManager
 {
 public:
+	ColliderManager(LPDEVICE Device);
 	~ColliderManager();
 
 public:
-	Collider* AddCollider(const IObject* Owner, COLLISION_TYPE CollType, OBJECT_TYPE ObjectType);
+	Collider* AddCollider(IObject* Owner, COLLISION_TYPE CollType, OBJECT_TYPE ObjectType);
 	void RemoveCollider(const Collider* Collider);
 
 public:
@@ -28,5 +29,7 @@ private:
 
 	std::vector<std::pair<Collider*, std::pair<COLLISION_TYPE, OBJECT_TYPE>>> m_AddPending;
 	std::vector<ColliderInfo> m_RemovePending;
+
+	LPDEVICE m_Device = nullptr;
 };
 END

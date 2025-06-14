@@ -13,7 +13,7 @@ public:
 
 public:
 	void RegisterObject(const std::string& Name, IObject* Object);
-	IObject* AddObject(RENDER_TYPE Type, const std::string& Name);
+	IObject* AddObject(RENDER_TYPE Type, const std::string& Name, Vector3 Pos = VEC_ZERO);
 	void RemoveObject(const IObject* Obj);
 
 public:

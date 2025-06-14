@@ -9,7 +9,7 @@ class OBB;
 class DLL Collider
 {
 public:
-	Collider(const IObject* Owner, const ColliderInfo& Info);
+	Collider(IObject* Owner, const ColliderInfo& Info);
 	~Collider();
 
 public:
@@ -18,13 +18,13 @@ public:
 
 public:
 	void Update();
-
+	void Render(LPDEVICE Device);
 public:
 	const ColliderInfo& GetInfo() const;
 	void SetID(size_t ID);
 
 private:
-	const IObject* m_Owner = nullptr;
+	IObject* m_Owner = nullptr;
 	AABB* m_AABB = nullptr;
 	OBB* m_OBB = nullptr;
 

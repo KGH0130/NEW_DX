@@ -1,6 +1,6 @@
 #include "AABB.h"
 
-AABB::AABB(const Transform& Transform, const Vector3& Offset, const Vector3& HalfSize)
+AABB::AABB(Transform& Transform, const Vector3& Offset, const Vector3& HalfSize)
 	: m_Transform(Transform)
 	, m_Offset(Offset)
 	, m_HalfSize(HalfSize)
@@ -11,7 +11,43 @@ AABB::AABB(const Transform& Transform, const Vector3& Offset, const Vector3& Hal
 
 void AABB::Update()
 {
+	if(!m_Transform.IsDirty()) return;
 	const Vector3 pos = m_Transform.GetPosition();
 	m_Min = pos + m_Offset - m_HalfSize;
 	m_Max = pos + m_Offset + m_HalfSize;
+}
+
+void AABB::Render(LPDEVICE Device)
+{
+	if(!m_Transform.IsDirty()) return;
+
+	Vector3 corners[8]
+	{
+		{m_Min.x, m_Min.y, m_Min.z},
+		{m_Max.x, m_Min.y, m_Min.z},
+		{m_Max.x, m_Max.y, m_Min.z},
+		{m_Min.x, m_Max.y, m_Min.z},
+		{m_Min.x, m_Min.y, m_Max.z},
+		{m_Max.x, m_Min.y, m_Max.z},
+		{m_Max.x, m_Max.y, m_Max.z},
+		{m_Min.x, m_Max.y, m_Max.z},
+	};
+
+	WORD indices[24]
+	{
+		0,1, 1,2, 2,3, 3,0,
+		4,5, 5,6, 6,7, 7,4,
+		0,4, 1,5, 2,6, 3,7
+	};
+
+	AABBVERTEX lineVertices[8];
+
+	for(int i = 0; i < 8; ++i)
+	{
+		lineVertices[i].pos = corners[i];
+		lineVertices[i].color = D3DCOLOR_ARGB(255, 0, 255, 0);
+	}
+
+	Device->SetFVF(D3DFVF_AABB);
+	Device->DrawIndexedPrimitiveUP(D3DPT_LINELIST, 0, 8, 12, indices, D3DFMT_INDEX16, lineVertices, sizeof(D3DFVF_AABB));
 }

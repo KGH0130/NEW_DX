@@ -54,6 +54,7 @@ void LevelManager::FixedUpdate(float dt)
 void LevelManager::Update(float dt)
 {
 	m_Instance->Object.Update(dt);
+	m_Instance->Collider.Update();
 }
 
 void LevelManager::LateUpdate(float dt)
@@ -85,7 +86,7 @@ void LevelManager::RenderEnter()
 {
 	m_Instance->Device->Clear(0, nullptr,
 							  D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL,
-							  D3DCOLOR(0xFF0000FF), 1.f, 0);
+							  D3DCOLOR_ARGB(255, 32, 32, 32), 1.f, 0);
 	m_Instance->Device->BeginScene();
 }
 

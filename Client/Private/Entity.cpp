@@ -8,6 +8,7 @@ void Entity::OnUpdate(float dt)
 {
 	Update(dt);
 	m_StateMachine.Update(dt);
+	m_Transform.UpdateMatrix();
 }
 
 void Entity::OnInitialize()

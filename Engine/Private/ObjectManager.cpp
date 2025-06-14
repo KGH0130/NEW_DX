@@ -16,13 +16,14 @@ void ObjectManager::RegisterObject(const std::string& Name, IObject* Object)
 	m_ObjectMap.emplace(Name, Object);
 }
 
-IObject* ObjectManager::AddObject(RENDER_TYPE Type, const std::string& Name)
+IObject* ObjectManager::AddObject(RENDER_TYPE Type, const std::string& Name, Vector3 Pos)
 {
 	auto iter = m_ObjectMap.find(Name);
 	assert(iter != m_ObjectMap.end());
 	auto* newObj = iter->second->Clone();
 	m_AddPending.emplace_back(Type, newObj);
 	newObj->OnInitialize();
+	newObj->GetTransform().SetPosition(Pos);
 	return newObj;
 }
 
@@ -86,6 +87,8 @@ void ObjectManager::Flush()
 
 void ObjectManager::FlushAdd()
 {
+	if(m_AddPending.empty()) return;
+
 	for(auto& [type, Obj] : m_AddPending)
 	{
 		if(type == RENDER_TYPE::NONE)
@@ -104,6 +107,9 @@ void ObjectManager::FlushAdd()
 
 void ObjectManager::FlushRemove()
 {
+	if(m_DeletePending.empty()) return;
+
+
 	for(auto& var : m_DeletePending)
 	{
 		auto& obj = m_Objects[var.objectID];
