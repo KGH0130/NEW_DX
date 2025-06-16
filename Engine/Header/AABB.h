@@ -11,8 +11,10 @@ public:
 	AABB(Transform& Transform, const Vector3& Offset, const Vector3& HalfSize);
 
 public:
+	bool IsInteraction(const AABB* other);
+
 	void Update();
-	void Render(LPDEVICE Device);
+	void Render(LPDEVICE Device) const;
 private:
 	const Transform& m_Transform;
 
@@ -20,5 +22,7 @@ private:
 	Vector3 m_HalfSize;
 
 	Vector3 m_Min, m_Max;
+
+	bool m_IsCollided = false;
 };
 END

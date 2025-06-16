@@ -2,6 +2,7 @@
 #pragma warning(disable: 4251)
 
 #include <Windows.h>
+#include <algorithm>
 #include <array>
 #include <cassert>
 #include <chrono>
@@ -10,13 +11,14 @@
 #include <d3dx9.h>
 #include <string>
 #include <thread>
-#include <typeindex>
-#include <typeinfo>
+#include <type_traits>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 #include "Engine_Enum.h"
 #include "Engine_Function.h"
+#include "Engine_Hash.h"
 #include "Engine_Macro.h"
 #include "Engine_Struct.h"
 #include "Engine_Typedef.h"
@@ -37,7 +39,9 @@
 #include "CollderInfo.h"
 #include "ObjectInfo.h"
 
-#include "ColliderManager.h"
+#include "CollisionHash.h"
+
+#include "CollisionManager.h"
 #include "InputManager.h"
 #include "LevelManager.h"
 #include "ObjectManager.h"

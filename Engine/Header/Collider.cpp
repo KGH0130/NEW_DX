@@ -16,9 +16,14 @@ void Collider::CreateAABB(const Vector3& Offset, const Vector3& HalfSize)
 	m_AABB = new AABB(m_Owner->GetTransform(), Offset, HalfSize);
 }
 
-const IObject* Collider::GetOwner() const
+IObject* Collider::GetOwner() const
 {
 	return m_Owner;
+}
+
+AABB* Collider::GetAABB()
+{
+	return m_AABB;
 }
 
 void Collider::Update()

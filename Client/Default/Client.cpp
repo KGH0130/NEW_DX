@@ -55,8 +55,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			Level.Update(dt);
 			Level.LateUpdate(dt);
 			Level.Render();
+			Level.EndFrame();
 		}
-		Level.EndFrame();
 
 		Time.FPS_INFO(g_hWnd);
 		//std::this_thread::sleep_for(std::chrono::milliseconds(1));

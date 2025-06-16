@@ -36,7 +36,7 @@ void LevelManager::SyncLevel()
 		m_Load->Enter();
 		while(!LoadingExit)
 		{
-			m_Load->LOAD();
+			m_Load->Update();
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
 		m_Load->Exit();
@@ -55,6 +55,7 @@ void LevelManager::Update(float dt)
 {
 	m_Instance->Object.Update(dt);
 	m_Instance->Collider.Update();
+	m_Instance->Collider.IsCollisionCheck();
 }
 
 void LevelManager::LateUpdate(float dt)
@@ -66,6 +67,9 @@ void LevelManager::Render()
 {
 	RenderEnter();
 	m_Instance->Object.Render();
+	#ifdef _DEBUG
+	m_Instance->Collider.Render(m_Instance->Device);
+	#endif
 	RenderExit();
 }
 

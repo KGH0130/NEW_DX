@@ -64,9 +64,6 @@
     <Filter Include="Manager\Object\ObjectInfo">
       <UniqueIdentifier>{8f709f82-e3e3-4ad7-b486-cc85af097451}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\Collider">
-      <UniqueIdentifier>{1e9b54c2-1197-4161-b03e-0bd989018a97}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\ILoad">
       <UniqueIdentifier>{1c2743f0-6209-406a-87dd-ea7a82d707ba}</UniqueIdentifier>
     </Filter>
@@ -91,17 +88,23 @@
     <Filter Include="Manager\State\StateMachine">
       <UniqueIdentifier>{10bf8da3-4e08-4914-af06-bdb99739243d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\Collider\AABB">
+    <Filter Include="Manager\Collision">
+      <UniqueIdentifier>{1e9b54c2-1197-4161-b03e-0bd989018a97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Collision\AABB">
       <UniqueIdentifier>{9f296b5d-974a-431b-b8da-3aa8a7a14e00}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\Collider\Manager">
+    <Filter Include="Manager\Collision\Manager">
       <UniqueIdentifier>{aa9bd620-1320-4420-8446-aed3ea1daecd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\Collider\Collider">
+    <Filter Include="Manager\Collision\Collider">
       <UniqueIdentifier>{d8b8b64d-4b9d-4ed8-9104-bb3832469d69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\Collider\ColliderInfo">
+    <Filter Include="Manager\Collision\ColliderInfo">
       <UniqueIdentifier>{c951e550-8f23-454d-b825-82250eca7614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Collision\CollisionHash">
+      <UniqueIdentifier>{adf52eaa-0504-4706-adf9-e50d8317d1e6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -150,14 +153,14 @@
     <ClCompile Include="..\Private\StateMachine.cpp">
       <Filter>Manager\State\StateMachine</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\ColliderManager.cpp">
-      <Filter>Manager\Collider\Manager</Filter>
+    <ClCompile Include="..\Private\CollisionManager.cpp">
+      <Filter>Manager\Collision\Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\private\AABB.cpp">
-      <Filter>Manager\Collider\AABB</Filter>
+      <Filter>Manager\Collision\AABB</Filter>
     </ClCompile>
     <ClCompile Include="..\Header\Collider.cpp">
-      <Filter>Manager\Collider\Collider</Filter>
+      <Filter>Manager\Collision\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,17 +236,23 @@
     <ClInclude Include="..\Header\StateMachine.h">
       <Filter>Manager\State\StateMachine</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\ColliderManager.h">
-      <Filter>Manager\Collider\Manager</Filter>
+    <ClInclude Include="..\Header\CollisionManager.h">
+      <Filter>Manager\Collision\Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\AABB.h">
-      <Filter>Manager\Collider\AABB</Filter>
+      <Filter>Manager\Collision\AABB</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Collider.h">
-      <Filter>Manager\Collider\Collider</Filter>
+      <Filter>Manager\Collision\Collider</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CollderInfo.h">
-      <Filter>Manager\Collider\ColliderInfo</Filter>
+      <Filter>Manager\Collision\ColliderInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CollisionHash.h">
+      <Filter>Manager\Collision\CollisionHash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Hash.h">
+      <Filter>_Define</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

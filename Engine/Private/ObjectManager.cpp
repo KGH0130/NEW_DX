@@ -5,7 +5,7 @@ ObjectManager::~ObjectManager()
 	Clear();
 }
 
-void ObjectManager::RegisterObject(const std::string& Name, IObject* Object)
+void ObjectManager::RegisterObject(const std::string& Name, IObject* Object, CREATE_TYPE Type)
 {
 	auto iter = m_ObjectMap.find(Name);
 	if(iter != m_ObjectMap.end())
@@ -13,15 +13,16 @@ void ObjectManager::RegisterObject(const std::string& Name, IObject* Object)
 		SAFE_DELETE(Object);
 		assert(false);
 	}
-	m_ObjectMap.emplace(Name, Object);
+	m_ObjectMap.emplace(Name, std::pair{ Object, Type });
 }
 
 IObject* ObjectManager::AddObject(RENDER_TYPE Type, const std::string& Name, Vector3 Pos)
 {
 	auto iter = m_ObjectMap.find(Name);
 	assert(iter != m_ObjectMap.end());
-	auto* newObj = iter->second->Clone();
-	m_AddPending.emplace_back(Type, newObj);
+	auto* newObj = iter->second.first->Clone();
+	m_ObejctCloneMap[Name] = newObj;
+	m_AddPending.emplace_back(std::pair{ iter->second.second, Type }, newObj);
 	newObj->OnInitialize();
 	newObj->GetTransform().SetPosition(Pos);
 	return newObj;
@@ -32,41 +33,25 @@ void ObjectManager::RemoveObject(const IObject* Info)
 	m_DeletePending.emplace_back(Info->GetInfo());
 }
 
+IObject* ObjectManager::Get_Object(const std::string& Name)
+{
+	auto iter = m_ObejctCloneMap.find(Name);
+	assert(iter != m_ObejctCloneMap.end());
+	return iter->second;
+}
+
 void ObjectManager::FixedUpdate(float dt)
-{
-	for(auto& var : m_Objects)
-	{
-		var->FixedUpdate(dt);
-	}
-}
+{}
 void ObjectManager::Update(float dt)
-{
-	for(auto& var : m_Objects)
-	{
-		var->OnUpdate(dt);
-	}
-}
+{}
 void ObjectManager::LateUpdate(float dt)
-{
-	for(auto& var : m_Objects)
-	{
-		var->LateUpdate(dt);
-	}
-}
+{}
 void ObjectManager::Render()
-{
-	for(auto& var : m_Render)
-	{
-		for(auto& dst : var)
-		{
-			dst->OnRender();
-		}
-	}
-}
+{}
 
 void ObjectManager::Clear()
 {
-	SAFE_DELETE_VEC(m_Objects);
+	//SAFE_DELETE_VEC(m_Objects[CREATE_TYPE::DYNAMIC]);
 
 	for(auto& var : m_Render)
 	{
@@ -91,16 +76,27 @@ void ObjectManager::FlushAdd()
 
 	for(auto& [type, Obj] : m_AddPending)
 	{
-		if(type == RENDER_TYPE::NONE)
+		if(type.second == RENDER_TYPE::NONE)
 		{
-			Obj->SetInfo(m_Objects.size(), type, INVALID);
+			if(type.first == CREATE_TYPE::DYNAMIC)
+				Obj->SetInfo(m_Objects[static_cast<size_t>(type.first)].size(), type.first, type.second, INVALID);
+			else if(type.first == CREATE_TYPE::STATIC)
+				Obj->SetInfo(m_Objects[static_cast<size_t>(type.first)].size(), type.first, type.second, INVALID);
 		}
 		else
 		{
-			Obj->SetInfo(m_Objects.size(), type, m_Render->size());
-			m_Render->emplace_back(Obj);
+			auto& renderer = m_Render[static_cast<size_t>(type.second)];
+			if(type.first == CREATE_TYPE::DYNAMIC)
+				Obj->SetInfo(m_Objects[static_cast<size_t>(type.first)].size(), type.first, type.second, renderer.size());
+			else if(type.first == CREATE_TYPE::STATIC)
+				Obj->SetInfo(m_Objects[static_cast<size_t>(type.first)].size(), type.first, type.second, renderer.size());
+
+			renderer.emplace_back(Obj);
 		}
-		m_Objects.emplace_back(Obj);
+		if(type.first == CREATE_TYPE::DYNAMIC)
+			m_Objects[static_cast<size_t>(type.first)].emplace_back(Obj);
+		else if(type.first == CREATE_TYPE::STATIC)
+			m_Objects[static_cast<size_t>(type.first)].emplace_back(Obj);
 	}
 	m_AddPending.clear();
 }
@@ -108,7 +104,6 @@ void ObjectManager::FlushAdd()
 void ObjectManager::FlushRemove()
 {
 	if(m_DeletePending.empty()) return;
-
 
 	for(auto& var : m_DeletePending)
 	{

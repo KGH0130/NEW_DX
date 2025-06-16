@@ -14,7 +14,8 @@ public:
 
 public:
 	void CreateAABB(const Vector3& Offset, const Vector3& HalfSize);
-	const IObject* GetOwner() const;
+	IObject* GetOwner() const;
+	AABB* GetAABB();
 
 public:
 	void Update();

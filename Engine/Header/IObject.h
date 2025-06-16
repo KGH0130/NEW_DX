@@ -25,7 +25,7 @@ public:
 public:
 	void SetID(size_t ID);
 	void SetRenderID(size_t ID);
-	void SetInfo(size_t ObjectID, RENDER_TYPE Type, size_t RenderID);
+	void SetInfo(size_t ObjectID, CREATE_TYPE CreateType, RENDER_TYPE Type, size_t RenderID);
 
 public:
 	virtual void Initialize() 			PURE;

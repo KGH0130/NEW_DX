@@ -6,15 +6,17 @@ BEGIN(Engine)
 struct ObjectInfo
 {
 	ObjectInfo() = default;
-	ObjectInfo(size_t ObjectID, RENDER_TYPE Type, size_t RenderID)
+	ObjectInfo(size_t ObjectID, CREATE_TYPE CreateType, RENDER_TYPE RenderType, size_t RenderID)
 		: objectID(ObjectID)
-		, type(Type)
+		, createType(CreateType)
+		, renderType(RenderType)
 		, renderID(RenderID)
 	{}
 
 	size_t objectID = INVALID;
-	size_t renderID = INVALID;
+	CREATE_TYPE createType{};
 
-	RENDER_TYPE type{};
+	RENDER_TYPE renderType{};
+	size_t renderID = INVALID;
 };
 END

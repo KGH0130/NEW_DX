@@ -9,6 +9,17 @@ AABB::AABB(Transform& Transform, const Vector3& Offset, const Vector3& HalfSize)
 
 {}
 
+bool AABB::IsInteraction(const AABB* other)
+{
+	m_IsCollided = false;
+	if(m_Max.x < other->m_Min.x || m_Min.x > other->m_Max.x) return false;
+	if(m_Max.y < other->m_Min.y || m_Min.y > other->m_Max.y) return false;
+	if(m_Max.z < other->m_Min.z || m_Min.z > other->m_Max.z) return false;
+
+	m_IsCollided = true;
+	return true;
+}
+
 void AABB::Update()
 {
 	if(!m_Transform.IsDirty()) return;
@@ -17,10 +28,8 @@ void AABB::Update()
 	m_Max = pos + m_Offset + m_HalfSize;
 }
 
-void AABB::Render(LPDEVICE Device)
+void AABB::Render(LPDEVICE Device) const
 {
-	if(!m_Transform.IsDirty()) return;
-
 	Vector3 corners[8]
 	{
 		{m_Min.x, m_Min.y, m_Min.z},
@@ -45,7 +54,7 @@ void AABB::Render(LPDEVICE Device)
 	for(int i = 0; i < 8; ++i)
 	{
 		lineVertices[i].pos = corners[i];
-		lineVertices[i].color = D3DCOLOR_ARGB(255, 0, 255, 0);
+		lineVertices[i].color = m_IsCollided ? D3DCOLOR_ARGB(255, 255, 0, 0) : D3DCOLOR_ARGB(255, 0, 255, 0);
 	}
 
 	Device->SetFVF(D3DFVF_AABB);

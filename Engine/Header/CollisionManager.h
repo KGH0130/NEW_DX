@@ -1,16 +1,16 @@
 #pragma once
 #include "CollderInfo.h"
+#include "CollisionHash.h"
 #include "Engine_Enum.h"
 #include "Engine_Macro.h"
 
 BEGIN(Engine)
 class IObject;
 
-class DLL ColliderManager
+class DLL CollisionManager
 {
 public:
-	ColliderManager(LPDEVICE Device);
-	~ColliderManager();
+	~CollisionManager();
 
 public:
 	Collider* AddCollider(IObject* Owner, COLLISION_TYPE CollType, OBJECT_TYPE ObjectType);
@@ -18,8 +18,13 @@ public:
 
 public:
 	void Update();
+	void Render(LPDEVICE Device);
 	void Flush();
 	void Clear();
+
+public:
+	void IsCollisionCheck();
+
 private:
 	void FlushAdd();
 	void FlushRemove();
@@ -30,6 +35,7 @@ private:
 	std::vector<std::pair<Collider*, std::pair<COLLISION_TYPE, OBJECT_TYPE>>> m_AddPending;
 	std::vector<ColliderInfo> m_RemovePending;
 
-	LPDEVICE m_Device = nullptr;
+	std::unordered_set<std::pair<IObject*, IObject*>, CollisionHash> m_FrameEnter;
+	std::unordered_set<std::pair<IObject*, IObject*>, CollisionHash> m_FrameExit;
 };
 END

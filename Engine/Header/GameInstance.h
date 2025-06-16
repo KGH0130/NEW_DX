@@ -8,13 +8,12 @@ public:
 	GameInstance(LPDEVICE DEVICE)
 		: Device(DEVICE)
 		, Level(this)
-		, Collider(DEVICE)
 	{}
 
 	LPDEVICE Device = nullptr;
 	LevelManager Level;
 	ObjectManager Object;
-	ColliderManager Collider;
+	CollisionManager Collider;
 	ResourceManager Resource;
 	InputManager Input;
 };

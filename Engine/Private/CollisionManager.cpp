@@ -1,15 +1,11 @@
-#include "ColliderManager.h"
+#include "CollisionManager.h"
 
-ColliderManager::ColliderManager(LPDEVICE Device)
-	: m_Device(Device)
-{}
-
-ColliderManager::~ColliderManager()
+CollisionManager::~CollisionManager()
 {
 	Clear();
 }
 
-Collider* ColliderManager::AddCollider(IObject* Owner, COLLISION_TYPE CollType, OBJECT_TYPE ObjType)
+Collider* CollisionManager::AddCollider(IObject* Owner, COLLISION_TYPE CollType, OBJECT_TYPE ObjType)
 {
 	auto& collisions = m_Colloders[static_cast<size_t>(CollType)][static_cast<size_t>(ObjType)];
 	Collider* newCollider = new Collider(Owner, ColliderInfo(collisions.size(), CollType, ObjType));
@@ -17,13 +13,13 @@ Collider* ColliderManager::AddCollider(IObject* Owner, COLLISION_TYPE CollType, 
 	return newCollider;
 }
 
-void ColliderManager::RemoveCollider(const Collider* Collider)
+void CollisionManager::RemoveCollider(const Collider* Collider)
 {
 	m_RemovePending.emplace_back(Collider->GetInfo());
 }
 
 
-void ColliderManager::Update()
+void CollisionManager::Update()
 {
 	for(auto& var : m_Colloders)
 	{
@@ -35,22 +31,32 @@ void ColliderManager::Update()
 			for(auto& Src : Dst)
 			{
 				Src->Update();
-				#ifdef _DEBUG
-				Src->Render(m_Device);
-				#endif
-
 			}
 		}
 	}
 }
 
-void ColliderManager::Flush()
+void CollisionManager::Render(LPDEVICE Device)
+{
+	for(auto& var : m_Colloders)
+	{
+		for(auto& Dst : var)
+		{
+			for(auto& Src : Dst)
+			{
+				Src->Render(Device);
+			}
+		}
+	}
+}
+
+void CollisionManager::Flush()
 {
 	FlushRemove();
 	FlushAdd();
 }
 
-void ColliderManager::Clear()
+void CollisionManager::Clear()
 {
 	for(auto& var : m_Colloders)
 	{
@@ -61,7 +67,49 @@ void ColliderManager::Clear()
 	}
 }
 
-void ColliderManager::FlushAdd()
+void CollisionManager::IsCollisionCheck()
+{
+	for(auto& var : m_Colloders)
+	{
+		for(auto& Dst : var)
+		{
+			size_t size = Dst.size();
+			if(size < 2) continue;
+
+			for(uint16_t i = 0; i < size; ++i)
+			{
+				for(uint16_t j = i + 1; j < size; ++j)
+				{
+					if(Dst[i]->GetAABB()->IsInteraction(Dst[j]->GetAABB()))
+					{
+						const auto& aOwner = Dst[i]->GetOwner();
+						const auto& bOwner = Dst[j]->GetOwner();
+
+						aOwner->OnCollisionEnter(bOwner);
+						bOwner->OnCollisionEnter(aOwner);
+
+						m_FrameEnter.emplace(std::minmax(aOwner, bOwner));
+					}
+				}
+			}
+		}
+	}
+
+	for(auto& var : m_FrameExit)
+	{
+		if(m_FrameEnter.find(var) == m_FrameEnter.end())
+		{
+			const auto& dst = var.first;
+			const auto& Src = var.second;
+			dst->OnCollisionExit(Src);
+			Src->OnCollisionExit(dst);
+		}
+	}
+
+	m_FrameExit = std::move(m_FrameEnter);
+}
+
+void CollisionManager::FlushAdd()
 {
 	if(m_AddPending.empty()) return;
 
@@ -73,7 +121,7 @@ void ColliderManager::FlushAdd()
 	m_AddPending.clear();
 }
 
-void ColliderManager::FlushRemove()
+void CollisionManager::FlushRemove()
 {
 	if(m_RemovePending.empty()) return;
 

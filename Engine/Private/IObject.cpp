@@ -5,10 +5,14 @@ IObject::IObject(GameInstance* Instance)
 {}
 
 void IObject::OnInitialize()
-{}
+{
+	Initialize();
+}
 
 void IObject::OnUpdate(float dt)
-{}
+{
+	Update(dt);
+}
 
 void IObject::OnRender()
 {
@@ -37,7 +41,7 @@ void IObject::SetRenderID(size_t ID)
 	m_Info.renderID = ID;
 }
 
-void IObject::SetInfo(size_t ObjectID, RENDER_TYPE Type, size_t RenderID)
+void IObject::SetInfo(size_t ObjectID, CREATE_TYPE CreateType, RENDER_TYPE RenderType, size_t RenderID)
 {
-	m_Info = ObjectInfo(ObjectID, Type, RenderID);
+	m_Info = ObjectInfo(ObjectID, CreateType, RenderType, RenderID);
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine_Enum.h"
+#include "Engine_Hash.h"
 #include "Engine_Macro.h"
 #include "ObjectInfo.h"
 
@@ -12,9 +13,10 @@ public:
 	~ObjectManager();
 
 public:
-	void RegisterObject(const std::string& Name, IObject* Object);
+	void RegisterObject(const std::string& Name, IObject* Object, CREATE_TYPE Type = CREATE_TYPE::DYNAMIC);
 	IObject* AddObject(RENDER_TYPE Type, const std::string& Name, Vector3 Pos = VEC_ZERO);
 	void RemoveObject(const IObject* Obj);
+	IObject* Get_Object(const std::string& Name);
 
 public:
 	void FixedUpdate(float dt);
@@ -30,12 +32,13 @@ private:
 	void FlushRemove();
 
 private:
-	std::unordered_map<std::string, IObject*> m_ObjectMap;
+	std::unordered_map<std::string, std::pair<IObject*, CREATE_TYPE>> m_ObjectMap;
 
-	std::vector<IObject*> m_Objects;
-	std::vector<IObject*> m_Render[static_cast<size_t>(RENDER_TYPE::IDX)];
+	std::unordered_map<std::string, IObject*> m_ObejctCloneMap;
+	std::array<std::vector<IObject*>, static_cast<size_t>(CREATE_TYPE::IDX)> m_Objects;
+	std::array<std::vector<IObject*>, static_cast<size_t>(RENDER_TYPE::IDX)> m_Render;
 
-	std::vector<std::pair<RENDER_TYPE, IObject*>> m_AddPending;
+	std::vector<std::pair<std::pair<CREATE_TYPE, RENDER_TYPE>, IObject*>> m_AddPending;
 	std::vector<ObjectInfo> m_DeletePending;
 };
 END

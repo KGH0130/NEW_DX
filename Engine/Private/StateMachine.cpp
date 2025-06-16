@@ -9,8 +9,10 @@ void StateMachine::InitState(IState* State)
 
 void StateMachine::ChangeState(IState* NextState)
 {
+	assert(m_CurState);
 	if(m_CurState == NextState) return;
 	m_CurState->Exit();
+	SAFE_DELETE(m_CurState);
 	m_CurState = NextState;
 	m_CurState->Enter();
 }

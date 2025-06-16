@@ -11,11 +11,7 @@ MainCamera::MainCamera(GameInstance* Instance)
 
 void MainCamera::Initialize()
 {
-
-
-
-	m_Target = instance->Object.AddObject(RENDER_TYPE::PRIORITY, "Player");
-
+	m_Target = instance->Object.Get_Object("Player");
 
 }
 
