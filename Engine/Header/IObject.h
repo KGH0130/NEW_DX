@@ -51,6 +51,7 @@ protected:
 
 protected:
 	Transform m_Transform;
+
 private:
 	ObjectInfo m_Info;
 };

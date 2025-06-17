@@ -5,7 +5,15 @@ OBB::OBB(const Transform& Transform, const Vector3& Offset)
 	, m_Offset(Offset)
 	, m_Center(Transform.GetPosition() + Offset)
 	, m_Half(Transform.GetScale() * 0.5f)
-{}
+{
+	Vector3 rotateX = Transform.GetState(STATE::RIGHT);
+	Vector3 rotateY = Transform.GetState(STATE::UP);
+	Vector3 rotateZ = Transform.GetState(STATE::LOOK);
+
+	D3DXVec3Normalize(&m_Axis[0], &rotateX);
+	D3DXVec3Normalize(&m_Axis[1], &rotateY);
+	D3DXVec3Normalize(&m_Axis[2], &rotateZ);
+}
 
 bool OBB::IsInteraction(const OBB* other)
 {
@@ -61,12 +69,23 @@ bool OBB::IsInteraction(const OBB* other)
 	{
 		for(int j = 0; j < 3; ++j)
 		{
-			float ra = m_Half[(i + 1) % 3] * absRotate[(i + 2) % 3][j] + m_Half[(i + 2) % 3] * absRotate[(i + 1) % 3][j];
-			float rb = b_Half[(j + 1) % 3] * absRotate[i][(j + 2) % 3] + b_Half[(j + 2) % 3] * absRotate[i][(j + 1) % 3];
+			Vector3 axis;
+			D3DXVec3Cross(&axis, &m_Axis[i], &b_Axis[j]);
+			if(D3DXVec3LengthSq(&axis) < EPSILON) continue;
 
-			float dist = std::abs(distA[(i + 2) % 3] * rotate[(i + 1) % 3][j] - distA[(i + 1) % 3] * rotate[(i + 2) % 3][j]);
+			float ra =
+				m_Half.x * std::abs(Dot(m_Axis[0], axis)) +
+				m_Half.y * std::abs(Dot(m_Axis[1], axis)) +
+				m_Half.z * std::abs(Dot(m_Axis[2], axis));
 
-			if(dist > ra + rb)
+			float rb =
+				b_Half.x * std::abs(Dot(b_Axis[0], axis)) +
+				b_Half.y * std::abs(Dot(b_Axis[1], axis)) +
+				b_Half.z * std::abs(Dot(b_Axis[2], axis));
+
+			float distanceProjection = std::abs(Dot(distance, axis));
+
+			if(distanceProjection > ra + rb)
 				return false;
 		}
 	}
@@ -80,6 +99,7 @@ void OBB::Update()
 	if(!m_Transform.IsDirty()) return;
 
 	m_Center = m_Transform.GetPosition() + m_Offset;
+
 	Vector3 rotateX = m_Transform.GetState(STATE::RIGHT);
 	Vector3 rotateY = m_Transform.GetState(STATE::UP);
 	Vector3 rotateZ = m_Transform.GetState(STATE::LOOK);

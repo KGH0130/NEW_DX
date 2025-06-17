@@ -7,13 +7,14 @@ Collider::Collider(IObject* Owner, const ColliderInfo& Info)
 
 Collider::~Collider()
 {
-	SAFE_DELETE(m_AABB);
 	m_Owner = nullptr;
+	SAFE_DELETE(m_AABB);
+	SAFE_DELETE(m_OBB);
 }
 
-void Collider::CreateAABB(const Vector3& Offset, const Vector3& HalfSize)
+void Collider::CreateAABB(const Vector3& Offset, const Vector3& CheckSize)
 {
-	m_AABB = new AABB(m_Owner->GetTransform(), Offset, HalfSize);
+	m_AABB = new AABB(m_Owner->GetTransform(), Offset, CheckSize);
 }
 
 void Collider::CreateOBB(const Vector3& Offset)
@@ -38,12 +39,20 @@ OBB* Collider::GetOBB()
 
 void Collider::Update()
 {
-	m_AABB->Update();
+	if(m_AABB)
+		m_AABB->Update();
+
+	if(m_OBB)
+		m_OBB->Update();
 }
 
 void Collider::Render(LPDEVICE Device)
 {
-	m_AABB->Render(Device);
+	if(m_AABB)
+		m_AABB->Render(Device);
+
+	if(m_OBB)
+		m_OBB->Render(Device);
 }
 
 const ColliderInfo& Collider::GetInfo() const

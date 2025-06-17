@@ -58,9 +58,6 @@
     <Filter Include="Component">
       <UniqueIdentifier>{0d869e19-9bc7-4207-9178-3069347d5a73}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Transform">
-      <UniqueIdentifier>{d4a97a25-a6cc-47d6-825d-c50bd4a2e612}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\Object\ObjectInfo">
       <UniqueIdentifier>{8f709f82-e3e3-4ad7-b486-cc85af097451}</UniqueIdentifier>
     </Filter>
@@ -109,6 +106,15 @@
     <Filter Include="Manager\Collision\OBB">
       <UniqueIdentifier>{0bd4445a-32b5-4670-9a99-88026318e369}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\00. Transform">
+      <UniqueIdentifier>{d4a97a25-a6cc-47d6-825d-c50bd4a2e612}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\01. Velocity">
+      <UniqueIdentifier>{2350843b-0285-45e1-a717-0d26ab20ea08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\03. RigidBody">
+      <UniqueIdentifier>{23740a29-5973-475c-8038-cfeeffc8d041}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Engine_PCH.cpp">
@@ -148,7 +154,7 @@
       <Filter>Resource\VI_Buffer</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Transform.cpp">
-      <Filter>Component\Transform</Filter>
+      <Filter>Component\00. Transform</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\IState.cpp">
       <Filter>Manager\State\IState</Filter>
@@ -167,6 +173,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\OBB.cpp">
       <Filter>Manager\Collision\OBB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\RigidBody.cpp">
+      <Filter>Component\03. RigidBody</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -225,7 +234,7 @@
       <Filter>Resource\Graphic_Device</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Transform.h">
-      <Filter>Component\Transform</Filter>
+      <Filter>Component\00. Transform</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\ObjectInfo.h">
       <Filter>Manager\Object\ObjectInfo</Filter>
@@ -257,11 +266,14 @@
     <ClInclude Include="..\Header\CollisionHash.h">
       <Filter>Manager\Collision\CollisionHash</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Engine_Hash.h">
-      <Filter>_Define</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\OBB.h">
       <Filter>Manager\Collision\OBB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Velocity.h">
+      <Filter>Component\01. Velocity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\RigidBody.h">
+      <Filter>Component\03. RigidBody</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

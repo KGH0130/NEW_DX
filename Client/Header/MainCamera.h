@@ -14,6 +14,8 @@ private:
 	void Render() override;
 	void RenderExit() override;
 
+	void SetFov(float Fov);
+
 private:
 	void OnCollisionEnter(IObject* Other) override;
 	void OnCollisionExit(IObject* Other) override;
@@ -30,6 +32,8 @@ private:
 	Matrix m_MatProj;
 	Matrix m_InverseMat;
 	Vector3 m_Offset = VEC_ZERO;
+
+	bool m_Dirty = true;
 
 	float m_Fov;
 	float m_Aspect;

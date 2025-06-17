@@ -1,12 +1,11 @@
 #include "AABB.h"
 
-AABB::AABB(Transform& Transform, const Vector3& Offset, const Vector3& HalfSize)
+AABB::AABB(Transform& Transform, const Vector3& Offset, const Vector3& CheckSize)
 	: m_Transform(Transform)
 	, m_Offset(Offset)
-	, m_HalfSize(HalfSize)
-	, m_Min(m_Transform.GetPosition() + Offset - HalfSize)
-	, m_Max(m_Transform.GetPosition() + Offset + HalfSize)
-
+	, m_CheckSize(CheckSize)
+	, m_Min(m_Transform.GetPosition() + Offset - CheckSize)
+	, m_Max(m_Transform.GetPosition() + Offset + CheckSize)
 {}
 
 bool AABB::IsInteraction(const AABB* other)
@@ -23,9 +22,10 @@ bool AABB::IsInteraction(const AABB* other)
 void AABB::Update()
 {
 	if(!m_Transform.IsDirty()) return;
+
 	const Vector3 pos = m_Transform.GetPosition();
-	m_Min = pos + m_Offset - m_HalfSize;
-	m_Max = pos + m_Offset + m_HalfSize;
+	m_Min = pos + m_Offset - m_CheckSize;
+	m_Max = pos + m_Offset + m_CheckSize;
 }
 
 void AABB::Render(LPDEVICE Device) const
@@ -34,18 +34,18 @@ void AABB::Render(LPDEVICE Device) const
 	{
 		{m_Min.x, m_Min.y, m_Min.z},
 		{m_Max.x, m_Min.y, m_Min.z},
-		{m_Max.x, m_Max.y, m_Min.z},
 		{m_Min.x, m_Max.y, m_Min.z},
+		{m_Max.x, m_Max.y, m_Min.z},
 		{m_Min.x, m_Min.y, m_Max.z},
 		{m_Max.x, m_Min.y, m_Max.z},
-		{m_Max.x, m_Max.y, m_Max.z},
 		{m_Min.x, m_Max.y, m_Max.z},
+		{m_Max.x, m_Max.y, m_Max.z}
 	};
 
 	WORD indices[24]
 	{
-		0,1, 1,2, 2,3, 3,0,
-		4,5, 5,6, 6,7, 7,4,
+		0,1, 1,3, 3,2, 2,0,
+		4,5, 5,7, 7,6, 6,4,
 		0,4, 1,5, 2,6, 3,7
 	};
 

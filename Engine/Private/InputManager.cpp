@@ -3,8 +3,8 @@
 void InputManager::Update()
 {
 	std::memcpy(m_PrevKey, m_CurKey, sizeof(m_PrevKey));
-	for(SHORT i = 0; i < VK_MAX; ++i)
-		m_CurKey[i] = (GetKeyState(i) & 0x8000) != 0;
+	for(int i = 0; i < VK_MAX; ++i)
+		m_CurKey[i] = GetAsyncKeyState(i) & 0x8000;
 }
 
 bool InputManager::GetKey(KeyCode Key) const

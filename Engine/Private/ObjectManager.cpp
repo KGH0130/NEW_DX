@@ -58,7 +58,7 @@ void ObjectManager::Update(float dt)
 	{
 		for(auto& dst : var)
 		{
-			dst->Update(dt);
+			dst->OnUpdate(dt);
 		}
 	}
 }

@@ -22,5 +22,8 @@ private:
 
 private:
 	IObject* Clone() override;
+
+private:
+	void Move();
 };
 

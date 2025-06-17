@@ -3,7 +3,6 @@
 void Main_Level::Initialize()
 {
 	instance->Object.AddObject(RENDER_TYPE::PRIORITY, "Player");
-
 	instance->Object.AddObject(RENDER_TYPE::NONE, "MainCamera");
 }
 

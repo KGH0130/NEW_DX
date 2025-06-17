@@ -2,6 +2,7 @@
 
 Entity::Entity(GameInstance* Instance)
 	: IObject(Instance)
+	, m_Rigid(m_Transform)
 {}
 
 void Entity::OnInitialize()
@@ -12,7 +13,8 @@ void Entity::OnInitialize()
 
 void Entity::OnUpdate(float dt)
 {
-	Update(dt);
 	m_StateMachine.Update(dt);
+	Update(dt);
+	m_Rigid.Update(dt);
 	m_Transform.UpdateMatrix();
 }

@@ -10,6 +10,7 @@ HWND g_hWnd = nullptr;
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
+void CreateConsole();
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 					  _In_opt_ HINSTANCE hPrevInstance,
@@ -51,7 +52,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		while(Time.UpdateLimit())
 		{
-			float dt = Time.GetDT();
+			const float dt = Time.GetDT();
 			Level.Update(dt);
 			Level.LateUpdate(dt);
 			Level.Render();
@@ -59,7 +60,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 
 		Time.FPS_INFO(g_hWnd);
-		//std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
 
 	return (int)msg.wParam;
@@ -99,7 +100,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	ShowWindow(g_hWnd, nCmdShow);
 	UpdateWindow(g_hWnd);
-
+	CreateConsole();
 	return TRUE;
 }
 
@@ -127,4 +128,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 	return 0;
+}
+
+void CreateConsole()
+{
+	AllocConsole();
+
+	FILE* fp;
+	freopen_s(&fp, "CONOUT$", "w", stdout);
+	freopen_s(&fp, "CONOUT$", "w", stderr);
+	freopen_s(&fp, "CONIN$", "r", stdin);
+
+	std::ios::sync_with_stdio(); // C++ iostream과 동기화
+	std::cout.clear();
+	std::cerr.clear();
+	std::cin.clear();
 }

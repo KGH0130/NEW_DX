@@ -9,6 +9,7 @@
 #include <cstdint>
 #include <d3d9.h>
 #include <d3dx9.h>
+#include <iostream>
 #include <string>
 #include <thread>
 #include <type_traits>
@@ -43,6 +44,10 @@
 
 #include "CollisionHash.h"
 
+#include "RigidBody.h"
+#include "Transform.h"
+#include "Velocity.h"
+
 #include "CollisionManager.h"
 #include "InputManager.h"
 #include "LevelManager.h"
@@ -51,7 +56,4 @@
 #include "StateMachine.h"
 #include "TimeManager.h"
 
-
 #include "GameInstance.h"
-
-#include "Transform.h"

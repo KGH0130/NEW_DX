@@ -8,7 +8,7 @@ class DLL AABB
 {
 public:
 	AABB() = default;
-	AABB(Transform& Transform, const Vector3& Offset, const Vector3& HalfSize);
+	AABB(Transform& Transform, const Vector3& Offset, const Vector3& CheckSize);
 
 public:
 	bool IsInteraction(const AABB* other);
@@ -19,7 +19,7 @@ private:
 	const Transform& m_Transform;
 
 	Vector3 m_Offset;
-	Vector3 m_HalfSize;
+	Vector3 m_CheckSize;
 
 	Vector3 m_Min, m_Max;
 

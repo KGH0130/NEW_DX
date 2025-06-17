@@ -178,7 +178,6 @@
     <ClInclude Include="..\Header\CollisionManager.h" />
     <ClInclude Include="..\Header\Engine_Enum.h" />
     <ClInclude Include="..\Header\Engine_Function.h" />
-    <ClInclude Include="..\Header\Engine_Hash.h" />
     <ClInclude Include="..\Header\Engine_Macro.h" />
     <ClInclude Include="..\Header\Engine_PCH.h" />
     <ClInclude Include="..\Header\Engine_Struct.h" />
@@ -198,9 +197,11 @@
     <ClInclude Include="..\Header\ObjectInfo.h" />
     <ClInclude Include="..\Header\ObjectManager.h" />
     <ClInclude Include="..\Header\ResourceManager.h" />
+    <ClInclude Include="..\Header\RigidBody.h" />
     <ClInclude Include="..\Header\StateMachine.h" />
     <ClInclude Include="..\Header\TimeManager.h" />
     <ClInclude Include="..\Header\Transform.h" />
+    <ClInclude Include="..\Header\Velocity.h" />
     <ClInclude Include="..\Header\VI_Buffer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +223,7 @@
     <ClCompile Include="..\Private\OBB.cpp" />
     <ClCompile Include="..\Private\ObjectManager.cpp" />
     <ClCompile Include="..\Private\ResourceManager.cpp" />
+    <ClCompile Include="..\Private\RigidBody.cpp" />
     <ClCompile Include="..\Private\StateMachine.cpp" />
     <ClCompile Include="..\Private\TimeManager.cpp" />
     <ClCompile Include="..\Private\Transform.cpp" />

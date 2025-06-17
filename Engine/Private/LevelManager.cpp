@@ -53,6 +53,7 @@ void LevelManager::FixedUpdate(float dt)
 
 void LevelManager::Update(float dt)
 {
+	m_Instance->Input.Update();
 	m_Instance->Object.Update(dt);
 	m_Instance->Collider.Update();
 	m_Instance->Collider.IsCollisionCheck();
@@ -67,9 +68,9 @@ void LevelManager::Render()
 {
 	RenderEnter();
 	m_Instance->Object.Render();
-	#ifdef _DEBUG
+	//#ifdef _DEBUG
 	m_Instance->Collider.Render(m_Instance->Device);
-	#endif
+	//#endif
 	RenderExit();
 }
 

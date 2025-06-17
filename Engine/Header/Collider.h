@@ -13,7 +13,7 @@ public:
 	~Collider();
 
 public:
-	void CreateAABB(const Vector3& Offset, const Vector3& HalfSize);
+	void CreateAABB(const Vector3& Offset, const Vector3& CheckSize);
 	void CreateOBB(const Vector3& Offset);
 
 public:

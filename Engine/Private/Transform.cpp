@@ -38,7 +38,7 @@ const Vector3& Transform::GetScale() const
 	return m_Scale;
 }
 
-const Vector3& Transform::GetState(STATE State) const
+const Vector3 Transform::GetState(STATE State) const
 {
 	return m_WorldMat.m[static_cast<size_t>(State)];
 }

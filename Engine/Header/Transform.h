@@ -17,7 +17,7 @@ public:
 	const Vector3& GetRotation() const;
 	const Vector3& GetScale() const;
 
-	const Vector3& GetState(STATE State) const;
+	const Vector3 GetState(STATE State) const;
 
 	const Matrix& GetWorldMatrix();
 	void UpdateMatrix();
@@ -25,8 +25,8 @@ public:
 	bool IsDirty() const;
 
 private:
-	Vector3 m_Position;
-	Vector3 m_Rotation;
+	Vector3 m_Position = VEC_ZERO;
+	Vector3 m_Rotation = VEC_ZERO;
 	Vector3 m_Scale = Vector3(1.f, 1.f, 1.f);
 
 	Matrix m_WorldMat;

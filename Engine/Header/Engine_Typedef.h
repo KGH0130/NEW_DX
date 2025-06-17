@@ -11,5 +11,6 @@ static constexpr size_t INVALID = ~0ull;
 static constexpr size_t MAX_OBJ = 64ull;
 
 #define VEC_ZERO Vector3(0.f, 0.f, 0.f)
-#define VEC_ONE Vector3(1.f, 1.f, 1.f);
+#define VEC2_ZERO Vector2(0.f, 0.f)
+#define VEC_ONE  Vector3(1.f, 1.f, 1.f)
 }
