@@ -82,13 +82,16 @@ void CollisionManager::IsCollisionCheck()
 				{
 					if(Dst[i]->GetAABB()->IsInteraction(Dst[j]->GetAABB()))
 					{
-						const auto& aOwner = Dst[i]->GetOwner();
-						const auto& bOwner = Dst[j]->GetOwner();
+						if(Dst[i]->GetOBB()->IsInteraction(Dst[j]->GetOBB()))
+						{
+							const auto& aOwner = Dst[i]->GetOwner();
+							const auto& bOwner = Dst[j]->GetOwner();
 
-						aOwner->OnCollisionEnter(bOwner);
-						bOwner->OnCollisionEnter(aOwner);
+							aOwner->OnCollisionEnter(bOwner);
+							bOwner->OnCollisionEnter(aOwner);
 
-						m_FrameEnter.emplace(std::minmax(aOwner, bOwner));
+							m_FrameEnter.emplace(std::minmax(aOwner, bOwner));
+						}
 					}
 				}
 			}

@@ -3,6 +3,7 @@
 ObjectManager::~ObjectManager()
 {
 	Clear();
+	SAFE_DELETE_VEC(m_Objects[static_cast<size_t>(CREATE_TYPE::STATIC)]);
 }
 
 void ObjectManager::RegisterObject(const std::string& Name, IObject* Object, CREATE_TYPE Type)
@@ -21,7 +22,7 @@ IObject* ObjectManager::AddObject(RENDER_TYPE Type, const std::string& Name, Vec
 	auto iter = m_ObjectMap.find(Name);
 	assert(iter != m_ObjectMap.end());
 	auto* newObj = iter->second.first->Clone();
-	m_ObejctCloneMap[Name] = newObj;
+	m_ObjectCloneMap[Name] = newObj;
 	m_AddPending.emplace_back(std::pair{ iter->second.second, Type }, newObj);
 	newObj->OnInitialize();
 	newObj->GetTransform().SetPosition(Pos);
@@ -35,23 +36,58 @@ void ObjectManager::RemoveObject(const IObject* Info)
 
 IObject* ObjectManager::Get_Object(const std::string& Name)
 {
-	auto iter = m_ObejctCloneMap.find(Name);
-	assert(iter != m_ObejctCloneMap.end());
+	auto iter = m_ObjectCloneMap.find(Name);
+	assert(iter != m_ObjectCloneMap.end());
 	return iter->second;
 }
 
 void ObjectManager::FixedUpdate(float dt)
-{}
+{
+	for(auto& var : m_Objects)
+	{
+		for(auto& dst : var)
+		{
+			dst->FixedUpdate(dt);
+		}
+	}
+}
+
 void ObjectManager::Update(float dt)
-{}
+{
+	for(auto& var : m_Objects)
+	{
+		for(auto& dst : var)
+		{
+			dst->Update(dt);
+		}
+	}
+}
+
 void ObjectManager::LateUpdate(float dt)
-{}
+{
+	for(auto& var : m_Objects)
+	{
+		for(auto& dst : var)
+		{
+			dst->LateUpdate(dt);
+		}
+	}
+}
+
 void ObjectManager::Render()
-{}
+{
+	for(auto& var : m_Objects)
+	{
+		for(auto& dst : var)
+		{
+			dst->OnRender();
+		}
+	}
+}
 
 void ObjectManager::Clear()
 {
-	//SAFE_DELETE_VEC(m_Objects[CREATE_TYPE::DYNAMIC]);
+	SAFE_DELETE_VEC(m_Objects[static_cast<size_t>(CREATE_TYPE::DYNAMIC)]);
 
 	for(auto& var : m_Render)
 	{
@@ -60,7 +96,7 @@ void ObjectManager::Clear()
 
 	for(auto& [name, Ptr] : m_ObjectMap)
 	{
-		SAFE_DELETE(Ptr);
+		SAFE_DELETE(Ptr.first);
 	}
 }
 
@@ -78,25 +114,16 @@ void ObjectManager::FlushAdd()
 	{
 		if(type.second == RENDER_TYPE::NONE)
 		{
-			if(type.first == CREATE_TYPE::DYNAMIC)
-				Obj->SetInfo(m_Objects[static_cast<size_t>(type.first)].size(), type.first, type.second, INVALID);
-			else if(type.first == CREATE_TYPE::STATIC)
-				Obj->SetInfo(m_Objects[static_cast<size_t>(type.first)].size(), type.first, type.second, INVALID);
+			Obj->SetInfo(m_Objects[static_cast<size_t>(type.first)].size(), type.first, type.second, INVALID);
 		}
 		else
 		{
 			auto& renderer = m_Render[static_cast<size_t>(type.second)];
-			if(type.first == CREATE_TYPE::DYNAMIC)
-				Obj->SetInfo(m_Objects[static_cast<size_t>(type.first)].size(), type.first, type.second, renderer.size());
-			else if(type.first == CREATE_TYPE::STATIC)
-				Obj->SetInfo(m_Objects[static_cast<size_t>(type.first)].size(), type.first, type.second, renderer.size());
+			Obj->SetInfo(m_Objects[static_cast<size_t>(type.first)].size(), type.first, type.second, renderer.size());
 
 			renderer.emplace_back(Obj);
 		}
-		if(type.first == CREATE_TYPE::DYNAMIC)
-			m_Objects[static_cast<size_t>(type.first)].emplace_back(Obj);
-		else if(type.first == CREATE_TYPE::STATIC)
-			m_Objects[static_cast<size_t>(type.first)].emplace_back(Obj);
+		m_Objects[static_cast<size_t>(type.first)].emplace_back(Obj);
 	}
 	m_AddPending.clear();
 }
@@ -107,22 +134,23 @@ void ObjectManager::FlushRemove()
 
 	for(auto& var : m_DeletePending)
 	{
-		auto& obj = m_Objects[var.objectID];
-		size_t lastIndex = m_Objects.size() - 1;
+		auto& Object = m_Objects[static_cast<size_t>(var.createType)];
+		auto& obj = Object[var.objectID];
+		size_t lastIndex = Object.size() - 1;
 
 		SAFE_DELETE(obj);
 
 		if(var.objectID != lastIndex)
 		{
-			auto& lastObj = m_Objects[lastIndex];
-			m_Objects[var.objectID] = lastObj;
+			auto& lastObj = Object[lastIndex];
+			Object[var.objectID] = lastObj;
 			lastObj->SetID(var.objectID);
 		}
-		m_Objects.pop_back();
+		Object.pop_back();
 
-		if(var.type == RENDER_TYPE::NONE) continue;
+		if(var.renderType == RENDER_TYPE::NONE) continue;
 
-		auto& renderer = m_Render[static_cast<size_t>(var.type)];
+		auto& renderer = m_Render[static_cast<size_t>(var.renderType)];
 		size_t lastIdx = renderer.size() - 1;
 		if(var.renderID != lastIdx)
 		{

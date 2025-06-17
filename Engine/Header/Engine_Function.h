@@ -1,4 +1,5 @@
 #pragma once
+#include "Engine_Typedef.h"
 
 namespace Engine
 {
@@ -33,6 +34,11 @@ template<typename T>
 T Lerp(T Start, T End, float Time) noexcept
 {
 	return Start + (End - Start) * Clamp(Time, 0.0f, 1.0f);
+}
+
+inline float Dot(const Vector3& Dst, const Vector3& Src) noexcept
+{
+	return Dst.x * Src.x + Dst.y * Src.y + Dst.z * Src.z;
 }
 
 }

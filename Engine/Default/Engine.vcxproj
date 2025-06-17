@@ -194,6 +194,7 @@
     <ClInclude Include="..\Header\IResource.h" />
     <ClInclude Include="..\Header\IState.h" />
     <ClInclude Include="..\Header\LevelManager.h" />
+    <ClInclude Include="..\Header\OBB.h" />
     <ClInclude Include="..\Header\ObjectInfo.h" />
     <ClInclude Include="..\Header\ObjectManager.h" />
     <ClInclude Include="..\Header\ResourceManager.h" />
@@ -218,6 +219,7 @@
     <ClCompile Include="..\Private\IResource.cpp" />
     <ClCompile Include="..\Private\IState.cpp" />
     <ClCompile Include="..\Private\LevelManager.cpp" />
+    <ClCompile Include="..\Private\OBB.cpp" />
     <ClCompile Include="..\Private\ObjectManager.cpp" />
     <ClCompile Include="..\Private\ResourceManager.cpp" />
     <ClCompile Include="..\Private\StateMachine.cpp" />

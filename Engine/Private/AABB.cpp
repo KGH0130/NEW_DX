@@ -49,14 +49,14 @@ void AABB::Render(LPDEVICE Device) const
 		0,4, 1,5, 2,6, 3,7
 	};
 
-	AABBVERTEX lineVertices[8];
+	COLLIDER_VTX lineVertices[8];
 
 	for(int i = 0; i < 8; ++i)
 	{
 		lineVertices[i].pos = corners[i];
-		lineVertices[i].color = m_IsCollided ? D3DCOLOR_ARGB(255, 255, 0, 0) : D3DCOLOR_ARGB(255, 0, 255, 0);
+		lineVertices[i].color = m_IsCollided ? D3DCOLOR_ARGB(0xFF, 0xFF, 0, 0) : D3DCOLOR_ARGB(0xFF, 0, 0xFF, 0);
 	}
 
-	Device->SetFVF(D3DFVF_AABB);
-	Device->DrawIndexedPrimitiveUP(D3DPT_LINELIST, 0, 8, 12, indices, D3DFMT_INDEX16, lineVertices, sizeof(D3DFVF_AABB));
+	Device->SetFVF(D3DFVF_COLLIDER);
+	Device->DrawIndexedPrimitiveUP(D3DPT_LINELIST, 0, 8, 12, indices, D3DFMT_INDEX16, lineVertices, sizeof(COLLIDER_VTX));
 }

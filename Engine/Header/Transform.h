@@ -17,6 +17,8 @@ public:
 	const Vector3& GetRotation() const;
 	const Vector3& GetScale() const;
 
+	const Vector3& GetState(STATE State) const;
+
 	const Matrix& GetWorldMatrix();
 	void UpdateMatrix();
 

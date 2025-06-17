@@ -34,7 +34,7 @@ private:
 private:
 	std::unordered_map<std::string, std::pair<IObject*, CREATE_TYPE>> m_ObjectMap;
 
-	std::unordered_map<std::string, IObject*> m_ObejctCloneMap;
+	std::unordered_map<std::string, IObject*> m_ObjectCloneMap;
 	std::array<std::vector<IObject*>, static_cast<size_t>(CREATE_TYPE::IDX)> m_Objects;
 	std::array<std::vector<IObject*>, static_cast<size_t>(RENDER_TYPE::IDX)> m_Render;
 

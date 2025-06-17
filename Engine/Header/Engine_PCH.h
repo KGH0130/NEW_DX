@@ -34,6 +34,8 @@
 #include "IState.h"
 
 #include "AABB.h"
+#include "OBB.h"
+
 #include "Collider.h"
 
 #include "CollderInfo.h"

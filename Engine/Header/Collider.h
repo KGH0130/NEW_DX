@@ -14,12 +14,17 @@ public:
 
 public:
 	void CreateAABB(const Vector3& Offset, const Vector3& HalfSize);
+	void CreateOBB(const Vector3& Offset);
+
+public:
 	IObject* GetOwner() const;
 	AABB* GetAABB();
+	OBB* GetOBB();
 
 public:
 	void Update();
 	void Render(LPDEVICE Device);
+
 public:
 	const ColliderInfo& GetInfo() const;
 	void SetID(size_t ID);

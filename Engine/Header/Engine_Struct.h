@@ -46,11 +46,11 @@ struct IDX_DESC
 	uint32_t stride = 0u;
 };
 
-struct AABBVERTEX
+struct COLLIDER_VTX
 {
 	Vector3 pos;
 	DWORD color;
 };
-static constexpr auto D3DFVF_AABB = (D3DFVF_XYZ | D3DFVF_DIFFUSE);
+static constexpr auto D3DFVF_COLLIDER = (D3DFVF_XYZ | D3DFVF_DIFFUSE);
 
 }
