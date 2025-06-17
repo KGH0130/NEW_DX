@@ -2,14 +2,20 @@
 
 Player::Player(GameInstance* Instance)
 	: Entity(Instance)
+{
+	m_Collider = instance->Collider.Init(this, OBJECT_TYPE::PLAYER);
+	m_Collider->CreateAABB(VEC_ZERO, Vector3(1.f, 1.f, 1.f));
+	m_Collider->CreateOBB(VEC_ZERO);
+	m_Rigid.SetGravity(false);
+}
+
+Player::Player(const Player& othder)
+	: Entity(othder)
 {}
 
 void Player::Initialize()
 {
-	m_Collider = instance->Collider.AddCollider(this, COLLISION_TYPE::DYNAMIC, OBJECT_TYPE::PLAYER);
-	m_Collider->CreateAABB(VEC_ZERO, Vector3(1.f, 1.f, 1.f));
-	m_Collider->CreateOBB(VEC_ZERO);
-	m_Rigid.SetGravity(false);
+	//instance->Collider.Remove(m_Collider);
 }
 
 void Player::InitState()
@@ -45,7 +51,7 @@ void Player::OnCollisionExit(IObject* Other)
 
 IObject* Player::Clone()
 {
-	return new Player(instance);
+	return new Player(*this);
 }
 
 void Player::Move()

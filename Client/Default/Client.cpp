@@ -1,10 +1,10 @@
 ﻿#include "Client.h"
 
-#define MAX_LOADSTRING 100
+constexpr int MAX_LOADSTRING = 100;
 
-HINSTANCE hInst;                                // 현재 인스턴스입니다.
-WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
-WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
+HINSTANCE hInst;
+WCHAR szTitle[MAX_LOADSTRING];
+WCHAR szWindowClass[MAX_LOADSTRING];
 HWND g_hWnd = nullptr;
 
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -91,8 +91,8 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
-	hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
-	RECT rc{ 0,0, WINCX ,WINCY };
+	hInst = hInstance;
+	RECT rc{ 0, 0, WINCX ,WINCY };
 
 	g_hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
 						   CW_USEDEFAULT, 0, rc.right - rc.left, rc.bottom - rc.top,
@@ -100,7 +100,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	ShowWindow(g_hWnd, nCmdShow);
 	UpdateWindow(g_hWnd);
-	CreateConsole();
+	//CreateConsole();
 	return TRUE;
 }
 
@@ -139,7 +139,7 @@ void CreateConsole()
 	freopen_s(&fp, "CONOUT$", "w", stderr);
 	freopen_s(&fp, "CONIN$", "r", stdin);
 
-	std::ios::sync_with_stdio(); // C++ iostream과 동기화
+	std::ios::sync_with_stdio();
 	std::cout.clear();
 	std::cerr.clear();
 	std::cin.clear();

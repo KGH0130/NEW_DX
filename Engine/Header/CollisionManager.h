@@ -13,8 +13,10 @@ public:
 	~CollisionManager();
 
 public:
-	Collider* AddCollider(IObject* Owner, COLLISION_TYPE CollType, OBJECT_TYPE ObjectType);
-	void RemoveCollider(const Collider* Collider);
+	Collider* Init(IObject* Owner, REGION_TYPE type);
+	Collider* Init(IObject* Owner, OBJECT_TYPE type);
+
+	void Remove(const Collider* Collider);
 
 public:
 	void Update();
@@ -23,19 +25,33 @@ public:
 	void Clear();
 
 public:
-	void IsCollisionCheck();
+	void ProcessCollisions();
 
 private:
 	void FlushAdd();
 	void FlushRemove();
 
 private:
-	std::array<std::array<std::vector<Collider*>, static_cast<size_t>(OBJECT_TYPE::IDX)>, static_cast<size_t>(COLLISION_TYPE::IDX)> m_Colloders;
+	void CollisionSD(REGION_TYPE Type);
+	void CollisionDD(OBJECT_TYPE Dst, OBJECT_TYPE Src);
+	void CollisionEqual(OBJECT_TYPE Type);
 
-	std::vector<std::pair<Collider*, std::pair<COLLISION_TYPE, OBJECT_TYPE>>> m_AddPending;
+private:
+	std::array<std::vector<Collider*>, static_cast<size_t>(REGION_TYPE::IDX)> m_StaticColliders;
+	std::vector<std::pair<REGION_TYPE, Collider*>> m_StaticAddPending;
+
+	std::array<std::vector<Collider*>, static_cast<size_t>(OBJECT_TYPE::IDX)> m_DynamicColliders;
+	std::vector<std::pair<OBJECT_TYPE, Collider*>> m_DynamicAddPending;
+
 	std::vector<ColliderInfo> m_RemovePending;
 
-	std::unordered_set<std::pair<IObject*, IObject*>, CollisionHash> m_FrameEnter;
-	std::unordered_set<std::pair<IObject*, IObject*>, CollisionHash> m_FrameExit;
+	std::unordered_set<std::pair<IObject*, IObject*>, CollisionHash> m_FrameEnterSD;
+	std::unordered_set<std::pair<IObject*, IObject*>, CollisionHash> m_FrameExitSD;
+
+	std::unordered_map<OBJECT_TYPE, std::array<std::unordered_set<std::pair<IObject*, IObject*>, CollisionHash>, static_cast<size_t>(OBJECT_TYPE::IDX)>> m_FrameEnterDD;
+	std::unordered_map<OBJECT_TYPE, std::array<std::unordered_set<std::pair<IObject*, IObject*>, CollisionHash>, static_cast<size_t>(OBJECT_TYPE::IDX)>> m_FrameExitDD;
+
+	std::unordered_map<OBJECT_TYPE, std::unordered_set<std::pair<IObject*, IObject*>, CollisionHash>> m_FrameEqualEnter;
+	std::unordered_map<OBJECT_TYPE, std::unordered_set<std::pair<IObject*, IObject*>, CollisionHash>> m_FrameEqualExit;
 };
 END

@@ -13,10 +13,10 @@ public:
 	~ObjectManager();
 
 public:
-	void RegisterObject(const std::string& Name, IObject* Object, CREATE_TYPE Type = CREATE_TYPE::DYNAMIC);
-	IObject* AddObject(RENDER_TYPE Type, const std::string& Name, Vector3 Pos = VEC_ZERO);
-	void RemoveObject(const IObject* Obj);
-	IObject* Get_Object(const std::string& Name);
+	void Register(const std::string& Name, IObject* Object, CREATE_TYPE Type = CREATE_TYPE::DYNAMIC);
+	IObject* Init(RENDER_TYPE Type, const std::string& Name, Vector3 Pos = VEC_ZERO);
+	void Remove(const IObject* Obj);
+	IObject* Get(const std::string& Name);
 
 public:
 	void FixedUpdate(float dt);

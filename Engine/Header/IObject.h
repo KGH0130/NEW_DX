@@ -4,8 +4,8 @@
 #include "Transform.h"
 
 BEGIN(Engine)
-class Collider;
 struct GameInstance;
+class Collider;
 
 class DLL IObject : public IClone
 {

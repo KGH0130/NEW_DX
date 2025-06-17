@@ -39,20 +39,16 @@ OBB* Collider::GetOBB()
 
 void Collider::Update()
 {
-	if(m_AABB)
-		m_AABB->Update();
+	if(m_AABB) m_AABB->Update();
 
-	if(m_OBB)
-		m_OBB->Update();
+	if(m_OBB) m_OBB->Update();
 }
 
 void Collider::Render(LPDEVICE Device)
 {
-	if(m_AABB)
-		m_AABB->Render(Device);
+	if(m_AABB) m_AABB->Render(Device);
 
-	if(m_OBB)
-		m_OBB->Render(Device);
+	if(m_OBB) m_OBB->Render(Device);
 }
 
 const ColliderInfo& Collider::GetInfo() const

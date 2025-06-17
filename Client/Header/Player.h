@@ -5,6 +5,7 @@ class Player : public Entity
 {
 public:
 	Player(GameInstance* Instance);
+	Player(const Player& othder);
 
 private:
 	void Initialize() override;

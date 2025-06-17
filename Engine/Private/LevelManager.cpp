@@ -56,7 +56,7 @@ void LevelManager::Update(float dt)
 	m_Instance->Input.Update();
 	m_Instance->Object.Update(dt);
 	m_Instance->Collider.Update();
-	m_Instance->Collider.IsCollisionCheck();
+	m_Instance->Collider.ProcessCollisions();
 }
 
 void LevelManager::LateUpdate(float dt)

@@ -6,7 +6,7 @@ ObjectManager::~ObjectManager()
 	SAFE_DELETE_VEC(m_Objects[static_cast<size_t>(CREATE_TYPE::STATIC)]);
 }
 
-void ObjectManager::RegisterObject(const std::string& Name, IObject* Object, CREATE_TYPE Type)
+void ObjectManager::Register(const std::string& Name, IObject* Object, CREATE_TYPE Type)
 {
 	auto iter = m_ObjectMap.find(Name);
 	if(iter != m_ObjectMap.end())
@@ -17,7 +17,7 @@ void ObjectManager::RegisterObject(const std::string& Name, IObject* Object, CRE
 	m_ObjectMap.emplace(Name, std::pair{ Object, Type });
 }
 
-IObject* ObjectManager::AddObject(RENDER_TYPE Type, const std::string& Name, Vector3 Pos)
+IObject* ObjectManager::Init(RENDER_TYPE Type, const std::string& Name, Vector3 Pos)
 {
 	auto iter = m_ObjectMap.find(Name);
 	assert(iter != m_ObjectMap.end());
@@ -29,12 +29,12 @@ IObject* ObjectManager::AddObject(RENDER_TYPE Type, const std::string& Name, Vec
 	return newObj;
 }
 
-void ObjectManager::RemoveObject(const IObject* Info)
+void ObjectManager::Remove(const IObject* Info)
 {
 	m_DeletePending.emplace_back(Info->GetInfo());
 }
 
-IObject* ObjectManager::Get_Object(const std::string& Name)
+IObject* ObjectManager::Get(const std::string& Name)
 {
 	auto iter = m_ObjectCloneMap.find(Name);
 	assert(iter != m_ObjectCloneMap.end());
@@ -102,8 +102,8 @@ void ObjectManager::Clear()
 
 void ObjectManager::Flush()
 {
-	FlushRemove();
 	FlushAdd();
+	FlushRemove();
 }
 
 void ObjectManager::FlushAdd()
@@ -138,14 +138,14 @@ void ObjectManager::FlushRemove()
 		auto& obj = Object[var.objectID];
 		size_t lastIndex = Object.size() - 1;
 
-		SAFE_DELETE(obj);
-
 		if(var.objectID != lastIndex)
 		{
 			auto& lastObj = Object[lastIndex];
 			Object[var.objectID] = lastObj;
 			lastObj->SetID(var.objectID);
 		}
+		SAFE_DELETE(obj);
+
 		Object.pop_back();
 
 		if(var.renderType == RENDER_TYPE::NONE) continue;

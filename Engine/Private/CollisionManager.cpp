@@ -5,142 +5,258 @@ CollisionManager::~CollisionManager()
 	Clear();
 }
 
-Collider* CollisionManager::AddCollider(IObject* Owner, COLLISION_TYPE CollType, OBJECT_TYPE ObjType)
+Collider* CollisionManager::Init(IObject* Owner, REGION_TYPE type)
 {
-	auto& collisions = m_Colloders[static_cast<size_t>(CollType)][static_cast<size_t>(ObjType)];
-	Collider* newCollider = new Collider(Owner, ColliderInfo(collisions.size(), CollType, ObjType));
-	m_AddPending.emplace_back(std::pair{ newCollider, std::pair{CollType, ObjType} });
-	return newCollider;
+	auto& colliders = m_StaticColliders[static_cast<size_t>(type)];
+	Collider* newColl = new Collider(Owner, ColliderInfo(colliders.size(), type));
+	return m_StaticAddPending.emplace_back(type, newColl).second;
 }
 
-void CollisionManager::RemoveCollider(const Collider* Collider)
+Collider* CollisionManager::Init(IObject* Owner, OBJECT_TYPE type)
+{
+	auto& colliders = m_DynamicColliders[static_cast<size_t>(type)];
+	Collider* newColl = new Collider(Owner, ColliderInfo(colliders.size(), type));
+	return m_DynamicAddPending.emplace_back(type, newColl).second;
+}
+
+void CollisionManager::Remove(const Collider* Collider)
 {
 	m_RemovePending.emplace_back(Collider->GetInfo());
 }
 
-
 void CollisionManager::Update()
 {
-	for(auto& var : m_Colloders)
+	for(auto& var : m_DynamicColliders)
 	{
-		if(var == m_Colloders[static_cast<size_t>(COLLISION_TYPE::STATIC)])
-			continue;
-
-		for(auto& Dst : var)
+		for(auto& dst : var)
 		{
-			for(auto& Src : Dst)
-			{
-				Src->Update();
-			}
+			dst->Update();
 		}
 	}
 }
 
 void CollisionManager::Render(LPDEVICE Device)
 {
-	for(auto& var : m_Colloders)
+	for(auto& var : m_StaticColliders)
 	{
-		for(auto& Dst : var)
+		for(auto& dst : var)
 		{
-			for(auto& Src : Dst)
-			{
-				Src->Render(Device);
-			}
+			dst->Render(Device);
+		}
+	}
+
+	for(auto& var : m_DynamicColliders)
+	{
+		for(auto& dst : var)
+		{
+			dst->Render(Device);
 		}
 	}
 }
 
 void CollisionManager::Flush()
 {
-	FlushRemove();
 	FlushAdd();
+	FlushRemove();
 }
 
 void CollisionManager::Clear()
 {
-	for(auto& var : m_Colloders)
+	for(auto& var : m_StaticColliders)
 	{
-		for(auto& Dst : var)
-		{
-			SAFE_DELETE_VEC(Dst);
-		}
+		SAFE_DELETE_VEC(var);
+	}
+
+	for(auto& var : m_DynamicColliders)
+	{
+		SAFE_DELETE_VEC(var);
 	}
 }
 
-void CollisionManager::IsCollisionCheck()
+void CollisionManager::ProcessCollisions()
 {
-	for(auto& var : m_Colloders)
+	CollisionSD(REGION_TYPE::NONE);
+
+	CollisionDD(OBJECT_TYPE::PLAYER, OBJECT_TYPE::ENEMY);
+	CollisionEqual(OBJECT_TYPE::PLAYER);
+}
+
+void CollisionManager::FlushAdd()
+{
+	for(auto& [type, collider] : m_StaticAddPending)
 	{
-		for(auto& Dst : var)
+		m_StaticColliders[static_cast<size_t>(type)].emplace_back(collider);
+	}
+	m_StaticAddPending.clear();
+
+	for(auto& [type, collider] : m_DynamicAddPending)
+	{
+		m_DynamicColliders[static_cast<size_t>(type)].emplace_back(collider);
+	}
+	m_DynamicAddPending.clear();
+}
+
+void CollisionManager::FlushRemove()
+{
+	for(auto& var : m_RemovePending)
+	{
+		if(var.collType == COLLISION_TYPE::STATIC)
 		{
-			size_t size = Dst.size();
-			if(size < 2) continue;
+			auto& colliders = m_StaticColliders[static_cast<size_t>(var.regiontype)];
+			auto& delCollider = colliders[var.id];
 
-			for(uint16_t i = 0; i < size; ++i)
+			size_t last = colliders.size() - 1;
+			if(var.id != last)
 			{
-				for(uint16_t j = i + 1; j < size; ++j)
+				auto& lastCollider = colliders[last];
+				delCollider = lastCollider;
+				delCollider->SetID(var.id);
+			}
+
+			SAFE_DELETE(delCollider);
+			colliders.pop_back();
+		}
+		else
+		{
+			auto& colliders = m_DynamicColliders[static_cast<size_t>(var.objType)];
+			auto& delCollider = colliders[var.id];
+
+			size_t last = colliders.size() - 1;
+			if(var.id != last)
+			{
+				auto& lastCollider = colliders[last];
+				delCollider = lastCollider;
+				delCollider->SetID(var.id);
+			}
+
+			SAFE_DELETE(delCollider);
+			colliders.pop_back();
+		}
+	}
+	m_RemovePending.clear();
+}
+
+void CollisionManager::CollisionSD(REGION_TYPE Type)
+{
+	auto& STATIC = m_StaticColliders[static_cast<size_t>(Type)];
+
+	for(auto& var : STATIC)
+	{
+		for(auto& dst : m_DynamicColliders)
+		{
+			for(auto& src : dst)
+			{
+				if(var->GetAABB()->IsInteraction(src->GetAABB()))
 				{
-					if(Dst[i]->GetAABB()->IsInteraction(Dst[j]->GetAABB()))
+					if(var->GetOBB()->IsInteraction(src->GetOBB()))
 					{
-						if(Dst[i]->GetOBB()->IsInteraction(Dst[j]->GetOBB()))
-						{
-							const auto& aOwner = Dst[i]->GetOwner();
-							const auto& bOwner = Dst[j]->GetOwner();
+						const auto& aOwner = var->GetOwner();
+						const auto& bOwner = src->GetOwner();
 
-							aOwner->OnCollisionEnter(bOwner);
-							bOwner->OnCollisionEnter(aOwner);
+						aOwner->OnCollisionEnter(bOwner);
+						bOwner->OnCollisionEnter(aOwner);
 
-							m_FrameEnter.emplace(std::minmax(aOwner, bOwner));
-						}
+						m_FrameEnterSD.emplace(std::minmax(aOwner, bOwner));
 					}
 				}
 			}
 		}
 	}
 
-	for(auto& var : m_FrameExit)
+	for(auto& var : m_FrameExitSD)
 	{
-		if(m_FrameEnter.find(var) == m_FrameEnter.end())
+		if(m_FrameEnterSD.find(var) == m_FrameEnterSD.end())
+		{
+			auto& dst = var.first;
+			auto& src = var.second;
+
+			dst->OnCollisionExit(src);
+			src->OnCollisionExit(dst);
+		}
+	}
+
+	m_FrameExitSD = std::move(m_FrameEnterSD);
+}
+
+void CollisionManager::CollisionDD(OBJECT_TYPE Dst, OBJECT_TYPE Src)
+{
+	auto& enterMap = m_FrameEnterDD[Dst][static_cast<size_t>(Src)];
+
+	for(auto& var : m_DynamicColliders[static_cast<size_t>(Dst)])
+	{
+		for(auto& dst : m_DynamicColliders[static_cast<size_t>(Src)])
+		{
+			if(var->GetAABB()->IsInteraction(dst->GetAABB()))
+			{
+				if(var->GetOBB()->IsInteraction(dst->GetOBB()))
+				{
+					const auto& aOwner = var->GetOwner();
+					const auto& bOwner = dst->GetOwner();
+
+					aOwner->OnCollisionEnter(bOwner);
+					bOwner->OnCollisionEnter(aOwner);
+
+					enterMap.emplace(std::minmax(aOwner, bOwner));
+				}
+			}
+		}
+	}
+
+	auto& exitMap = m_FrameExitDD[Dst][static_cast<size_t>(Src)];
+	for(auto& var : exitMap)
+	{
+		if(enterMap.find(var) == enterMap.end())
+		{
+			const auto& aOwner = var.first;
+			const auto& bOwner = var.second;
+
+			aOwner->OnCollisionExit(bOwner);
+			bOwner->OnCollisionExit(aOwner);
+		}
+	}
+
+	exitMap = std::move(enterMap);
+}
+
+void CollisionManager::CollisionEqual(OBJECT_TYPE Type)
+{
+	auto& enterMap = m_FrameEqualEnter[Type];
+	auto& collisions = m_DynamicColliders[static_cast<size_t>(Type)];
+	size_t size = collisions.size();
+	if(size < 2) return;
+
+	for(int i = 0; i < size; ++i)
+	{
+		for(int j = i + 1; j < size; ++j)
+		{
+			if(collisions[i]->GetAABB()->IsInteraction(collisions[j]->GetAABB()))
+			{
+				if(collisions[i]->GetOBB()->IsInteraction(collisions[j]->GetOBB()))
+				{
+					const auto& aOwner = collisions[i]->GetOwner();
+					const auto& bOwner = collisions[j]->GetOwner();
+
+					aOwner->OnCollisionEnter(bOwner);
+					bOwner->OnCollisionEnter(aOwner);
+
+					enterMap.emplace(std::minmax(aOwner, bOwner));
+				}
+			}
+		}
+	}
+
+	auto& exitMap = m_FrameEqualExit[Type];
+	for(auto& var : exitMap)
+	{
+		if(enterMap.find(var) == enterMap.end())
 		{
 			const auto& dst = var.first;
-			const auto& Src = var.second;
-			dst->OnCollisionExit(Src);
-			Src->OnCollisionExit(dst);
+			const auto& src = var.second;
+
+			dst->OnCollisionExit(src);
+			src->OnCollisionExit(dst);
 		}
 	}
 
-	m_FrameExit = std::move(m_FrameEnter);
-}
-
-void CollisionManager::FlushAdd()
-{
-	if(m_AddPending.empty()) return;
-
-	for(auto& var : m_AddPending)
-	{
-		auto& collisions = m_Colloders[static_cast<size_t>(var.second.first)][static_cast<size_t>(var.second.second)];
-		collisions.emplace_back(var.first);
-	}
-	m_AddPending.clear();
-}
-
-void CollisionManager::FlushRemove()
-{
-	if(m_RemovePending.empty()) return;
-
-	for(auto& var : m_RemovePending)
-	{
-		auto& collisions = m_Colloders[static_cast<size_t>(var.collType)][static_cast<size_t>(var.objType)];
-		auto& obj = collisions[var.id];
-		size_t lastIndex = collisions.size() - 1;
-		SAFE_DELETE(obj);
-		if(var.id != lastIndex)
-		{
-			auto& lastCollider = collisions[lastIndex];
-			collisions[var.id] = lastCollider;
-			lastCollider->SetID(var.id);
-		}
-		collisions.pop_back();
-	}
-	m_RemovePending.clear();
+	exitMap = std::move(enterMap);
 }

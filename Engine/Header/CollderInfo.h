@@ -6,14 +6,20 @@ BEGIN(Engine)
 struct ColliderInfo
 {
 	ColliderInfo() = default;
-	ColliderInfo(size_t ID, COLLISION_TYPE CollType, OBJECT_TYPE ObjType)
+	ColliderInfo(size_t ID, OBJECT_TYPE ObjType)
 		: id(ID)
-		, collType(CollType)
 		, objType(ObjType)
+		, collType(COLLISION_TYPE::DYNAMIC)
+	{}
+	ColliderInfo(size_t ID, REGION_TYPE RegionType)
+		: id(ID)
+		, regiontype(RegionType)
+		, collType(COLLISION_TYPE::STATIC)
 	{}
 
 	size_t id = INVALID;
-	COLLISION_TYPE collType{};
 	OBJECT_TYPE objType{};
+	REGION_TYPE regiontype{};
+	COLLISION_TYPE collType{};
 };
 END

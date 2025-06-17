@@ -13,7 +13,7 @@ void MainCamera::Initialize()
 {
 	UpdateViewMatrix();
 
-	m_Target = instance->Object.Get_Object("Player");
+	m_Target = instance->Object.Get("Player");
 }
 
 void MainCamera::FixedUpdate(float dt)
