@@ -25,15 +25,6 @@
     <Filter Include="Manager\Object\Manager">
       <UniqueIdentifier>{27495519-ef88-423a-993a-7d951e6b66c9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\Resource">
-      <UniqueIdentifier>{7f670c48-01a2-45bc-aad1-4165c42b6c4e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\Resource\IResource">
-      <UniqueIdentifier>{539c6b8c-4f09-496f-96bd-d96e420e64fd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\Resource\Manager">
-      <UniqueIdentifier>{73c0d760-1e83-4ffd-b6ad-e86047face51}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\Input">
       <UniqueIdentifier>{745ec8be-6826-49be-99bc-f0b405c5f075}</UniqueIdentifier>
     </Filter>
@@ -51,9 +42,6 @@
     </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{98c369e0-c2a7-4a74-9b1e-33a956ccec99}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource\VI_Buffer">
-      <UniqueIdentifier>{f717f8ae-acb2-4b6f-b214-3a465461f71a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component">
       <UniqueIdentifier>{0d869e19-9bc7-4207-9178-3069347d5a73}</UniqueIdentifier>
@@ -138,20 +126,11 @@
     <ClCompile Include="..\Private\ObjectManager.cpp">
       <Filter>Manager\Object\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\IResource.cpp">
-      <Filter>Manager\Resource\IResource</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\ResourceManager.cpp">
-      <Filter>Manager\Resource\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\InputManager.cpp">
       <Filter>Manager\Input\Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\TimeManager.cpp">
       <Filter>Manager\Time\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\VI_Buffer.cpp">
-      <Filter>Resource\VI_Buffer</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Transform.cpp">
       <Filter>Component\00. Transform</Filter>
@@ -212,12 +191,6 @@
     <ClInclude Include="..\Header\Engine_Enum.h">
       <Filter>_Define</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\IResource.h">
-      <Filter>Manager\Resource\IResource</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\ResourceManager.h">
-      <Filter>Manager\Resource\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\Input_Enum.h">
       <Filter>Manager\Input\Input_Enum</Filter>
     </ClInclude>
@@ -226,9 +199,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\TimeManager.h">
       <Filter>Manager\Time\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\VI_Buffer.h">
-      <Filter>Resource\VI_Buffer</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Graphic_Device.h">
       <Filter>Resource\Graphic_Device</Filter>

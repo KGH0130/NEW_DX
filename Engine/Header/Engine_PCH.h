@@ -31,7 +31,6 @@
 #include "ILevel.h"
 #include "ILoad.h"
 #include "IObject.h"
-#include "IResource.h"
 #include "IState.h"
 
 #include "AABB.h"
@@ -52,7 +51,6 @@
 #include "InputManager.h"
 #include "LevelManager.h"
 #include "ObjectManager.h"
-#include "ResourceManager.h"
 #include "StateMachine.h"
 #include "TimeManager.h"
 

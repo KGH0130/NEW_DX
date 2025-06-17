@@ -1,5 +1,4 @@
 #pragma once
-#include "Engine_Macro.h"
 
 BEGIN(Engine)
 struct GameInstance
@@ -14,7 +13,6 @@ public:
 	LevelManager Level;
 	ObjectManager Object;
 	CollisionManager Collider;
-	ResourceManager Resource;
 	InputManager Input;
 };
 END
