@@ -8,8 +8,7 @@ ObjectManager::~ObjectManager()
 
 void ObjectManager::Register(const std::string& Name, IObject* Object, CREATE_TYPE Type)
 {
-	auto iter = m_ObjectMap.find(Name);
-	if(iter != m_ObjectMap.end())
+	if(m_ObjectMap.count(Name))
 	{
 		SAFE_DELETE(Object);
 		assert(false);
@@ -145,7 +144,6 @@ void ObjectManager::FlushRemove()
 			lastObj->SetID(var.objectID);
 		}
 		Object.pop_back();
-
 		SAFE_DELETE(obj);
 
 		if(var.renderType == RENDER_TYPE::NONE) continue;

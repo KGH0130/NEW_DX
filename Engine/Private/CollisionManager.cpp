@@ -163,7 +163,7 @@ void CollisionManager::CollisionSD(REGION_TYPE Type)
 						const auto& aOwner = var->GetOwner();
 						const auto& bOwner = src->GetOwner();
 
-						if(m_FrameExitSD.find(std::minmax(aOwner, bOwner)) == m_FrameExitSD.end())
+						if(!m_FrameExitSD.count(std::minmax(aOwner, bOwner)))
 						{
 							aOwner->OnCollisionEnter(bOwner);
 							bOwner->OnCollisionEnter(aOwner);
@@ -206,7 +206,7 @@ void CollisionManager::CollisionDD(OBJECT_TYPE Dst, OBJECT_TYPE Src)
 					const auto& aOwner = var->GetOwner();
 					const auto& bOwner = dst->GetOwner();
 
-					if(exitMap.find(std::minmax(aOwner, bOwner)) == exitMap.end())
+					if(!exitMap.count(std::minmax(aOwner, bOwner)))
 					{
 						aOwner->OnCollisionEnter(bOwner);
 						bOwner->OnCollisionEnter(aOwner);
@@ -251,7 +251,7 @@ void CollisionManager::CollisionEqual(OBJECT_TYPE Type)
 					const auto& aOwner = collisions[i]->GetOwner();
 					const auto& bOwner = collisions[j]->GetOwner();
 
-					if(exitMap.find(std::minmax(aOwner, bOwner)) == exitMap.end())
+					if(!exitMap.count(std::minmax(aOwner, bOwner)))
 					{
 						aOwner->OnCollisionEnter(bOwner);
 						bOwner->OnCollisionEnter(aOwner);
