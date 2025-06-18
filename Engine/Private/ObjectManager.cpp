@@ -144,9 +144,9 @@ void ObjectManager::FlushRemove()
 			Object[var.objectID] = lastObj;
 			lastObj->SetID(var.objectID);
 		}
-		SAFE_DELETE(obj);
-
 		Object.pop_back();
+
+		SAFE_DELETE(obj);
 
 		if(var.renderType == RENDER_TYPE::NONE) continue;
 

@@ -78,26 +78,36 @@ void CollisionManager::ProcessCollisions()
 	CollisionSD(REGION_TYPE::NONE);
 
 	CollisionDD(OBJECT_TYPE::PLAYER, OBJECT_TYPE::ENEMY);
+
+
 	CollisionEqual(OBJECT_TYPE::PLAYER);
 }
 
 void CollisionManager::FlushAdd()
 {
-	for(auto& [type, collider] : m_StaticAddPending)
+	if(!m_StaticAddPending.empty())
 	{
-		m_StaticColliders[static_cast<size_t>(type)].emplace_back(collider);
+		for(auto& [type, collider] : m_StaticAddPending)
+		{
+			m_StaticColliders[static_cast<size_t>(type)].emplace_back(collider);
+		}
+		m_StaticAddPending.clear();
 	}
-	m_StaticAddPending.clear();
 
-	for(auto& [type, collider] : m_DynamicAddPending)
+	if(!m_DynamicAddPending.empty())
 	{
-		m_DynamicColliders[static_cast<size_t>(type)].emplace_back(collider);
+		for(auto& [type, collider] : m_DynamicAddPending)
+		{
+			m_DynamicColliders[static_cast<size_t>(type)].emplace_back(collider);
+		}
+		m_DynamicAddPending.clear();
 	}
-	m_DynamicAddPending.clear();
 }
 
 void CollisionManager::FlushRemove()
 {
+	if(m_RemovePending.empty()) return;
+
 	for(auto& var : m_RemovePending)
 	{
 		if(var.collType == COLLISION_TYPE::STATIC)
@@ -112,9 +122,9 @@ void CollisionManager::FlushRemove()
 				delCollider = lastCollider;
 				delCollider->SetID(var.id);
 			}
+			colliders.pop_back();
 
 			SAFE_DELETE(delCollider);
-			colliders.pop_back();
 		}
 		else
 		{
@@ -128,9 +138,9 @@ void CollisionManager::FlushRemove()
 				delCollider = lastCollider;
 				delCollider->SetID(var.id);
 			}
+			colliders.pop_back();
 
 			SAFE_DELETE(delCollider);
-			colliders.pop_back();
 		}
 	}
 	m_RemovePending.clear();
@@ -153,9 +163,11 @@ void CollisionManager::CollisionSD(REGION_TYPE Type)
 						const auto& aOwner = var->GetOwner();
 						const auto& bOwner = src->GetOwner();
 
-						aOwner->OnCollisionEnter(bOwner);
-						bOwner->OnCollisionEnter(aOwner);
-
+						if(m_FrameExitSD.find(std::minmax(aOwner, bOwner)) == m_FrameExitSD.end())
+						{
+							aOwner->OnCollisionEnter(bOwner);
+							bOwner->OnCollisionEnter(aOwner);
+						}
 						m_FrameEnterSD.emplace(std::minmax(aOwner, bOwner));
 					}
 				}
@@ -181,6 +193,7 @@ void CollisionManager::CollisionSD(REGION_TYPE Type)
 void CollisionManager::CollisionDD(OBJECT_TYPE Dst, OBJECT_TYPE Src)
 {
 	auto& enterMap = m_FrameEnterDD[Dst][static_cast<size_t>(Src)];
+	auto& exitMap = m_FrameExitDD[Dst][static_cast<size_t>(Src)];
 
 	for(auto& var : m_DynamicColliders[static_cast<size_t>(Dst)])
 	{
@@ -193,16 +206,17 @@ void CollisionManager::CollisionDD(OBJECT_TYPE Dst, OBJECT_TYPE Src)
 					const auto& aOwner = var->GetOwner();
 					const auto& bOwner = dst->GetOwner();
 
-					aOwner->OnCollisionEnter(bOwner);
-					bOwner->OnCollisionEnter(aOwner);
-
+					if(exitMap.find(std::minmax(aOwner, bOwner)) == exitMap.end())
+					{
+						aOwner->OnCollisionEnter(bOwner);
+						bOwner->OnCollisionEnter(aOwner);
+					}
 					enterMap.emplace(std::minmax(aOwner, bOwner));
 				}
 			}
 		}
 	}
 
-	auto& exitMap = m_FrameExitDD[Dst][static_cast<size_t>(Src)];
 	for(auto& var : exitMap)
 	{
 		if(enterMap.find(var) == enterMap.end())
@@ -221,6 +235,7 @@ void CollisionManager::CollisionDD(OBJECT_TYPE Dst, OBJECT_TYPE Src)
 void CollisionManager::CollisionEqual(OBJECT_TYPE Type)
 {
 	auto& enterMap = m_FrameEqualEnter[Type];
+	auto& exitMap = m_FrameEqualExit[Type];
 	auto& collisions = m_DynamicColliders[static_cast<size_t>(Type)];
 	size_t size = collisions.size();
 	if(size < 2) return;
@@ -236,16 +251,17 @@ void CollisionManager::CollisionEqual(OBJECT_TYPE Type)
 					const auto& aOwner = collisions[i]->GetOwner();
 					const auto& bOwner = collisions[j]->GetOwner();
 
-					aOwner->OnCollisionEnter(bOwner);
-					bOwner->OnCollisionEnter(aOwner);
-
+					if(exitMap.find(std::minmax(aOwner, bOwner)) == exitMap.end())
+					{
+						aOwner->OnCollisionEnter(bOwner);
+						bOwner->OnCollisionEnter(aOwner);
+					}
 					enterMap.emplace(std::minmax(aOwner, bOwner));
 				}
 			}
 		}
 	}
 
-	auto& exitMap = m_FrameEqualExit[Type];
 	for(auto& var : exitMap)
 	{
 		if(enterMap.find(var) == enterMap.end())
