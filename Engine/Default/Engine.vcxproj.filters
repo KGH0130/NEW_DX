@@ -40,9 +40,6 @@
     <Filter Include="Manager\Time\Manager">
       <UniqueIdentifier>{54de231a-9426-4bdb-82fe-229634f86e1e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource">
-      <UniqueIdentifier>{98c369e0-c2a7-4a74-9b1e-33a956ccec99}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component">
       <UniqueIdentifier>{0d869e19-9bc7-4207-9178-3069347d5a73}</UniqueIdentifier>
     </Filter>
@@ -54,9 +51,6 @@
     </Filter>
     <Filter Include="Manager\Object\IClone">
       <UniqueIdentifier>{7899bf29-287d-4720-86ea-2681faa7a08c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource\Graphic_Device">
-      <UniqueIdentifier>{1e3a4f7e-e5dd-494c-84a8-9fa22d1fe25a}</UniqueIdentifier>
     </Filter>
     <Filter Include="_Define">
       <UniqueIdentifier>{b4f6a553-5e46-4153-ad31-ebe184e0f9b0}</UniqueIdentifier>
@@ -103,13 +97,16 @@
     <Filter Include="Component\03. RigidBody">
       <UniqueIdentifier>{23740a29-5973-475c-8038-cfeeffc8d041}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphic_Device">
+      <UniqueIdentifier>{1e3a4f7e-e5dd-494c-84a8-9fa22d1fe25a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Engine_PCH.cpp">
       <Filter>_Define\PCH</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Graphic_Device.cpp">
-      <Filter>Resource\Graphic_Device</Filter>
+      <Filter>Graphic_Device</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\ILevel.cpp">
       <Filter>Manager\Level\ILevel</Filter>
@@ -147,14 +144,14 @@
     <ClCompile Include="..\private\AABB.cpp">
       <Filter>Manager\Collision\AABB</Filter>
     </ClCompile>
-    <ClCompile Include="..\Header\Collider.cpp">
-      <Filter>Manager\Collision\Collider</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\OBB.cpp">
       <Filter>Manager\Collision\OBB</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\RigidBody.cpp">
       <Filter>Component\03. RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Collider.cpp">
+      <Filter>Manager\Collision\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,7 +198,7 @@
       <Filter>Manager\Time\Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Graphic_Device.h">
-      <Filter>Resource\Graphic_Device</Filter>
+      <Filter>Graphic_Device</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Transform.h">
       <Filter>Component\00. Transform</Filter>

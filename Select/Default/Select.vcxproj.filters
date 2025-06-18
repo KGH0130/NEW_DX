@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="_Select">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="_Define">
+      <UniqueIdentifier>{d38f2b93-5aa5-474f-8f6e-4c4c9b15583e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_Define\PCH">
+      <UniqueIdentifier>{7cae9181-4be0-47b7-9aa2-f5ac343bda5d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Private\Select.cpp">
+      <Filter>_Select</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Server_PCH.cpp">
+      <Filter>_Define\PCH</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Header\Server_PCH.h">
+      <Filter>_Define\PCH</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

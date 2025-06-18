@@ -27,7 +27,5 @@ static CLASS& GetInstance() noexcept \
 #else
 #define DLL __declspec(dllimport)
 #endif // ENGINE_EXPORTS
-
 }
-
 using namespace Engine;

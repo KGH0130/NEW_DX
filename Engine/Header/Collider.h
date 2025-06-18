@@ -3,9 +3,6 @@
 #include "Engine_Macro.h"
 
 BEGIN(Engine)
-class AABB;
-class OBB;
-
 class DLL Collider
 {
 public:
