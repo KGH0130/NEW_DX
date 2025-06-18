@@ -46,9 +46,6 @@
     <Filter Include="Manager\Object\ObjectInfo">
       <UniqueIdentifier>{8f709f82-e3e3-4ad7-b486-cc85af097451}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\ILoad">
-      <UniqueIdentifier>{1c2743f0-6209-406a-87dd-ea7a82d707ba}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\Object\IClone">
       <UniqueIdentifier>{7899bf29-287d-4720-86ea-2681faa7a08c}</UniqueIdentifier>
     </Filter>
@@ -99,6 +96,21 @@
     </Filter>
     <Filter Include="Graphic_Device">
       <UniqueIdentifier>{1e3a4f7e-e5dd-494c-84a8-9fa22d1fe25a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ILoad">
+      <UniqueIdentifier>{1c2743f0-6209-406a-87dd-ea7a82d707ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Camera">
+      <UniqueIdentifier>{07e9d3e9-3a9d-43b3-8137-3af85dfdff1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Camera\ICamera">
+      <UniqueIdentifier>{28914575-d051-45b4-a4cb-39f7c4c95114}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Camera\Manager">
+      <UniqueIdentifier>{01c98c7f-b80b-4434-99eb-319d7b2061e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Camera\CameraInfo">
+      <UniqueIdentifier>{ae36838e-691c-4438-961a-3e56bdd09597}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +164,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Collider.cpp">
       <Filter>Manager\Collision\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ICamera.cpp">
+      <Filter>Manager\Camera\ICamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\CameraManager.cpp">
+      <Filter>Manager\Camera\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +259,15 @@
     </ClInclude>
     <ClInclude Include="..\Header\RigidBody.h">
       <Filter>Component\03. RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ICamera.h">
+      <Filter>Manager\Camera\ICamera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CameraManager.h">
+      <Filter>Manager\Camera\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CameraInfo.h">
+      <Filter>Manager\Camera\CameraInfo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

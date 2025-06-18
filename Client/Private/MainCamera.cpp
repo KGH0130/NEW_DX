@@ -1,7 +1,8 @@
+#include "ICamera.h"
 #include "MainCamera.h"
 
 MainCamera::MainCamera(GameInstance* Instance)
-	:IObject(Instance)
+	: ICamera(Instance)
 {
 	m_Fov = D3DXToRadian(75.f);
 	m_Aspect = static_cast<float>(WINCX) / static_cast<float>(WINCY);
@@ -10,16 +11,9 @@ MainCamera::MainCamera(GameInstance* Instance)
 }
 
 void MainCamera::Initialize()
-{
-	UpdateViewMatrix();
-
-	m_Target = instance->Object.Get("Player");
-}
-
-void MainCamera::FixedUpdate(float dt)
 {}
 
-void MainCamera::Update(float dt)
+void MainCamera::LateUpdate(float dt)
 {
 	const bool UP = instance->Input.GetKey(W);
 	const bool DOWN  = instance->Input.GetKey(S);
@@ -51,54 +45,8 @@ void MainCamera::Update(float dt)
 	}
 }
 
-void MainCamera::LateUpdate(float dt)
+
+ICamera* MainCamera::Clone()
 {
-
-
-	m_Transform.SetPosition(m_Target->GetTransform().GetPosition() + m_Offset);
-	UpdateViewMatrix();
-}
-
-void MainCamera::RenderEnter()
-{
-
-}
-
-void MainCamera::Render()
-{}
-
-void MainCamera::RenderExit()
-{}
-
-void MainCamera::SetFov(float Fov)
-{
-	m_Dirty = true;
-	m_Fov = Fov;
-}
-
-void MainCamera::OnCollisionEnter(IObject* Other)
-{}
-
-void MainCamera::OnCollisionExit(IObject* Other)
-{}
-
-IObject* MainCamera::Clone()
-{
-	return new MainCamera(instance);
-}
-
-void MainCamera::UpdateViewMatrix()
-{
-	m_Transform.UpdateMatrix();
-
-	m_InverseMat = m_Transform.GetWorldMatrix();
-	D3DXMatrixInverse(&m_InverseMat, nullptr, &m_InverseMat);
-	instance->Device->SetTransform(D3DTS_VIEW, &m_InverseMat);
-
-	if(m_Dirty)
-	{
-		m_Dirty = false;
-		D3DXMatrixPerspectiveFovLH(&m_MatProj, m_Fov, m_Aspect, m_Near, m_Far);
-		instance->Device->SetTransform(D3DTS_PROJECTION, &m_MatProj);
-	}
+	return new MainCamera(*this);
 }

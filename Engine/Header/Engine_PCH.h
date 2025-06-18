@@ -24,7 +24,9 @@
 
 #include "Graphic_Device.h"
 #include "Input_Enum.h"
+#include "StateMachine.h"
 
+#include "ICamera.h"
 #include "IClone.h"
 #include "ILevel.h"
 #include "ILoad.h"
@@ -45,11 +47,11 @@
 #include "Transform.h"
 #include "Velocity.h"
 
+#include "CameraManager.h"
 #include "CollisionManager.h"
 #include "InputManager.h"
 #include "LevelManager.h"
 #include "ObjectManager.h"
-#include "StateMachine.h"
 #include "TimeManager.h"
 
 #include "GameInstance.h"

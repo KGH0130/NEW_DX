@@ -7,11 +7,14 @@ Player::Player(GameInstance* Instance)
 	m_Collider->CreateAABB(VEC_ZERO, Vector3(1.f, 1.f, 1.f));
 	m_Collider->CreateOBB(VEC_ZERO);
 	m_Rigid.SetGravity(false);
+
 }
 
 Player::Player(const Player& othder)
 	: Entity(othder)
-{}
+{
+	instance->Camera.Init("MainCamera", this);
+}
 
 void Player::Initialize()
 {

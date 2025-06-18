@@ -12,6 +12,7 @@ public:
 	LPDEVICE Device = nullptr;
 	LevelManager Level;
 	ObjectManager Object;
+	CameraManager Camera;
 	CollisionManager Collider;
 	InputManager Input;
 };

@@ -119,8 +119,8 @@ void CollisionManager::FlushRemove()
 			if(var.id != last)
 			{
 				auto& lastCollider = colliders[last];
-				delCollider = lastCollider;
-				delCollider->SetID(var.id);
+				colliders[var.id] = lastCollider;
+				lastCollider->SetID(var.id);
 			}
 			colliders.pop_back();
 
@@ -135,8 +135,8 @@ void CollisionManager::FlushRemove()
 			if(var.id != last)
 			{
 				auto& lastCollider = colliders[last];
-				delCollider = lastCollider;
-				delCollider->SetID(var.id);
+				colliders[var.id] = lastCollider;
+				lastCollider->SetID(var.id);
 			}
 			colliders.pop_back();
 

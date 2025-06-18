@@ -174,6 +174,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\AABB.h" />
+    <ClInclude Include="..\Header\CameraInfo.h" />
+    <ClInclude Include="..\Header\CameraManager.h" />
     <ClInclude Include="..\Header\CollderInfo.h" />
     <ClInclude Include="..\Header\Collider.h" />
     <ClInclude Include="..\Header\CollisionHash.h" />
@@ -186,6 +188,7 @@
     <ClInclude Include="..\Header\Engine_Typedef.h" />
     <ClInclude Include="..\Header\GameInstance.h" />
     <ClInclude Include="..\Header\Graphic_Device.h" />
+    <ClInclude Include="..\Header\ICamera.h" />
     <ClInclude Include="..\Header\IClone.h" />
     <ClInclude Include="..\Header\ILevel.h" />
     <ClInclude Include="..\Header\ILoad.h" />
@@ -205,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\private\AABB.cpp" />
+    <ClCompile Include="..\Private\CameraManager.cpp" />
     <ClCompile Include="..\Private\Collider.cpp" />
     <ClCompile Include="..\Private\CollisionManager.cpp" />
     <ClCompile Include="..\Private\Engine_PCH.cpp">
@@ -212,6 +216,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\Private\Graphic_Device.cpp" />
+    <ClCompile Include="..\Private\ICamera.cpp" />
     <ClCompile Include="..\Private\IClone.cpp" />
     <ClCompile Include="..\Private\ILevel.cpp" />
     <ClCompile Include="..\Private\InputManager.cpp" />

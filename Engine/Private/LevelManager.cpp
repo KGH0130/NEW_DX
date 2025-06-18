@@ -62,6 +62,7 @@ void LevelManager::Update(float dt)
 void LevelManager::LateUpdate(float dt)
 {
 	m_Instance->Object.LateUpdate(dt);
+	m_Instance->Camera.LateUpdate(dt);
 }
 
 void LevelManager::Render()
@@ -78,6 +79,7 @@ void LevelManager::EndFrame()
 {
 	m_Instance->Collider.Flush();
 	m_Instance->Object.Flush();
+	m_Instance->Camera.Flush();
 }
 
 void LevelManager::Reset()
