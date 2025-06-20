@@ -236,9 +236,6 @@
     <ClInclude Include="..\Header\StateMachine.h">
       <Filter>Manager\State\StateMachine</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CollisionManager.h">
-      <Filter>Manager\Collision\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\AABB.h">
       <Filter>Manager\Collision\AABB</Filter>
     </ClInclude>
@@ -268,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CameraInfo.h">
       <Filter>Manager\Camera\CameraInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CollisionManager.h">
+      <Filter>Manager\Collision\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

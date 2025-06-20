@@ -7,16 +7,12 @@ CollisionManager::~CollisionManager()
 
 Collider* CollisionManager::Init(IObject* Owner, REGION_TYPE type)
 {
-	auto& colliders = m_StaticColliders[static_cast<size_t>(type)];
-	Collider* newColl = new Collider(Owner, ColliderInfo(colliders.size(), type));
-	return m_StaticAddPending.emplace_back(type, newColl).second;
+	return m_StaticAddPending.emplace_back(type, new Collider(Owner)).second;
 }
 
 Collider* CollisionManager::Init(IObject* Owner, OBJECT_TYPE type)
 {
-	auto& colliders = m_DynamicColliders[static_cast<size_t>(type)];
-	Collider* newColl = new Collider(Owner, ColliderInfo(colliders.size(), type));
-	return m_DynamicAddPending.emplace_back(type, newColl).second;
+	return m_DynamicAddPending.emplace_back(type, new Collider(Owner)).second;
 }
 
 void CollisionManager::Release(const Collider* Collider)
@@ -89,7 +85,9 @@ void CollisionManager::FlushAdd()
 	{
 		for(auto& [type, collider] : m_StaticAddPending)
 		{
-			m_StaticColliders[static_cast<size_t>(type)].emplace_back(collider);
+			auto& colliders = m_StaticColliders[static_cast<size_t>(type)];
+			collider->SetInfo(ColliderInfo(colliders.size(), type));
+			colliders.emplace_back(collider);
 		}
 		m_StaticAddPending.clear();
 	}
@@ -98,7 +96,9 @@ void CollisionManager::FlushAdd()
 	{
 		for(auto& [type, collider] : m_DynamicAddPending)
 		{
-			m_DynamicColliders[static_cast<size_t>(type)].emplace_back(collider);
+			auto& colliders = m_DynamicColliders[static_cast<size_t>(type)];
+			collider->SetInfo(ColliderInfo(m_DynamicColliders.size(), type));
+			colliders.emplace_back(collider);
 		}
 		m_DynamicAddPending.clear();
 	}

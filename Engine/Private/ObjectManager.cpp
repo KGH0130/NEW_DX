@@ -22,6 +22,7 @@ IObject* ObjectManager::Init(RENDER_TYPE Type, const std::string& Name, Vector3 
 	assert(iter != m_ObjectMap.end());
 	auto* newObj = iter->second.first->Clone();
 	m_ObjectCloneMap[Name] = newObj;
+
 	m_AddPending.emplace_back(std::pair{ iter->second.second, Type }, newObj);
 	newObj->OnInitialize();
 	newObj->GetTransform().SetPosition(Pos);

@@ -1,8 +1,7 @@
 #include "Collider.h"
 
-Collider::Collider(IObject* Owner, const ColliderInfo& Info)
+Collider::Collider(IObject* Owner)
 	: m_Owner(Owner)
-	, m_Info(Info)
 {}
 
 Collider::~Collider()
@@ -54,6 +53,11 @@ void Collider::Render(LPDEVICE Device)
 const ColliderInfo& Collider::GetInfo() const
 {
 	return m_Info;
+}
+
+void Collider::SetInfo(ColliderInfo&& Info)
+{
+	m_Info = std::move(Info);
 }
 
 void Collider::SetID(size_t ID)

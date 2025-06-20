@@ -6,7 +6,7 @@ BEGIN(Engine)
 class DLL Collider
 {
 public:
-	Collider(IObject* Owner, const ColliderInfo& Info);
+	Collider(IObject* Owner);
 	~Collider();
 
 public:
@@ -24,6 +24,7 @@ public:
 
 public:
 	const ColliderInfo& GetInfo() const;
+	void SetInfo(ColliderInfo&& Info);
 	void SetID(size_t ID);
 
 private:
