@@ -28,16 +28,16 @@ IObject* ObjectManager::Init(RENDER_TYPE Type, const std::string& Name, Vector3 
 	return newObj;
 }
 
-void ObjectManager::Remove(const IObject* Info)
-{
-	m_DeletePending.emplace_back(Info->GetInfo());
-}
-
 IObject* ObjectManager::Get(const std::string& Name)
 {
 	auto iter = m_ObjectCloneMap.find(Name);
 	assert(iter != m_ObjectCloneMap.end());
 	return iter->second;
+}
+
+void ObjectManager::Release(const IObject* Info)
+{
+	m_DeletePending.emplace_back(Info->GetInfo());
 }
 
 void ObjectManager::FixedUpdate(float dt)

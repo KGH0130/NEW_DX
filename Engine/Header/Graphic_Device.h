@@ -10,9 +10,12 @@ public:
 
 public:
 	LPDEVICE GetDevice() const noexcept;
+	DEVICE_REF& GetDevices();
 
 private:
 	LPDIRECT3D9 m_SDK;
 	LPDEVICE m_Device;
+
+	DEVICE_REF m_Devices;
 };
 END

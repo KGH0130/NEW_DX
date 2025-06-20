@@ -19,7 +19,7 @@ Collider* CollisionManager::Init(IObject* Owner, OBJECT_TYPE type)
 	return m_DynamicAddPending.emplace_back(type, newColl).second;
 }
 
-void CollisionManager::Remove(const Collider* Collider)
+void CollisionManager::Release(const Collider* Collider)
 {
 	m_RemovePending.emplace_back(Collider->GetInfo());
 }

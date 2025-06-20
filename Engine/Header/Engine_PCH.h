@@ -2,11 +2,13 @@
 #pragma warning(disable: 4251)
 
 #include <Windows.h>
+
 #include <algorithm>
 #include <array>
 #include <cassert>
 #include <chrono>
 #include <cstdint>
+#include <d3d11.h>
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <iostream>
@@ -15,6 +17,9 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+
+#include <DirectXMath.h>
+using namespace DirectX;
 
 #include "Engine_Enum.h"
 #include "Engine_Function.h"

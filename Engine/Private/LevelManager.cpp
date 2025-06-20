@@ -42,7 +42,6 @@ void LevelManager::SyncLevel()
 		m_Load->Exit();
 		SAFE_DELETE(m_Load);
 	}
-
 	Loding.join();
 }
 

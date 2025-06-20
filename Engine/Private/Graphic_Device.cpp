@@ -2,6 +2,7 @@
 
 Graphic_Device::Graphic_Device(const GRAPHIC_DESC& Desc) noexcept
 {
+	#pragma region DIRECT9
 	m_SDK = Direct3DCreate9(D3D_SDK_VERSION);
 
 	D3DPRESENT_PARAMETERS d3dpp{};
@@ -30,9 +31,20 @@ Graphic_Device::Graphic_Device(const GRAPHIC_DESC& Desc) noexcept
 
 	if(FAILED(m_SDK->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, Desc.hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED, &d3dpp, &m_Device)))
 		assert(false);
+	#pragma endregion
+
+	#pragma region DIRECT11
+
+
+	#pragma endregion
 }
 
 LPDEVICE Graphic_Device::GetDevice() const noexcept
 {
 	return m_Device;
+}
+
+DEVICE_REF& Graphic_Device::GetDevices()
+{
+	return m_Devices;
 }

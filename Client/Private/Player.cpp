@@ -18,7 +18,7 @@ Player::Player(const Player& othder)
 
 void Player::Initialize()
 {
-	//instance->Collider.Remove(m_Collider);
+	//instance->Collider.Release(m_Collider);
 }
 
 void Player::InitState()

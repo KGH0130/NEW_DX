@@ -16,7 +16,7 @@ public:
 	Collider* Init(IObject* Owner, REGION_TYPE type);
 	Collider* Init(IObject* Owner, OBJECT_TYPE type);
 
-	void Remove(const Collider* Collider);
+	void Release(const Collider* Collider);
 
 public:
 	void Update();

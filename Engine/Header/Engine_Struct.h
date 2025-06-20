@@ -16,11 +16,23 @@ struct GRAPHIC_DESC
 	uint32_t wincx = 0u, wincy = 0u;
 };
 
+struct DEVICE_REF
+{
+	DEVICE_REF() = default;
+	DEVICE_REF(DEVICE Device, CONTEXT Context)
+		: device(Device)
+		, context(Context)
+	{}
+
+	DEVICE device = nullptr;
+	CONTEXT context = nullptr;
+};
+
 struct COLLIDER_VTX
 {
 	Vector3 pos;
 	DWORD color;
 };
-static constexpr auto D3DFVF_COLLIDER = (D3DFVF_XYZ | D3DFVF_DIFFUSE);
+constexpr auto D3DFVF_COLLIDER = (D3DFVF_XYZ | D3DFVF_DIFFUSE);
 
 }
