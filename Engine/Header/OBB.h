@@ -9,7 +9,7 @@ public:
 	OBB(const Transform& Transform, const Vector3& Offset);
 
 public:
-	bool IsInteraction(const OBB* other);
+	bool IsInteraction(const OBB* other, Vector3* OutMTV);
 
 	void Update();
 	void Render(LPDEVICE Device) const;

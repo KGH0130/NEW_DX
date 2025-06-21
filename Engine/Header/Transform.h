@@ -13,6 +13,8 @@ public:
 	void SetRotation(const Vector3& rot);
 	void SetScale(const Vector3& scale);
 
+	void Translate(const Vector3& Pos);
+
 	const Vector3& GetPosition() const;
 	const Vector3& GetRotation() const;
 	const Vector3& GetScale() const;

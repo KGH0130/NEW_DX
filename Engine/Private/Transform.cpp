@@ -23,6 +23,12 @@ void Transform::SetScale(const Vector3& scale)
 	m_Dirty = true;
 }
 
+void Transform::Translate(const Vector3& Pos)
+{
+	m_Position += Pos;
+	m_Dirty = true;
+}
+
 const Vector3& Transform::GetPosition() const
 {
 	return m_Position;

@@ -23,7 +23,7 @@ private:
 
 private:
 	void OnCollisionEnter(IObject* Other) override PURE;
-	void OnCollisionExit(IObject* Other) override PURE;
+	void OnCollisionExit(IObject* Other) override  PURE;
 
 private:
 	IObject* Clone() override PURE;
@@ -31,5 +31,6 @@ protected:
 	StateMachine m_StateMachine;
 	RigidBody m_Rigid;
 	Velocity m_Velocity;
+
 };
 

@@ -15,10 +15,12 @@ OBB::OBB(const Transform& Transform, const Vector3& Offset)
 	D3DXVec3Normalize(&m_Axis[2], &rotateZ);
 }
 
-bool OBB::IsInteraction(const OBB* other)
+bool OBB::IsInteraction(const OBB* other, Vector3* OutMTV)
 {
 	m_IsCollided = false;
 
+	float minOverlap = FLT_MAX;
+	Vector3 bestAxis;
 	constexpr static float EPSILON = 1e-6f;
 
 	const Vector3& b_Center = other->m_Center;
@@ -39,15 +41,13 @@ bool OBB::IsInteraction(const OBB* other)
 		}
 	}
 
-	float distA[3]
-	{
+	float distA[3] = {
 		Dot(distance, m_Axis[0]),
 		Dot(distance, m_Axis[1]),
 		Dot(distance, m_Axis[2]),
 	};
 
-	float distB[3]
-	{
+	float distB[3] = {
 		Dot(distance, b_Axis[0]),
 		Dot(distance, b_Axis[1]),
 		Dot(distance, b_Axis[2]),
@@ -55,14 +55,34 @@ bool OBB::IsInteraction(const OBB* other)
 
 	for(int i = 0; i < 3; ++i)
 	{
+		float rA = m_Half[i];
 		float rB = b_Half[0] * absRotate[i][0] + b_Half[1] * absRotate[i][1] + b_Half[2] * absRotate[i][2];
-		if(std::abs(distA[i]) > m_Half[i] + rB) return false;
+		float overlap = (rA + rB) - std::abs(distA[i]);
+
+		if(overlap < 0.f)
+			return false;
+
+		if(overlap < minOverlap)
+		{
+			minOverlap = overlap;
+			bestAxis = (distA[i] < 0.f) ? -m_Axis[i] : m_Axis[i];
+		}
 	}
 
 	for(int i = 0; i < 3; ++i)
 	{
 		float rA = m_Half[0] * absRotate[0][i] + m_Half[1] * absRotate[1][i] + m_Half[2] * absRotate[2][i];
-		if(std::abs(distB[i]) > rA + b_Half[i]) return false;
+		float rB = b_Half[i];
+		float overlap = (rA + rB) - std::abs(distB[i]);
+
+		if(overlap < 0.f)
+			return false;
+
+		if(overlap < minOverlap)
+		{
+			minOverlap = overlap;
+			bestAxis = (distB[i] < 0.f) ? -b_Axis[i] : b_Axis[i];
+		}
 	}
 
 	for(int i = 0; i < 3; ++i)
@@ -71,28 +91,41 @@ bool OBB::IsInteraction(const OBB* other)
 		{
 			Vector3 axis;
 			D3DXVec3Cross(&axis, &m_Axis[i], &b_Axis[j]);
-			if(D3DXVec3LengthSq(&axis) < EPSILON) continue;
+
+			if(D3DXVec3LengthSq(&axis) < EPSILON)
+				continue;
 
 			float ra =
-				m_Half.x * std::abs(Dot(m_Axis[0], axis)) +
-				m_Half.y * std::abs(Dot(m_Axis[1], axis)) +
-				m_Half.z * std::abs(Dot(m_Axis[2], axis));
+				m_Half[0] * std::abs(Dot(m_Axis[0], axis)) +
+				m_Half[1] * std::abs(Dot(m_Axis[1], axis)) +
+				m_Half[2] * std::abs(Dot(m_Axis[2], axis));
 
 			float rb =
-				b_Half.x * std::abs(Dot(b_Axis[0], axis)) +
-				b_Half.y * std::abs(Dot(b_Axis[1], axis)) +
-				b_Half.z * std::abs(Dot(b_Axis[2], axis));
+				b_Half[0] * std::abs(Dot(b_Axis[0], axis)) +
+				b_Half[1] * std::abs(Dot(b_Axis[1], axis)) +
+				b_Half[2] * std::abs(Dot(b_Axis[2], axis));
 
-			float distanceProjection = std::abs(Dot(distance, axis));
+			float projection = std::abs(Dot(distance, axis));
+			float overlap = (ra + rb) - projection;
 
-			if(distanceProjection > ra + rb)
+			if(overlap < 0.f)
 				return false;
+
+			if(overlap < minOverlap)
+			{
+				minOverlap = overlap;
+				bestAxis = (Dot(distance, axis) < 0.f) ? -axis : axis;
+			}
 		}
 	}
+
+	if(OutMTV)
+		*OutMTV = bestAxis * minOverlap;
 
 	m_IsCollided = true;
 	return true;
 }
+
 
 void OBB::Update()
 {

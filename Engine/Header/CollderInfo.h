@@ -10,11 +10,13 @@ struct ColliderInfo
 		: id(ID)
 		, objType(ObjType)
 		, collType(COLLISION_TYPE::DYNAMIC)
+
 	{}
 	ColliderInfo(size_t ID, REGION_TYPE RegionType)
 		: id(ID)
 		, regiontype(RegionType)
 		, collType(COLLISION_TYPE::STATIC)
+
 	{}
 
 	size_t id = INVALID;

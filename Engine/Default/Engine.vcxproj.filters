@@ -67,9 +67,6 @@
     <Filter Include="Manager\Collision">
       <UniqueIdentifier>{1e9b54c2-1197-4161-b03e-0bd989018a97}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\Collision\AABB">
-      <UniqueIdentifier>{9f296b5d-974a-431b-b8da-3aa8a7a14e00}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\Collision\Manager">
       <UniqueIdentifier>{aa9bd620-1320-4420-8446-aed3ea1daecd}</UniqueIdentifier>
     </Filter>
@@ -81,9 +78,6 @@
     </Filter>
     <Filter Include="Manager\Collision\CollisionHash">
       <UniqueIdentifier>{adf52eaa-0504-4706-adf9-e50d8317d1e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\Collision\OBB">
-      <UniqueIdentifier>{0bd4445a-32b5-4670-9a99-88026318e369}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\00. Transform">
       <UniqueIdentifier>{d4a97a25-a6cc-47d6-825d-c50bd4a2e612}</UniqueIdentifier>
@@ -111,6 +105,15 @@
     </Filter>
     <Filter Include="Manager\Camera\CameraInfo">
       <UniqueIdentifier>{ae36838e-691c-4438-961a-3e56bdd09597}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Collision\Type">
+      <UniqueIdentifier>{5df8d04e-d177-426c-a552-25006aa3482a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Collision\Type\AABB">
+      <UniqueIdentifier>{9f296b5d-974a-431b-b8da-3aa8a7a14e00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Collision\Type\OBB">
+      <UniqueIdentifier>{0bd4445a-32b5-4670-9a99-88026318e369}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -154,10 +157,10 @@
       <Filter>Manager\Collision\Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\private\AABB.cpp">
-      <Filter>Manager\Collision\AABB</Filter>
+      <Filter>Manager\Collision\Type\AABB</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\OBB.cpp">
-      <Filter>Manager\Collision\OBB</Filter>
+      <Filter>Manager\Collision\Type\OBB</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\RigidBody.cpp">
       <Filter>Component\03. RigidBody</Filter>
@@ -237,7 +240,7 @@
       <Filter>Manager\State\StateMachine</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\AABB.h">
-      <Filter>Manager\Collision\AABB</Filter>
+      <Filter>Manager\Collision\Type\AABB</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Collider.h">
       <Filter>Manager\Collision\Collider</Filter>
@@ -249,7 +252,7 @@
       <Filter>Manager\Collision\CollisionHash</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\OBB.h">
-      <Filter>Manager\Collision\OBB</Filter>
+      <Filter>Manager\Collision\Type\OBB</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Velocity.h">
       <Filter>Component\01. Velocity</Filter>

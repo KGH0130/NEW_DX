@@ -3,7 +3,7 @@
 Player::Player(GameInstance* Instance)
 	: Entity(Instance)
 {
-	m_Collider = instance->Collider.Init(this, OBJECT_TYPE::PLAYER);
+	m_Collider = instance->Collider.Init(this, OBJECT_TYPE::PLAYER, LAYER_PLAYER, LAYER_ENEMY);
 	m_Collider->CreateAABB(VEC_ZERO, Vector3(1.f, 1.f, 1.f));
 	m_Collider->CreateOBB(VEC_ZERO);
 	m_Rigid.SetGravity(false);
@@ -61,3 +61,4 @@ void Player::Move()
 {
 
 }
+

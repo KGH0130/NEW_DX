@@ -5,14 +5,14 @@ CollisionManager::~CollisionManager()
 	Clear();
 }
 
-Collider* CollisionManager::Init(IObject* Owner, REGION_TYPE type)
+Collider* CollisionManager::Init(IObject* Owner, REGION_TYPE type, uint32_t Category, uint32_t Mask)
 {
-	return m_StaticAddPending.emplace_back(type, new Collider(Owner)).second;
+	return m_StaticAddPending.emplace_back(type, new Collider(Owner, Category, Mask)).second;
 }
 
-Collider* CollisionManager::Init(IObject* Owner, OBJECT_TYPE type)
+Collider* CollisionManager::Init(IObject* Owner, OBJECT_TYPE type, uint32_t Category, uint32_t Mask)
 {
-	return m_DynamicAddPending.emplace_back(type, new Collider(Owner)).second;
+	return m_DynamicAddPending.emplace_back(type, new Collider(Owner, Category, Mask)).second;
 }
 
 void CollisionManager::Release(const Collider* Collider)
@@ -73,8 +73,7 @@ void CollisionManager::ProcessCollisions()
 {
 	CollisionSD(REGION_TYPE::NONE);
 
-	CollisionDD(OBJECT_TYPE::PLAYER, OBJECT_TYPE::ENEMY);
-
+	CollisionDD(OBJECT_TYPE::PLAYER);
 
 	CollisionEqual(OBJECT_TYPE::PLAYER);
 }
@@ -156,15 +155,22 @@ void CollisionManager::CollisionSD(REGION_TYPE Type)
 		{
 			for(auto& src : dst)
 			{
+				if(!ShouldCollide(var, src)) continue;
+
 				if(var->GetAABB()->IsInteraction(src->GetAABB()))
 				{
-					if(var->GetOBB()->IsInteraction(src->GetOBB()))
+					Vector3 mtv;
+					if(var->GetOBB()->IsInteraction(src->GetOBB(), &mtv))
 					{
 						const auto& aOwner = var->GetOwner();
 						const auto& bOwner = src->GetOwner();
 
+						if(!src->IsTrigger())
+							bOwner->GetTransform().Translate(-mtv);
+
 						if(!m_FrameExitSD.count(std::minmax(aOwner, bOwner)))
 						{
+
 							aOwner->OnCollisionEnter(bOwner);
 							bOwner->OnCollisionEnter(aOwner);
 						}
@@ -190,46 +196,70 @@ void CollisionManager::CollisionSD(REGION_TYPE Type)
 	m_FrameExitSD = std::move(m_FrameEnterSD);
 }
 
-void CollisionManager::CollisionDD(OBJECT_TYPE Dst, OBJECT_TYPE Src)
+void CollisionManager::CollisionDD(OBJECT_TYPE Dst)
 {
-	auto& enterMap = m_FrameEnterDD[Dst][static_cast<size_t>(Src)];
-	auto& exitMap = m_FrameExitDD[Dst][static_cast<size_t>(Src)];
+	size_t index = 0ull;
+
+	auto& enterMap = m_FrameEnterDD[Dst][index];
+	auto& exitMap = m_FrameExitDD[Dst][index];
 
 	for(auto& var : m_DynamicColliders[static_cast<size_t>(Dst)])
 	{
-		for(auto& dst : m_DynamicColliders[static_cast<size_t>(Src)])
+		for(auto& dst : m_DynamicColliders)
 		{
-			if(var->GetAABB()->IsInteraction(dst->GetAABB()))
+			for(auto& src : dst)
 			{
-				if(var->GetOBB()->IsInteraction(dst->GetOBB()))
+				if(!ShouldCollide(var, src) || var->GetCategory() == src->GetCategory())
+					continue;
+
+				if(var->GetAABB()->IsInteraction(src->GetAABB()))
 				{
-					const auto& aOwner = var->GetOwner();
-					const auto& bOwner = dst->GetOwner();
-
-					if(!exitMap.count(std::minmax(aOwner, bOwner)))
+					Vector3 mtv;
+					if(var->GetOBB()->IsInteraction(src->GetOBB(), &mtv))
 					{
-						aOwner->OnCollisionEnter(bOwner);
-						bOwner->OnCollisionEnter(aOwner);
+						const auto& aOwner = var->GetOwner();
+						const auto& bOwner = src->GetOwner();
+
+						if(!var->IsTrigger() && !src->IsTrigger())
+						{
+							auto& aTransform = aOwner->GetTransform();
+							auto& bTransform = bOwner->GetTransform();
+
+							if(var->IsStatic())
+								bTransform.Translate(mtv);
+							else if(src->IsStatic())
+								aTransform.Translate(mtv);
+							else
+							{
+								aTransform.Translate(-mtv * 0.5f);
+								bTransform.Translate(mtv * 0.5f);
+							}
+						}
+
+						if(!exitMap.count(std::minmax(aOwner, bOwner)))
+						{
+							aOwner->OnCollisionEnter(bOwner);
+							bOwner->OnCollisionEnter(aOwner);
+						}
+						enterMap.emplace(std::minmax(aOwner, bOwner));
 					}
-					enterMap.emplace(std::minmax(aOwner, bOwner));
 				}
+				for(auto& exitPair : exitMap)
+				{
+					if(enterMap.count(exitPair))
+					{
+						const auto& aOwner = exitPair.first;
+						const auto& bOwner = exitPair.second;
+
+						aOwner->OnCollisionExit(bOwner);
+						bOwner->OnCollisionExit(aOwner);
+					}
+				}
+				exitMap = std::move(enterMap);
 			}
+			++index;
 		}
 	}
-
-	for(auto& var : exitMap)
-	{
-		if(enterMap.find(var) == enterMap.end())
-		{
-			const auto& aOwner = var.first;
-			const auto& bOwner = var.second;
-
-			aOwner->OnCollisionExit(bOwner);
-			bOwner->OnCollisionExit(aOwner);
-		}
-	}
-
-	exitMap = std::move(enterMap);
 }
 
 void CollisionManager::CollisionEqual(OBJECT_TYPE Type)
@@ -246,10 +276,27 @@ void CollisionManager::CollisionEqual(OBJECT_TYPE Type)
 		{
 			if(collisions[i]->GetAABB()->IsInteraction(collisions[j]->GetAABB()))
 			{
-				if(collisions[i]->GetOBB()->IsInteraction(collisions[j]->GetOBB()))
+				Vector3 mtv;
+				if(collisions[i]->GetOBB()->IsInteraction(collisions[j]->GetOBB(), &mtv))
 				{
 					const auto& aOwner = collisions[i]->GetOwner();
 					const auto& bOwner = collisions[j]->GetOwner();
+
+					if(!collisions[i]->IsTrigger() && !collisions[j]->IsTrigger())
+					{
+						auto& aTransform = aOwner->GetTransform();
+						auto& bTransform = bOwner->GetTransform();
+
+						if(collisions[i]->IsStatic())
+							bTransform.Translate(mtv);
+						else if(collisions[j]->IsStatic())
+							aTransform.Translate(mtv);
+						else
+						{
+							aTransform.Translate(-mtv * 0.5f);
+							bTransform.Translate(mtv * 0.5f);
+						}
+					}
 
 					if(!exitMap.count(std::minmax(aOwner, bOwner)))
 					{
@@ -275,4 +322,10 @@ void CollisionManager::CollisionEqual(OBJECT_TYPE Type)
 	}
 
 	exitMap = std::move(enterMap);
+}
+
+bool CollisionManager::ShouldCollide(const Collider* Dst, const Collider* Src)
+{
+	return (Dst->GetMask() & Src->GetCategory()) != 0
+		&& (Src->GetMask() & Dst->GetCategory()) != 0;
 }

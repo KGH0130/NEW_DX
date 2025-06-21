@@ -26,5 +26,6 @@ private:
 
 private:
 	void Move();
+
 };
 

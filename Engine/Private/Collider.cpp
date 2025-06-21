@@ -1,7 +1,9 @@
 #include "Collider.h"
 
-Collider::Collider(IObject* Owner)
+Collider::Collider(IObject* Owner, uint32_t Category, uint32_t Mask)
 	: m_Owner(Owner)
+	, m_Category(Category)
+	, m_Mask(Mask)
 {}
 
 Collider::~Collider()
@@ -55,6 +57,26 @@ const ColliderInfo& Collider::GetInfo() const
 	return m_Info;
 }
 
+bool Collider::IsTrigger() const
+{
+	return m_IsTrigger;
+}
+
+bool Collider::IsStatic() const
+{
+	return m_IsStatic;
+}
+
+uint32_t Collider::GetCategory() const
+{
+	return m_Category;
+}
+
+uint32_t Collider::GetMask() const
+{
+	return m_Mask;
+}
+
 void Collider::SetInfo(ColliderInfo&& Info)
 {
 	m_Info = std::move(Info);
@@ -63,4 +85,14 @@ void Collider::SetInfo(ColliderInfo&& Info)
 void Collider::SetID(size_t ID)
 {
 	m_Info.id = ID;
+}
+
+void Collider::SetTrigger(bool Trigger)
+{
+	m_IsTrigger = Trigger;
+}
+
+void Collider::SetStatic(bool Static)
+{
+	m_IsStatic = Static;
 }

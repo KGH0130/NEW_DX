@@ -13,8 +13,8 @@ public:
 	~CollisionManager();
 
 public:
-	Collider* Init(IObject* Owner, REGION_TYPE type);
-	Collider* Init(IObject* Owner, OBJECT_TYPE type);
+	Collider* Init(IObject* Owner, REGION_TYPE type, uint32_t Category, uint32_t Mask);
+	Collider* Init(IObject* Owner, OBJECT_TYPE type, uint32_t Category, uint32_t Mask);
 
 	void Release(const Collider* Collider);
 
@@ -33,8 +33,10 @@ private:
 
 private:
 	void CollisionSD(REGION_TYPE Type);
-	void CollisionDD(OBJECT_TYPE Dst, OBJECT_TYPE Src);
+	void CollisionDD(OBJECT_TYPE Dst);
 	void CollisionEqual(OBJECT_TYPE Type);
+
+	bool ShouldCollide(const Collider* Dst, const Collider* Src);
 
 private:
 	std::array<std::vector<Collider*>, static_cast<size_t>(REGION_TYPE::IDX)> m_StaticColliders;
